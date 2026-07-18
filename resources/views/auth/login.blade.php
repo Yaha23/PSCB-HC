@@ -219,6 +219,24 @@
         }
     }
 
+    .password-container{
+    position:relative;
+}
+
+.toggle-password{
+    position:absolute;
+    right:12px;
+    top:11px;
+    cursor:pointer;
+    font-size:18px;
+    color:#94a3b8;
+    transition:0.2s;
+}
+
+.toggle-password:hover{
+    color:#3498db;
+}
+
 </style>
 
 <div class="box">
@@ -251,15 +269,23 @@
                 @enderror
             </div>
 
-            <div class="group">
-                <input type="password" name="password"
+            <div class="group password-container">
+
+                <input type="password" 
+                    id="password"
+                    name="password"
                     class="input"
                     placeholder="Contraseña"
                     required>
 
+                <span class="toggle-password" onclick="mostrarPassword()">
+                    <i class="bi bi-eye-slash"></i>
+                </span>
+
                 @error('password')
                     <div class="error">{{ $message }}</div>
                 @enderror
+
             </div>
 
             <div class="btn-area">
@@ -283,5 +309,30 @@
     </div>
 
 </div>
+
+<script>
+
+function mostrarPassword(){
+
+    let password = document.getElementById("password");
+    let icono = document.querySelector(".toggle-password i");
+
+    if(password.type === "password"){
+
+        password.type = "text";
+        icono.classList.remove("bi-eye-slash");
+        icono.classList.add("bi-eye");
+
+    }else{
+
+        password.type = "password";
+        icono.classList.remove("bi-eye");
+        icono.classList.add("bi-eye-slash");
+
+    }
+
+}
+
+</script>
 
 </x-guest-layout>

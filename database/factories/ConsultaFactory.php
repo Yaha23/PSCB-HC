@@ -1,0 +1,26 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\Consulta;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+/**
+ * @extends Factory<Consulta>
+ */
+class ConsultaFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+         return [
+        'fecha_atencion' => $this->faker->date(),
+        'diagnostico_principal' => $this->faker->sentence(),
+        'tratamiento' => $this->faker->sentence(),
+    ];
+    }
+}

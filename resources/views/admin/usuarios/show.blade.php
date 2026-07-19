@@ -148,44 +148,22 @@
                                     </div>
                                     <!--campo especialidad-->
                                     <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label  style="color: #4a5568">Especialidad</label>
-                                               @php
-    $rol = $usuario->getRoleNames()->first();
-@endphp
+                                    <div class="form-group">
+                                        <label style="color:#4a5568;">Especialidad</label>
 
-<select name="specialty"
-        id="especialidad"
-        class="form-control"
-        disabled
-        style="background-color:#f6e48bb1;border:1px solid #fdde92da;cursor:not-allowed;">
+                                        @php
+                                            $rol = $usuario->getRoleNames()->first();
+                                        @endphp
 
-    @if($rol == 'medico')
-
-        <option value="Medicina general"
-            {{ $usuario->specialty == 'Medicina general' ? 'selected' : '' }}>
-            Medicina general
-        </option>
-
-        <option value="Obstetricia"
-            {{ $usuario->specialty == 'Obstetricia' ? 'selected' : '' }}>
-            Obstetricia
-        </option>
-
-    @else
-
-        <option selected>No aplica</option>
-
-    @endif
-
-</select>
-                                                @error('specialty')
-                                                    <small style="color:red">{{ $message }}</small>                                               
-                                                @enderror    
-                                        
-                                        </div>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            value="{{ $rol == 'medico' ? $usuario->specialty : 'No aplica' }}"
+                                            disabled
+                                            style="background-color:#f6e48bb1;border:1px solid #fdde92da;cursor:not-allowed;"
+                                        >
                                     </div>
-
+                                </div>
 
                                 </div>
                                 

@@ -60,19 +60,26 @@
                                     </div>
                                      <!--campo especialidad-->
                                     <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label  style="color: #4a5568">Especialidad:</label>
-                                            <select name="especialidad" id="especialidad" class="form-control" required style=" border:1px solid #fdde92da;">
-                                                <option value="" disabled selected>Seleccione</option>
-                                                <option value="medicina general">Medicina general</option>
-                                                <option value="obstetricia">Obstetricia</option>
-                                            </select>
-                                                @error('especialidad')
-                                                    <small style="color:red">{{ $message }}</small>                                               
-                                                @enderror    
-                                        
-                                        </div>
-                                    </div>
+    <div class="form-group">
+        <label style="color: #4a5568">Especialidad:</label>
+
+        <input 
+            type="text" 
+            name="especialidad" 
+            id="especialidad" 
+            class="form-control"
+            value="{{ old('especialidad') }}"
+            readonly
+            required
+            style="border:1px solid #fdde92da; background-color:#f6e48bb1;"
+        >
+
+        @error('especialidad')
+            <small style="color:red">{{ $message }}</small>
+        @enderror
+
+    </div>
+</div>
                                     <!--Campo Dia-->
                                     <div class="col-md-4">
                                         <div class="form ground">
@@ -102,7 +109,7 @@
                                 
                                 <div class="row">
                                     
-                                     <!--Campo -Apellidos-->
+                                     <!--Campo -Inicio-->
 
                                      <div class="col-md-4">
                                         <div class="form ground">
@@ -166,32 +173,27 @@
         
     </div>
 
-   <script>
-        document.addEventListener('DOMContentLoaded', function () {
+  <script>
+document.addEventListener('DOMContentLoaded', function () {
 
-            const medicoSelect = document.getElementById('medico_id');
-            const especialidadSelect = document.getElementById('especialidad');
+    const medicoSelect = document.getElementById('medico_id');
+    const especialidadInput = document.getElementById('especialidad');
 
-            medicoSelect.addEventListener('change', function () {
+    medicoSelect.addEventListener('change', function () {
 
-                let especialidad = this.options[this.selectedIndex].dataset.especialidad;
+        let especialidad = this.options[this.selectedIndex].dataset.especialidad;
 
-                if (!especialidad) return;
+        if(especialidad){
+            especialidadInput.value = especialidad
+                .replace(/\b\w/g, letra => letra.toUpperCase());
+        } else {
+            especialidadInput.value = '';
+        }
 
-                // recorrer opciones de especialidad
-                for (let i = 0; i < especialidadSelect.options.length; i++) {
+    });
 
-                    if (especialidadSelect.options[i].value === especialidad) {
-                        especialidadSelect.selectedIndex = i;
-                        break;
-                    }
-                }
-
-            });
-
-        });
-        </script>
-
+});
+</script>
 
 
     

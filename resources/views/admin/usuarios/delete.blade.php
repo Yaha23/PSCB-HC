@@ -138,29 +138,23 @@
                                         <!--campo especialidad-->
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label  style="color: #4a5568">Especialidad:</label>
-                                                    <select name="specialty" id="especialidad" class="form-control" {{ $usuario->hasRole('medico') ? '' : 'disabled' }} disabled  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;" >
+                                                <label style="color:#4a5568;">Especialidad:</label>
 
-                                                        <option value="" disabled 
-                                                            {{ $usuario->role != 'medico' ? 'selected' : '' }}>
-                                                            Seleccione
-                                                        </option>
+                                                @php
+                                                    $rol = $usuario->getRoleNames()->first();
+                                                @endphp
 
-                                                        <option value="Medicina general"
-                                                            {{ $usuario->hasRole('medico') && $usuario->specialty == 'Medicina general' ? 'selected' : '' }}>
-                                                            Medicina general
-                                                        </option>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    value="{{ $rol == 'medico' ? $usuario->specialty : 'No aplica' }}"
+                                                    disabled
+                                                    style="background-color:#f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;"
+                                                >
 
-                                                        <option value="Obstetricia"
-                                                            {{ $usuario->hasRole('medico') && $usuario->specialty == 'Obstetricia' ? 'selected' : '' }}>
-                                                            Obstetricia
-                                                        </option>
-
-                                                    </select>
-                                                    @error('specialty')
-                                                        <small style="color:red">{{ $message }}</small>                                               
-                                                    @enderror    
-                                            
+                                                @error('specialty')
+                                                    <small style="color:red">{{ $message }}</small>
+                                                @enderror
                                             </div>
                                         </div>
 
@@ -192,24 +186,7 @@
             
         </div>
 
-        <!--script que permite que al momento de seleccionar medico se habilite el campo especialidad-->
-            <script>
-                    
-                document.getElementById('rol').addEventListener('change', function () {
-
-                    let especialidad = document.getElementById('especialidad');
-
-                    // Siempre desactivado por defecto
-                    especialidad.disabled = true;
-                    especialidad.value = "";
-
-                    // SOLO si es médico → activar
-                    if (this.value === 'medico') {
-                        especialidad.disabled = false;
-                    }
-
-                });
-            </script>
+        
     
     @else
         <div class="alert alert-danger m-3">

@@ -149,7 +149,12 @@
                         {{ $consulta?->medico?->surname ?? '' }}
                     </td>
                     <td>{{ $consulta->especialidad ?? '---' }}</td>
-                    <td>{{ $consulta->fecha_atencion ?? '---' }}</td>
+                    <td>
+                        {{ $consulta && $consulta->fecha_atencion 
+                            ? \Carbon\Carbon::parse($consulta->fecha_atencion)->format('d/m/Y') 
+                            : '---' 
+                        }}
+                    </td>
                     <td class="left">{{ $consulta->diagnostico_principal ?? '---' }}</td>
                 </tr>
             @endforeach

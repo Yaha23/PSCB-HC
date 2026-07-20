@@ -40,18 +40,18 @@
                                     <div class="col-md-4">
                                         <div class="form ground">
                                         <label for=""  style="color: #4a5568" >Medico Asignado:</label>
-                                          <select name="medico_id" id="medico_id" class="form-control" style=" border:1px solid #fdde92da;" >
+                                          <select name="medico_id" id="medico_id" class="form-control" style=" border:1px solid #fdde92da;"required >
                                             <option value="">Seleccione</option>
 
                                             @foreach($medicos as $medico)
-                                                <option 
-                                                        value="{{ $medico->id }}"
-                                                        data-especialidad="{{ strtolower($medico->specialty) }}"
-                                                    >
-                                                        {{ $medico->name }} {{ $medico->surname }}
+                                                <option
+                                                    value="{{ $medico->id }}"
+                                                    data-especialidad="{{ $medico->specialty }}"
+                                                    {{ old('medico_id') == $medico->id ? 'selected' : '' }}>
+                                                    {{ $medico->name }} {{ $medico->surname }}
                                                 </option>
                                             @endforeach
-                                        </select>
+                                                                                    </select>
 
                                         @error('medico_id')
                                             <small style="color:red">{{ $message }}</small>
@@ -114,7 +114,7 @@
                                      <div class="col-md-4">
                                         <div class="form ground">
                                         <label for=""  style="color: #4a5568">Hora Inicio:</label>
-                                            <input type="time" value="{{old('hora_inicio') }}" name="hora_inicio" class="form-control" id="" placeholder="Apellidos" required  style=" border:1px solid #fdde92da;"  >
+                                            <input type="time" value="{{old('hora_inicio') }}" name="hora_inicio" class="form-control" id="" placeholder="Apellidos" required  style=" border:1px solid #fdde92da;" required >
                                                 @error('hora_inicio')
                                                 <small style="color:red">{{ $message }}</small>                                               
                                                 @enderror    
@@ -126,7 +126,7 @@
                                     <div class="col-md-4">
                                         <div class="form ground">
                                         <label for=""  style="color: #4a5568">Hora Fin:</label>
-                                            <input type="time" value="{{old('hora_fin') }}" name="hora_fin" class="form-control" id="" placeholder="Apellidos" required  style=" border:1px solid #fdde92da;"  >
+                                            <input type="time" value="{{old('hora_fin') }}" name="hora_fin" class="form-control" id="" placeholder="Apellidos" required  style=" border:1px solid #fdde92da;" required >
                                                 @error('hora_fin')
                                                 <small style="color:red">{{ $message }}</small>                                               
                                                 @enderror    
@@ -173,27 +173,31 @@
         
     </div>
 
-  <script>
-document.addEventListener('DOMContentLoaded', function () {
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
 
-    const medicoSelect = document.getElementById('medico_id');
-    const especialidadInput = document.getElementById('especialidad');
+        const medicoSelect = document.getElementById('medico_id');
+        const especialidadInput = document.getElementById('especialidad');
 
-    medicoSelect.addEventListener('change', function () {
+        function actualizarEspecialidad() {
+            const opcion = medicoSelect.options[medicoSelect.selectedIndex];
 
-        let especialidad = this.options[this.selectedIndex].dataset.especialidad;
+            if (opcion && opcion.dataset.especialidad) {
+                especialidadInput.value = opcion.dataset.especialidad;
+            } else {
+                especialidadInput.value = '';
+            }
+        }
 
-        if(especialidad){
-            especialidadInput.value = especialidad
-                .replace(/\b\w/g, letra => letra.toUpperCase());
-        } else {
-            especialidadInput.value = '';
+        medicoSelect.addEventListener('change', actualizarEspecialidad);
+
+        // Si hubo un error de validación, recupera la especialidad
+        if (medicoSelect.value !== '') {
+            actualizarEspecialidad();
         }
 
     });
-
-});
-</script>
+    </script>
 
 
     

@@ -184,7 +184,7 @@ table td {
 
     <div class="card-header">
 
-        <small style="color:#4a5568;">
+        <small style="color:#4a5568;font-size:18px">
             <b>Paciente:</b>
             {{ $paciente->nombres }} {{ $paciente->apellidos }}
             | DNI: {{ $paciente->DNI }}

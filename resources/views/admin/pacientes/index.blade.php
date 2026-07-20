@@ -85,39 +85,102 @@
                     $contador = ($pacientes->currentPage() - 1) * $pacientes->perPage() + 1;
                 @endphp
                 <form method="GET" action="{{ url($base.'/pacientes') }}">
-                    <div  style="display:flex;justify-content:center; gap:10px; align-items:center;">
 
-                        <input 
-                            type="text" 
-                            name="buscar" 
-                            value="{{ $buscar ?? '' }}"
-                            class="form-control"
-                            placeholder="Buscar por nombre o apellido "
-                            style="border:1px solid #f4d279; max-width:500px;"
-                        >
+    <div style="
+        display:flex;
+        justify-content:center;
+        gap:10px;
+        align-items:center;
+        flex-wrap:wrap;
+    ">
 
-                        <button type="submit" class="btn" 
-                            style="background-color:#f4d279; color:#4a5568;">
-                            <i class="bi bi-search"></i> Buscar
-                        </button>
+        
 
-                        <a href="{{ url($base.'/pacientes') }}" class="btn btn-secondary">
-                            Limpiar
-                        </a>
-                        @php
-                            $ruta = auth()->user()->hasRole('admin') ? 'admin' :
-                                    (auth()->user()->hasRole('asistente') ? 'asistente' : 'medico');
-                        @endphp
-                       <a href="{{ route($ruta.'.pacientes.reportePdf', ['buscar' => $buscar]) }}" 
-                        target="_blank" 
-                        class="btn"
-                        style="background-color:#4a5568; color:white;">
-                            <i class="bi bi-file-earmark-pdf"></i> Reporte
-                        </a>
-                        
 
-                    </div>
-                </form>
+        <!-- Fecha desde -->
+        <div style="display:flex; align-items:center; gap:5px;">
+            <label style="margin:0; color:#4a5568; font-size:14px;">
+                Desde:
+            </label>
+
+            <input 
+                type="date"
+                name="fecha_inicio"
+                value="{{ request('fecha_inicio') }}"
+                class="form-control"
+                style="
+                    border:1px solid #f4d279;
+                    width:160px;
+                "
+            >
+        </div>
+
+
+        <!-- Fecha hasta -->
+        <div style="display:flex; align-items:center; gap:5px;">
+            <label style="margin:0; color:#4a5568; font-size:14px;">
+                Hasta:
+            </label>
+
+            <input 
+                type="date"
+                name="fecha_fin"
+                value="{{ request('fecha_fin') }}"
+                class="form-control"
+                style="
+                    border:1px solid #f4d279;
+                    width:160px;
+                "
+            >
+        </div>
+
+        <!-- Buscar nombre -->
+        <input 
+            type="text" 
+            name="buscar" 
+            value="{{ $buscar ?? '' }}"
+            class="form-control"
+            placeholder="Buscar por nombre o apellido"
+            style="
+                border:1px solid #f4d279;
+                width:300px;
+            "
+        >
+
+
+        <!-- Buscar -->
+        <button type="submit" 
+            class="btn"
+            style="
+                background-color:#f4d279;
+                color:#4a5568;
+            ">
+            <i class="bi bi-search"></i> Buscar
+        </button>
+
+
+        <!-- Limpiar -->
+        <a href="{{ url($base.'/pacientes') }}" 
+            class="btn btn-secondary">
+            Limpiar
+        </a>
+
+
+        <!-- Reporte -->
+        <a href="{{ route($ruta.'.pacientes.reportePdf', [
+            'buscar' => request('buscar'),
+            'fecha_inicio'=>request('fecha_inicio'),
+            'fecha_fin'=>request('fecha_fin')
+            ]) }}" 
+            target="_blank" 
+            class="btn"
+            style="background-color:#4a5568;color:white;">
+                <i class="bi bi-file-earmark-pdf"></i> Reporte
+        </a>
+
+    </div>
+
+</form>
 <br>
 
                 <table id="example1" class="table table-bordered table-hover table-sm">
@@ -128,7 +191,7 @@
                             <td class="text-center"><b>DNI</b></td>
                             <td class="text-center"><b>Genero</b></td>
                             <td class="text-center"><b>Celular</b></td>
-                            <td class="text-center"><b>Edad</b></td>
+                            <td class="text-center"><b>Fecha</b></td>
                             <td class="text-center"><b>Acciones</b></td>
                         </tr>
                     </thead>
@@ -160,7 +223,7 @@
                         </td>
 
                         <td class="text-center">
-                            {{ \Carbon\Carbon::parse($paciente->fecha_nacimiento)->age }} años
+                            {{ \Carbon\Carbon::parse($paciente->created_at)->format('d/m/Y') }}
                         </td>
 
                         <td class="text-center">

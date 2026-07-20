@@ -40,7 +40,7 @@
                                     <div class="col-md-4">
                                         <div class="form ground">
                                         <label for=""  style="color: #4a5568" >Paciente:</label>
-                                          <select name="paciente_id"  class="form-control" style=" border:1px solid #fdde92da;" >
+                                          <select name="paciente_id"  class="form-control" style=" border:1px solid #fdde92da;" required >
                                             <option value="">Seleccione Paciente</option>
 
                                              @foreach($pacientes as $paciente)
@@ -59,7 +59,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label  style="color: #4a5568">Medico:</label>
-                                            <select name="medico_id" id="" class="form-control" required style=" border:1px solid #fdde92da;">
+                                            <select name="medico_id" id="" class="form-control" required style=" border:1px solid #fdde92da;" required >
                                                 <option value="" disabled selected>Seleccione</option>
                                                 @foreach($medicos as $medico)
                                                     <option value="{{ $medico->id }}">
@@ -77,7 +77,7 @@
                                      <div class="col-md-4">
                                         <div class="form ground">
                                         <label for=""  style="color: #4a5568">Fecha :</label>
-                                            <input type="date"  name="fecha"class="form-control" id="" placeholder="fecha de atencion" required  style=" border:1px solid #fdde92da;"  >
+                                            <input type="date"  name="fecha"class="form-control" id="" placeholder="fecha de atencion" required  style=" border:1px solid #fdde92da;" required >
                                                 @error('fecha')
                                                 <small style="color:red">{{ $message }}</small>                                               
                                                 @enderror    
@@ -96,7 +96,7 @@
                                      <div class="col-md-4">
                                         <div class="form ground">
                                         <label for=""  style="color: #4a5568">Hora :</label>
-                                            <input type="time"  name="hora"class="form-control" id="" placeholder="Apellidos" required  style=" border:1px solid #fdde92da;"  >
+                                            <input type="time"  name="hora"class="form-control" id="" placeholder="Apellidos" required  style=" border:1px solid #fdde92da;" required >
                                                 @error('hora')
                                                 <small style="color:red">{{ $message }}</small>                                               
                                                 @enderror    
@@ -108,7 +108,7 @@
                                     <div class="col-md-4">
                                         <div class="form ground">
                                         <label for=""  style="color: #4a5568">Motivo:</label>
-                                            <input type="text" value="{{old('motivo') }}" name="motivo" class="form-control" id="" placeholder="motivo de atencion" required  style=" border:1px solid #fdde92da;"  >
+                                            <input type="text" value="{{old('motivo') }}" name="motivo" class="form-control" id="" placeholder="motivo de atencion" required  style=" border:1px solid #fdde92da;" required >
                                                 @error('motivo')
                                                 <small style="color:red">{{ $message }}</small>                                               
                                                 @enderror    

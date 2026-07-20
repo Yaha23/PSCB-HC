@@ -18,26 +18,54 @@ class PacienteController extends Controller
 {
     $buscar = $request->buscar;
 
+    $fecha_inicio = $request->fecha_inicio;
+    $fecha_fin = $request->fecha_fin;
+
+
     $pacientes = Paciente::with('consultas.medico');
 
-if (auth()->user()->hasRole('medico')) {
-    $pacientes->whereHas('consultas', function ($q) {
-        $q->where('medico_id', auth()->id());
-    });
-}
 
-$pacientes = $pacientes
-    ->when($buscar, function ($query, $buscar) {
-        $query->where(function ($q) use ($buscar) {
-            $q->where('nombres', 'like', "%$buscar%")
-              ->orWhere('apellidos', 'like', "%$buscar%")
-              ->orWhere('DNI', 'like', "%$buscar%");
+    if($fecha_inicio && $fecha_fin){
+
+        $pacientes->whereBetween('created_at', [
+            $fecha_inicio . ' 00:00:00',
+            $fecha_fin . ' 23:59:59'
+        ]);
+
+    }
+
+
+    if (auth()->user()->hasRole('medico')) {
+
+        $pacientes->whereHas('consultas', function ($q) {
+            $q->where('medico_id', auth()->id());
         });
-    })
-    ->paginate(10);
 
-        
-    return view('admin.pacientes.index', compact('pacientes', 'buscar'));
+    }
+
+
+    $pacientes = $pacientes
+        ->when($buscar, function ($query, $buscar) {
+
+            $query->where(function ($q) use ($buscar) {
+
+                $q->where('nombres', 'like', "%$buscar%")
+                  ->orWhere('apellidos', 'like', "%$buscar%")
+                  ->orWhere('DNI', 'like', "%$buscar%");
+
+            });
+
+        })
+        ->paginate(10)
+        ->withQueryString();
+
+
+    return view('admin.pacientes.index', compact(
+        'pacientes',
+        'buscar',
+        'fecha_inicio',
+        'fecha_fin'
+    ));
 }
 
    public function create()
@@ -127,26 +155,69 @@ public function reportePdf(Request $request)
 {
     $buscar = $request->buscar;
 
+    $fecha_inicio = $request->fecha_inicio;
+    $fecha_fin = $request->fecha_fin;
+
+
     $pacientes = Paciente::with('consultas.medico');
 
-    if (auth()->user()->hasRole('medico')) {
-        $pacientes->whereHas('consultas', function ($q) {
-            $q->where('medico_id', auth()->id());
-        });
+
+    // FILTRO POR FECHAS
+    if($fecha_inicio && $fecha_fin){
+
+        $pacientes->whereBetween('created_at', [
+            $fecha_inicio . ' 00:00:00',
+            $fecha_fin . ' 23:59:59'
+        ]);
+
     }
 
-    $pacientes = $pacientes->when($buscar, function ($query, $buscar) {
-        $query->where(function ($q) use ($buscar) {
-            $q->whereRaw('LOWER(nombres) LIKE ?', ['%'.strtolower($buscar).'%'])
-            ->orWhereRaw('LOWER(apellidos) LIKE ?', ['%'.strtolower($buscar).'%'])
-            ->orWhereRaw('LOWER(DNI) LIKE ?', ['%'.strtolower($buscar).'%']);
+
+    // FILTRO PARA MÉDICO
+    if (auth()->user()->hasRole('medico')) {
+
+        $pacientes->whereHas('consultas', function ($q) {
+
+            $q->where('medico_id', auth()->id());
+
         });
-    })->get();
 
-    $pdf = Pdf::loadView('admin.pacientes.reporte', compact('pacientes'))
-        ->setPaper('a4', 'portrait');
+    }
 
-    return $pdf->stream('reporte-pacientes.pdf'); // 👈 CLAVE
+
+    // FILTRO POR BUSCADOR
+    $pacientes = $pacientes
+        ->when($buscar, function ($query, $buscar) {
+
+            $query->where(function ($q) use ($buscar) {
+
+                $q->whereRaw('LOWER(nombres) LIKE ?', [
+                    '%'.strtolower($buscar).'%'
+                ])
+
+                ->orWhereRaw('LOWER(apellidos) LIKE ?', [
+                    '%'.strtolower($buscar).'%'
+                ])
+
+                ->orWhereRaw('LOWER(DNI) LIKE ?', [
+                    '%'.strtolower($buscar).'%'
+                ]);
+
+            });
+
+        })
+        ->get();
+
+
+
+    $pdf = Pdf::loadView(
+        'admin.pacientes.reporte',
+        compact('pacientes')
+    )
+    ->setPaper('a4','portrait');
+
+
+    return $pdf->stream('reporte-pacientes.pdf');
 }
 
 

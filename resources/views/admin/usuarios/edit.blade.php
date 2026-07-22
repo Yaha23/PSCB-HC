@@ -32,6 +32,7 @@
                 </div>
                 <!-- /.card-header -->
                     <div class="card-body">
+                     
                         <form action="{{ url($base.'/usuarios',$usuario->id) }}" method="POST">
                             @csrf
                             @method('PUT')
@@ -189,6 +190,68 @@
 
 
                                 </div>
+                                <div class="row">
+                                    <!-- Título profesional -->
+                                    
+                                    <div class="col-md-4">
+
+                                        <div class="form-group">
+
+                                            <label style="color:#4a5568">
+                                                Título profesional
+                                            </label>
+
+                                            <select
+                                                name="titulo_profesional"
+                                                id="titulo_profesional"
+                                                class="form-control"
+                                                style="border:1px solid #fdde92da;"required  >
+
+                                                <option value="">Seleccione</option>
+
+                                                <option value="Dr." {{ $usuario->titulo_profesional == 'Dr.' ? 'selected' : '' }}>Dr.</option>
+                                                <option value="Dra." {{ $usuario->titulo_profesional == 'Dra.' ? 'selected' : '' }}>Dra.</option>
+                                                <option value="Lic.Enf." {{ $usuario->titulo_profesional == 'Lic.Enf.' ? 'selected' : '' }}>Lic.Enf.</option>
+                                                <option value="Licda.Enf." {{ $usuario->titulo_profesional == 'Licda.Enf.' ? 'selected' : '' }}>Licda.Enf.</option>
+                                                <option value="Mg." {{ $usuario->titulo_profesional == 'Mg.' ? 'selected' : '' }}>Mg.</option>
+                                                <option value="Esp." {{ $usuario->titulo_profesional == 'Esp.' ? 'selected' : '' }}>Esp.</option>
+                                                <option value="Téc.Enf." {{ $usuario->titulo_profesional == 'Téc.Enf.' ? 'selected' : '' }}>Téc.Enf.</option>
+                                                <option value="Enf." {{ $usuario->titulo_profesional == 'Enf.' ? 'selected' : '' }}>Enf.</option>
+
+                                                <option value="otros"
+                                                    {{ !in_array($usuario->titulo_profesional,['Dr.','Dra.','Lic.Enf.','Licda.Enf.','Mg.','Esp.','Téc.Enf.','Enf.']) && $usuario->titulo_profesional ? 'selected' : '' }}>
+                                                    Otros
+                                                </option>
+
+                                            </select>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-4"
+                                    id="divOtroTitulo"
+                                    style="{{ !in_array($usuario->titulo_profesional,['Dr.','Dra.','Lic.Enf.','Licda.Enf.','Mg.','Esp.','Téc.Enf.','Enf.']) && $usuario->titulo_profesional ? '' : 'display:none;' }}">
+
+                                    <div class="form-group">
+
+                                        <label style="color:#4a5568">
+                                            Especifique el título
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            name="otro_titulo"
+                                            id="otroTitulo"
+                                            class="form-control"
+                                            value="{{ !in_array($usuario->titulo_profesional,['Dr.','Dra.','Lic.','Licda.','Mg.','Esp.','Téc.']) ? $usuario->titulo_profesional : '' }}"
+                                            placeholder="Ejemplo: PhD."
+                                            style="border:1px solid #fdde92da;">
+
+                                    </div>
+
+                                </div>
+                                </div>
                                 
                                 <!--Boton cancelar y Guardar datos-->
                                 <div class="row">
@@ -215,26 +278,41 @@
     </div>
 
     <!--script que permite que al momento de seleccionar medico se habilite el campo especialidad-->
-        <script>
-                
-            document.getElementById('rol').addEventListener('change', function () {
+         <script>
 
-                let especialidad = document.getElementById('especialidad');
+const rol = document.getElementById('rol');
+const especialidad = document.getElementById('especialidad');
 
-                // Siempre desactivado por defecto
-                especialidad.disabled = true;
+const titulo = document.getElementById('titulo_profesional');
+const divOtroTitulo = document.getElementById('divOtroTitulo');
+const otroTitulo = document.getElementById('otroTitulo');
 
-                if (this.value === 'medico') {
-                   especialidad.disabled = false;
-            } else {
-                especialidad.disabled = true;
-            }
+rol.addEventListener('change', function(){
 
-            });
-        </script>
+    if(this.value === 'medico'){
+        especialidad.disabled = false;
+    }else{
+        especialidad.disabled = true;
+        especialidad.value = "";
+    }
 
+});
 
-    
+titulo.addEventListener('change', function(){
 
-@endsection
+    if(this.value === 'otros'){
+        divOtroTitulo.style.display = 'block';
+    }else{
+        divOtroTitulo.style.display = 'none';
+        otroTitulo.value = '';
+    }
+
+});
+
+// Al cargar la página
+if(titulo.value === 'otros'){
+    divOtroTitulo.style.display = 'block';
+}
+
+</script>@endsection
 

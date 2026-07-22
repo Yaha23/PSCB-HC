@@ -22,6 +22,7 @@ class UsuarioController extends Controller
     //almacenar los datos que registramos
 
     public function store(Request $request){
+        
         //$datos = $request->all();
         //return response()->json($datos);
 
@@ -35,7 +36,8 @@ class UsuarioController extends Controller
             'password'=>'required|max:250|confirmed',//contraseña y en confirmed ,estoy diciendo que necesita ser confirmada.
             'status'=>'required',   // Estado
             'role'=>'required',     // Rol
-            'specialty'=>'required_if:role,medico' // Especialidad solo si rol = medico
+            'specialty'=>'required_if:role,medico', // Especialidad solo si rol = medico
+            'titulo_profesional'=>'nullable|string|max:50',
 
         ]);
 
@@ -47,10 +49,18 @@ class UsuarioController extends Controller
         $usuario->password = Hash::make($request['password']); // encriptar contraseña
         $usuario->status = $request->status;
         $usuario->specialty = $request->specialty ?? null; // si no es médico, queda null
+
+          if ($request->titulo_profesional == 'otros') {
+            $usuario->titulo_profesional = $request->otro_titulo;
+        } else {
+            $usuario->titulo_profesional = $request->titulo_profesional;
+        }
         // Guardar en la base de datos
         $usuario->save();
     // 🔥 ASIGNAR ROL CORRECTAMENTE
         $usuario->assignRole($request->role);
+
+        
 
 
         
@@ -73,6 +83,7 @@ class UsuarioController extends Controller
 
     public function edit($id){
         $usuario = User::findOrFail($id);
+       
         return view('admin.usuarios.edit',compact('usuario'));
 
     }
@@ -87,7 +98,8 @@ class UsuarioController extends Controller
             'password'=>'nullable|max:250|confirmed',//contraseña y en confirmed ,estoy diciendo que necesita ser confirmada.
             'status'=>'required',   // Estado
             'role'=>'required',     // Rol
-            'specialty'=>'required_if:role,medico' // Especialidad solo si rol = medico
+            'specialty'=>'required_if:role,medico', // Especialidad solo si rol = medico
+            'titulo_profesional'=>'nullable|string|max:50',
 
         ]);
 
@@ -107,6 +119,12 @@ class UsuarioController extends Controller
         $usuario->status = $request->status;
        
         $usuario->specialty = $request->specialty ?? null; // si no es médico, queda null
+
+        if ($request->titulo_profesional == 'otros') {
+            $usuario->titulo_profesional = $request->otro_titulo;
+        } else {
+            $usuario->titulo_profesional = $request->titulo_profesional;
+        }
 
         // Guardar en la base de datos modificada
         $usuario->save();

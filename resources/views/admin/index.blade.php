@@ -179,7 +179,10 @@
 <div class="row">
     <div class="col-12">
         <h1 class="dashboard-title">
-            Bienvenido: {{ Auth::user()->name }}
+            Bienvenido:
+            {{ Auth::user()->titulo_profesional ? Auth::user()->titulo_profesional : '' }}
+            {{ Auth::user()->name }}
+            {{ Auth::user()->surname }}
         </h1>
         <hr>
     </div>

@@ -170,8 +170,67 @@
                                             </div>
                                         </div>
 
+                                       
+
 
                                     </div>
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+
+                                            <div class="form-group">
+
+                                                <label style="color:#4a5568">
+                                                    Título profesional:
+                                                </label>
+
+                                                <select
+                                                    name="titulo_profesional"
+                                                    id="titulo_profesional"
+                                                    class="form-control"
+                                                    style="border:1px solid #fdde92da;">
+
+                                                    <option value="">Seleccione</option>
+
+                                                    <option value="Dr.">Dr.</option>
+                                                    <option value="Dra.">Dra.</option>
+                                                    <option value="Lic.Enf.">Licda.Enf.</option>
+                                                    <option value="Licda.Enf.">Licda.Enf.</option>
+                                                    <option value="Mg.">Mg.</option>
+                                                    <option value="Esp.">Esp.</option>
+                                                    <option value="Téc.Enf.">Téc.Enf.</option>
+                                                    <option value="Enf.">Enf.</option>
+
+                                                    <option value="otros">Otros</option>
+
+                                                </select>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-4" id="divOtroTitulo" style="display:none;">
+
+                                        <div class="form-group">
+
+                                            <label style="color:#4a5568">
+
+                                                Especifique el título
+
+                                            </label>
+
+                                            <input
+                                                type="text"
+                                                id="otroTitulo"
+                                                class="form-control"
+                                                placeholder="Ejemplo: PhD."
+                                                style="border:1px solid #fdde92da;">
+
+                                        </div>
+                                    </div>
+
+                                        
+
+                                </div>
                                     
                                     <!--Boton cancelar y Guardar datos-->
                                     <div class="row">
@@ -214,6 +273,34 @@
                     }
 
                 });
+
+                document.getElementById('titulo_profesional').addEventListener('change', function(){
+
+                        let otro = document.getElementById('divOtroTitulo');
+
+                        let input = document.getElementById('otroTitulo');
+
+                        if(this.value=="otros"){
+
+                            otro.style.display="block";
+
+                            this.removeAttribute('name');
+
+                            input.setAttribute('name','titulo_profesional');
+
+                        }else{
+
+                            otro.style.display="none";
+
+                            input.value="";
+
+                            input.removeAttribute('name');
+
+                            this.setAttribute('name','titulo_profesional');
+
+                        }
+
+                    });
             </script>
 
 

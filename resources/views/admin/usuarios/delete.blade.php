@@ -157,6 +157,59 @@
                                                 @enderror
                                             </div>
                                         </div>
+                                        @php
+                                        $titulosPredeterminados = [
+                                            'Dr.',
+                                            'Dra.',
+                                            'Lic.Enf.',
+                                            'Licda.Enf.',
+                                            'Mg.',
+                                            'Esp.',
+                                            'Téc.Enf.',
+                                            'Enf.'
+                                        ];
+
+                                        $esOtroTitulo = $usuario->titulo_profesional &&
+                                                        !in_array($usuario->titulo_profesional, $titulosPredeterminados);
+                                    @endphp
+
+                                    <div class="row mt-3">
+
+                                        <!-- Título profesional -->
+                                        <div class="{{ $esOtroTitulo ? 'col-md-6' : 'col-md-12' }}">
+                                            <div class="form-group">
+                                                <label style="color:#4a5568;">Título profesional</label>
+
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    value="{{ $esOtroTitulo ? 'Otros' : ($usuario->titulo_profesional ?? 'No registrado') }}"
+                                                    disabled
+                                                    style="background-color:#f6e48bb1;
+                                                        border:1px solid #fdde92da;
+                                                        cursor:not-allowed;">
+                                            </div>
+                                        </div>
+
+                                        @if($esOtroTitulo)
+                                            <!-- Especifique el título -->
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label style="color:#4a5568;">Especifique el título</label>
+
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        value="{{ $usuario->titulo_profesional }}"
+                                                        disabled
+                                                        style="background-color:#f6e48bb1;
+                                                            border:1px solid #fdde92da;
+                                                            cursor:not-allowed;">
+                                                </div>
+                                            </div>
+                                        @endif
+
+                                    </div>
 
 
                                     </div>

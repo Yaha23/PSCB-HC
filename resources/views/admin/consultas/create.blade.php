@@ -82,7 +82,7 @@
             @foreach(App\Models\User::role('medico')->get() as $medico)
                 <option value="{{ $medico->id }}"
                         data-especialidad="{{ $medico->specialty }}">
-                    {{ $medico->name }}
+                    {{ $medico->titulo_profesional }} {{ $medico->name }} {{ $medico->surname }}
                 </option>
             @endforeach
 

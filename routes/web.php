@@ -8,7 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\PacienteController;
-use App\Http\Controllers\HorarioMedicoController;
+use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\CitaController;
 use App\Http\Controllers\ConsultaController;
 
@@ -96,10 +96,10 @@ Route::prefix('admin')
     Route::get('pacientes/{id}/confirm-delete', [PacienteController::class, 'confirmDelete'])
     ->name('pacientes.confirmDelete');
     
-
-    Route::resource('horariosmedicos', HorarioMedicoController::class);
-     Route::get('horariosmedicos/{id}/confirm-delete', [HorarioMedicoController::class, 'confirmDelete'])
-    ->name('horariosmedicos.confirmDelete');
+    Route::get('horarios/reporte-pdf',[HorarioController::class,'reportePdf'])->name('horarios.pdf');
+    Route::resource('horarios', HorarioController::class);
+     Route::get('horarios/{id}/confirm-delete', [HorarioController::class, 'confirmDelete'])
+    ->name('horarios.confirmDelete');
 
 
     Route::resource('citas', CitaController::class);
@@ -191,12 +191,14 @@ Route::prefix('asistente')
      Route::get('citas/{id}/confirm-delete', [CitaController::class, 'confirmDelete'])
     ->name('citas.confirmDelete');
     
-    Route::resource('horariosmedicos', HorarioMedicoController::class);
+    Route::get('horarios/reporte-pdf',[HorarioController::class,'reportePdf'])->name('horarios.pdf');
+    Route::resource('horarios', HorarioController::class);
+    
     
     Route::get(
-    'horariosmedicos/{id}/confirm-delete',
-    [HorarioMedicoController::class, 'confirmDelete']
-)->name('horariosmedicos.confirmDelete');
+    'horarios/{id}/confirm-delete',
+    [HorarioController::class, 'confirmDelete']
+)->name('horarios.confirmDelete');
 
     Route::get(
     'pacientes/{paciente}/consultas',
@@ -275,7 +277,8 @@ Route::prefix('medico')
    
     Route::resource('citas', CitaController::class);
     
-    Route::resource('horariosmedicos', HorarioMedicoController::class);
+    Route::get('horarios/reporte-pdf',[HorarioController::class,'reportePdf'])->name('horarios.pdf');
+    Route::resource('horarios', HorarioController::class);
 
     Route::get(
     'pacientes/{paciente}/consultas',

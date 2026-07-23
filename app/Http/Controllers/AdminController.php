@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Paciente; 
-use App\Models\HorarioMedico; 
+use App\Models\Horario; 
 use App\Models\Cita; 
 
 
@@ -39,7 +39,7 @@ class AdminController extends Controller
         
         $total_usuarios = User::count();
         $total_pacientes = Paciente::count();
-        $total_horariosmedicos = HorarioMedico::count();
+        $total_horarios = Horario::count();
         $total_citas = Cita::where('estado', 'pendiente')->count();
 
     } else {
@@ -51,7 +51,7 @@ class AdminController extends Controller
             $q->where('medico_id', $user->id);
         })->count();
 
-        $total_horariosmedicos = HorarioMedico::where('medico_id', $user->id)->count();
+        $total_horarios = Horario::where('medico_id', $user->id)->count();
 
         $total_citas = Cita::where('medico_id', $user->id)
             ->where('estado', 'pendiente')
@@ -85,7 +85,7 @@ class AdminController extends Controller
     return view('admin.index', compact(
         'total_usuarios',
         'total_pacientes',
-        'total_horariosmedicos',
+        'total_horarios',
         'total_citas',
         'citas_calendario'
     ));

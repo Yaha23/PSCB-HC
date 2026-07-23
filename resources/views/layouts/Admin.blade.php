@@ -256,7 +256,7 @@ table.dataTable{
         </li>
         @endcan
 
-       @can('admin.horariosmedicos.index')
+       @can('admin.horarios.index')
         <li class="nav-item">
           <a href="#" class="nav-link">
             <i class="nav-icon bi bi-house-fill"></i>
@@ -266,11 +266,11 @@ table.dataTable{
           <ul class="nav nav-treeview">
 
             <!-- HORARIOS -->
-            @can('admin.horariosmedicos.index')
+            @can('admin.horarios.index')
             <li class="nav-item">
-              <a href="{{url($base.'/horariosmedicos')}}" class="nav-link">
+              <a href="{{url($base.'/horarios')}}" class="nav-link">
                 <i class="bi bi-house-add-fill nav-icon"></i>
-                <p>Horarios médicos</p>
+                <p>Horarios</p>
               </a>
             </li>
             @endcan

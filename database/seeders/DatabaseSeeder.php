@@ -60,7 +60,7 @@ class DatabaseSeeder extends Seeder
 
             //  HORARIOS
             // HORARIOS
-            'horariosmedicos' => [
+            'horarios' => [
                 'index' => ['admin','asistente','medico'],
 
                 'create' => ['admin','asistente'],

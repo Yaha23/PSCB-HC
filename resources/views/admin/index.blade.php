@@ -223,7 +223,7 @@
 @endcan
 
 
-@can('admin.horariosmedicos.index')
+@can('admin.horarios.index')
 <div class="stat-card">
     <div class="stat-top">
         <div class="stat-icon"><i class="bi bi-calendar-check"></i></div>
@@ -231,9 +231,9 @@
             <h4>Horarios</h4>
             <p>Disponibilidad médica</p>
         </div>
-        <div class="stat-number">{{ $total_horariosmedicos }}</div>
+        <div class="stat-number">{{ $total_horarios }}</div>
     </div>
-    <a href="{{ url($base.'/horariosmedicos') }}" class="stat-footer">Acceder</a>
+    <a href="{{ url($base.'/horarios') }}" class="stat-footer">Acceder</a>
 </div>
 @endcan
 
@@ -403,9 +403,9 @@
                 $data[] = $total_citas;
             }
 
-            if($total_horariosmedicos > 0){
+            if($total_horarios > 0){
                 $labels[] = 'Horarios';
-                $data[] = $total_horariosmedicos;
+                $data[] = $total_horarios;
             }
 
         // 🧑‍💼 ASISTENTE → SIN USUARIOS
@@ -421,9 +421,9 @@
                 $data[] = $total_citas;
             }
 
-            if($total_horariosmedicos > 0){
+            if($total_horarios > 0){
                 $labels[] = 'Horarios';
-                $data[] = $total_horariosmedicos;
+                $data[] = $total_horarios;
             }
 
         // 🧑‍⚕️ MÉDICO → SOLO LO SUYO
@@ -439,9 +439,9 @@
                 $data[] = $total_citas;
             }
 
-            if($total_horariosmedicos > 0){
+            if($total_horarios > 0){
                 $labels[] = 'Mis Horarios';
-                $data[] = $total_horariosmedicos;
+                $data[] = $total_horarios;
             }
         }
         @endphp

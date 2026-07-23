@@ -32,7 +32,7 @@
                 </div>
                 <!-- /.card-header -->
                     <div class="card-body">
-                    <form action="{{ url($base.'/horariosmedicos/'.$horario->id) }}" method="POST">
+                    <form action="{{ url($base.'/horarios/'.$horario->id) }}" method="POST">
                         @csrf
                         @method('PUT')
 
@@ -141,7 +141,7 @@
                                 <div class="row">
                                     <div class="col-md-12 text-center">
                                         <div class="form-ground">
-                                                <a href="{{url($base.'/horariosmedicos')}}"  class="btn btn-secondary" style=" background-color: #4a5568;width: 200px;font-size: 16px;font-weight: 400;font-family: 'Segoe UI';letter-spacing: 0.5px;border-radius: 6px;padding: 5px;" >
+                                                <a href="{{url($base.'/horarios')}}"  class="btn btn-secondary" style=" background-color: #4a5568;width: 200px;font-size: 16px;font-weight: 400;font-family: 'Segoe UI';letter-spacing: 0.5px;border-radius: 6px;padding: 5px;" >
                                                         Cancelar
                                                 </a>
                                                     <button type="submit" class="btn" style="background-color: #f4d279; width: 200px;font-size: 16px;font-weight: 400;font-family: 'Segoe UI', Tahoma, sans-serif;letter-spacing: 0.5px;border-radius: 6px;padding: 5px;color:  #4a5568";">

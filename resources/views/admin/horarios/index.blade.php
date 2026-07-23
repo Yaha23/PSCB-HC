@@ -212,7 +212,7 @@
 
 
                             </td>
-                            <td>
+                            <td style="text-transform:uppercase">
 
                             @if($horario->user->hasRole('medico'))
 

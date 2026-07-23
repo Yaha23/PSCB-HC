@@ -165,7 +165,7 @@ Especialidad:
 
 
 <input type="text"
-disabled
+disabled 
 
 value="{{ $horario->especialidad ?? '---' }}"
 

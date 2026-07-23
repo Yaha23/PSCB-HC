@@ -2,190 +2,337 @@
 
 @section('content')
 
-    <div class="row" style="display:flex; align-items:center; gap:10px;">
+<div class="row" style="display:flex;align-items:center;gap:10px;">
 
-        <i class="bi bi-person-plus" style="font-size:28px; color:#5f6b7a;"></i>
-        <h1 style="margin:0; font-size:26px; font-weight:500; color:#4a5568; font-family:'Segoe UI', Tahoma, sans-serif;">
-                Actualizar Horario :{{ $horario->medico->name ?? '' }} {{ $horario->medico->surname ?? '' }}  
-        </h1>
-    </div>
+    <i class="bi bi-pencil-square"
+       style="font-size:28px;color:#5f6b7a;"></i>
 
-    <hr>
+    <h1 style="margin:0;font-size:26px;font-weight:500;color:#4a5568;font-family:'Segoe UI',Tahoma,sans-serif;">
+        Editar Horario
+    </h1>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card card-outline" style="border-top: 3px solid #f4d279;">
-                <div class="card-header">
-                    <h3 class="card-title d-flex align-items-center" style="font-size:12px; color:#6c757d; font-weight:500;">
-                    Ingrese los datos requeridos y registre un nuevo horario
+</div>
 
-                    <i class="bi bi-pen-fill" style="margin-left:10px; color:#9aa0a6;"></i>
-                    
-                    </h3>
+<hr>
 
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                    </div>
-                    <!-- /.card-tools -->
-                </div>
-                <!-- /.card-header -->
-                    <div class="card-body">
-                    <form action="{{ url($base.'/horarios/'.$horario->id) }}" method="POST">
-                        @csrf
-                        @method('PUT')
+<div class="row">
 
-                            
-                                <div class="row">
-                                      <!--Campo medico_asignado-->
-                                    <div class="col-md-4">
-                                        <div class="form ground">
-                                        <label for=""  style="color: #4a5568" >Medico Asignado:</label>
-                                         <select name="medico_id" id="medicoSelect" class="form-control" style="border:1px solid #fdde92da;">
-                                                @foreach($medicos as $medico)
-                                                    <option
-                                                        value="{{ $medico->id }}"
-                                                        data-especialidad="{{ $medico->specialty }}"
-                                                        {{ $medico->id == $horario->medico_id ? 'selected' : '' }}>
-                                                        {{ $medico->name }} {{ $medico->surname }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
+    <div class="col-md-12">
 
-                                        @error('medico_id')
-                                            <small style="color:red">{{ $message }}</small>
-                                        @enderror    
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label style="color:#4a5568">Especialidad:</label>
-                                            <input type="text"
-                                                id="especialidad"
-                                                class="form-control"
-                                                value="{{ $horario->medico->specialty ?? '' }}"
-                                                readonly
-                                                style="background-color:#fdde92da;border:1px solid #fdde92da;"">
-                                        </div>
-                                    </div>
-                                   
-                                    <!--Campo Dia-->
-                                    <div class="col-md-4">
-                                        <div class="form ground">
-                                        <label for=""  style="color: #4a5568" >Dia:</label>
-                                            <select name="dia_semana" class="form-control" style="border:1px solid #fdde92da;">
-                                                @foreach(['lunes','martes','miercoles','jueves','viernes','sabado'] as $dia)
-                                                    <option value="{{ $dia }}"
-                                                        {{ $horario->dia_semana == $dia ? 'selected' : '' }}>
-                                                        {{ ucfirst($dia) }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                                @error('dia_semana')
-                                                <small style="color:red">{{ $message }}</small>                                               
-                                                @enderror        
-                                        </div>
-                                    </div>
-                                    
-                                    
-                                    
+        <div class="card card-outline" style="border-top:3px solid #f4d279;">
 
-                                </div>   
-                                                          
-                                <br>
-                                
-                                <div class="row">
-                                    
-                                     <!--Campo -Apellidos-->
+            <div class="card-header">
 
-                                     <div class="col-md-4">
-                                        <div class="form ground">
-                                        <label for=""  style="color: #4a5568">Hora Inicio:</label>
-                                            <input type="time" 
-                                            name="hora_inicio"
-                                            value="{{ old('hora_inicio', $horario->hora_inicio) }}"
-                                            class="form-control" style="border:1px solid #fdde92da;">  
-                                        </div>
-                                    </div>
+                <h3 class="card-title d-flex align-items-center"
+                    style="font-size:12px;color:#6c757d;font-weight:500;">
 
-                                    
-                                    <!--Campo correo hora fin-->
-                                    <div class="col-md-4">
-                                        <div class="form ground">
-                                        <label for=""  style="color: #4a5568">Hora Fin:</label>
-                                            <input type="time" 
-                                                name="hora_fin"
-                                                value="{{ old('hora_fin', $horario->hora_fin) }}"
-                                                class="form-control" style="border:1px solid #fdde92da;">  
-                                        </div>
-                                    </div>
+                    Modifique la información del horario.
 
+                    <i class="bi bi-pencil-fill"
+                       style="margin-left:10px;color:#9aa0a6;"></i>
 
-                                    
+                </h3>
 
-                                     
-                                    
-                                    
-
-                                </div>
-                                <br>                            
-                                
-                                
-
-                              
-                               
-                               
-                                <br>
-                                <!--Boton cancelar y Guardar datos-->
-                                <div class="row">
-                                    <div class="col-md-12 text-center">
-                                        <div class="form-ground">
-                                                <a href="{{url($base.'/horarios')}}"  class="btn btn-secondary" style=" background-color: #4a5568;width: 200px;font-size: 16px;font-weight: 400;font-family: 'Segoe UI';letter-spacing: 0.5px;border-radius: 6px;padding: 5px;" >
-                                                        Cancelar
-                                                </a>
-                                                    <button type="submit" class="btn" style="background-color: #f4d279; width: 200px;font-size: 16px;font-weight: 400;font-family: 'Segoe UI', Tahoma, sans-serif;letter-spacing: 0.5px;border-radius: 6px;padding: 5px;color:  #4a5568";">
-                                                        <b>Actualizar Horario</b>
-                                                    </button>
-                                        </div>
-                                    </div>
-                                </div>
-                    </form>
-
-
-                    </div>
-                                  
             </div>
-               
+
+            <div class="card-body">
+
+                <form action="{{ route($base.'.horarios.update',$horario->id) }}" method="POST">
+
+                    @csrf
+                    @method('PUT')
+
+                    @php
+                        $rolActual = $horario->user->hasRole('medico')
+                            ? 'medico'
+                            : 'asistente';
+                    @endphp
+
+                    <div class="row" id="filaPrincipal">
+
+                        <div class="col-md-4">
+
+                            <label style="color:#4a5568">Rol:</label>
+
+                            <select name="rol"
+                                    id="rol"
+                                    class="form-control"
+                                    required
+                                    style="border:1px solid #fdde92da;">
+
+                                <option value="">Seleccione</option>
+
+                                <option value="medico"
+                                    {{ $rolActual=='medico' ? 'selected':'' }}>
+                                    Médico
+                                </option>
+
+                                <option value="asistente"
+                                    {{ $rolActual=='asistente' ? 'selected':'' }}>
+                                    Asistente
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <label style="color:#4a5568">
+                                Personal:
+                            </label>
+
+                            <select
+                                name="user_id"
+                                id="user_id"
+                                class="form-control"
+                                required
+                                style="border:1px solid #fdde92da;">
+
+                            </select>
+
+                        </div>
+
+                        <div class="col-md-4"
+                             id="divEspecialidad">
+
+                            <label style="color:#4a5568">
+
+                                Especialidad:
+
+                            </label>
+
+                            <input
+                                type="text"
+                                id="especialidad"
+                                name="especialidad"
+                                readonly
+                                value="{{ $horario->especialidad }}"
+                                class="form-control"
+                                style="border:1px solid #fdde92da;
+                                background:#f6e48bb1;text-transform:uppercase">
+
+                        </div>
+
+                    </div>
+
+                    <br>
+
+                    <div class="row" id="filaHorario">
+
+                        <div class="col-md-4"
+                             id="divDia">
+
+                            <label style="color:#4a5568">
+
+                                Día:
+
+                            </label>
+
+                            <select
+                                name="dia_semana"
+                                class="form-control"
+                                required
+                                style="border:1px solid #fdde92da;">
+
+                                @foreach([
+                                    'lunes'=>'Lunes',
+                                    'martes'=>'Martes',
+                                    'miercoles'=>'Miércoles',
+                                    'jueves'=>'Jueves',
+                                    'viernes'=>'Viernes',
+                                    'sabado'=>'Sábado'
+                                ] as $valor=>$texto)
+
+                                    <option
+                                        value="{{ $valor }}"
+                                        {{ $horario->dia_semana==$valor ? 'selected':'' }}>
+
+                                        {{ $texto }}
+
+                                    </option>
+
+                                @endforeach
+
+                            </select>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <label style="color:#4a5568">
+
+                                Hora Inicio:
+
+                            </label>
+
+                            <input
+                                type="time"
+                                name="hora_inicio"
+                                class="form-control"
+                                value="{{ $horario->hora_inicio }}"
+                                required
+                                style="border:1px solid #fdde92da;">
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <label style="color:#4a5568">
+
+                                Hora Fin:
+
+                            </label>
+
+                            <input
+                                type="time"
+                                name="hora_fin"
+                                class="form-control"
+                                value="{{ $horario->hora_fin }}"
+                                required
+                                style="border:1px solid #fdde92da;">
+
+                        </div>
+
+                    </div>
+
+                    <br>
+
+                    <div class="text-center">
+
+                        <a href="{{ url($base.'/horarios') }}"
+                           class="btn btn-secondary"
+                           style="background:#4a5568;width:200px;">
+
+                            Cancelar
+
+                        </a>
+
+                        <button
+                            class="btn"
+                            style="background:#f4d279;width:200px;color:#4a5568;">
+
+                            <b>Actualizar Horario</b>
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
         </div>
-        
+
     </div>
+
+</div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
 
-    const medicoSelect = document.getElementById('medicoSelect');
-    const especialidadInput = document.getElementById('especialidad');
+document.addEventListener('DOMContentLoaded',function(){
 
-    function actualizarEspecialidad() {
+    const rol=document.getElementById('rol');
+    const user=document.getElementById('user_id');
+    const especialidad=document.getElementById('especialidad');
 
-        const especialidad =
-            medicoSelect.options[medicoSelect.selectedIndex]
-            .getAttribute('data-especialidad');
+    const divEspecialidad=document.getElementById('divEspecialidad');
+    const divDia=document.getElementById('divDia');
 
-        especialidadInput.value = especialidad || '';
+    const filaPrincipal=document.getElementById('filaPrincipal');
+    const filaHorario=document.getElementById('filaHorario');
+
+    const medicos=@json($medicos);
+    const asistentes=@json($asistentes);
+
+    const usuarioActual={{ $horario->user_id }};
+
+    function cargarUsuarios(){
+
+        user.innerHTML='<option value="">Seleccione</option>';
+
+        if(rol.value==='medico'){
+
+            medicos.forEach(function(m){
+
+                user.innerHTML+=`
+
+                <option
+                    value="${m.id}"
+                    data-especialidad="${m.specialty}"
+                    ${usuarioActual==m.id?'selected':''}>
+
+                    ${m.titulo_profesional ?? ''}
+                    ${m.name}
+                    ${m.surname}
+
+                </option>`;
+
+            });
+
+        }else{
+
+            asistentes.forEach(function(a){
+
+                user.innerHTML+=`
+
+                <option
+                    value="${a.id}"
+                    ${usuarioActual==a.id?'selected':''}>
+
+                    ${a.titulo_profesional ?? ''}
+                    ${a.name}
+                    ${a.surname}
+
+                </option>`;
+
+            });
+
+        }
+
+        actualizarVista();
+        actualizarEspecialidad();
+
     }
 
-    actualizarEspecialidad();
+    function actualizarVista(){
 
-    medicoSelect.addEventListener('change', actualizarEspecialidad);
+        if(rol.value==='medico'){
+
+            divEspecialidad.style.display='';
+
+            filaHorario.insertBefore(divDia,filaHorario.children[0]);
+
+        }else{
+
+            divEspecialidad.style.display='none';
+
+            especialidad.value='';
+
+            filaPrincipal.insertBefore(divDia,filaPrincipal.children[2]);
+
+        }
+
+    }
+
+    function actualizarEspecialidad(){
+
+        if(rol.value==='medico'){
+
+            especialidad.value=user.options[user.selectedIndex]?.dataset.especialidad ?? '';
+
+        }
+
+    }
+
+    rol.addEventListener('change',cargarUsuarios);
+
+    user.addEventListener('change',actualizarEspecialidad);
+
+    cargarUsuarios();
 
 });
+
 </script>
 
-
-
-    
-
 @endsection
-

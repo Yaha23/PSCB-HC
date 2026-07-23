@@ -90,8 +90,32 @@
                             <td class="text-center">{{ $usuario->email }}</td>
                             <td class="text-center">{{ $usuario->status }}</td>
                             <td class="text-center">
-                                {{ $usuario->getRoleNames()->first() }}
+
+                                @php
+                                    $rol = $usuario->getRoleNames()->first();
+                                @endphp
+
+                                @switch($rol)
+
+                                    @case('admin')
+                                        Administrador
+                                        @break
+
+                                    @case('medico')
+                                        Médico
+                                        @break
+
+                                    @case('asistente')
+                                        Asistente
+                                        @break
+
+                                    @default
+                                        {{ ucfirst($rol) }}
+
+                                @endswitch
+
                             </td>
+                            
 
                             <td style="text-align:center">
                                 <div class="btn-group" role="group">
@@ -106,47 +130,47 @@
                             @endcan
 
   
-    @can('admin.usuarios.edit')
-        <a href="{{ url($base.'/usuarios/'.$usuario->id.'/edit') }}" 
-        class="btn"
-        style="background-color: #f4d279; color: #4a5568; border: none; transition:0.3s;"
-        onmouseover="this.style.backgroundColor='#ffe8a3'; this.style.boxShadow='0 0 8px rgba(244,210,121,0.7)'"
-        onmouseout="this.style.backgroundColor='#f4d279'; this.style.boxShadow='none'">
-            <i class="bi bi-pencil-square"></i>
-        </a>
-    @endcan
-    
-    @can('admin.usuarios.destroy')
+                            @can('admin.usuarios.edit')
+                                <a href="{{ url($base.'/usuarios/'.$usuario->id.'/edit') }}" 
+                                class="btn"
+                                style="background-color: #f4d279; color: #4a5568; border: none; transition:0.3s;"
+                                onmouseover="this.style.backgroundColor='#ffe8a3'; this.style.boxShadow='0 0 8px rgba(244,210,121,0.7)'"
+                                onmouseout="this.style.backgroundColor='#f4d279'; this.style.boxShadow='none'">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                            @endcan
+                            
+                            @can('admin.usuarios.destroy')
 
-        <a href="{{ url($base.'/usuarios/'.$usuario->id.'/confirm-delete') }}" 
-        class="btn"
-        style="background-color: #f4d279; color: #4a5568; border: none; transition:0.3s;"
-        onmouseover="this.style.backgroundColor='#ffe8a3'; this.style.boxShadow='0 0 8px rgba(244,210,121,0.7)'"
-        onmouseout="this.style.backgroundColor='#f4d279'; this.style.boxShadow='none'">
-            <i class="bi bi-trash3-fill"></i>
-        </a>
-    @endcan
+                                <a href="{{ url($base.'/usuarios/'.$usuario->id.'/confirm-delete') }}" 
+                                class="btn"
+                                style="background-color: #f4d279; color: #4a5568; border: none; transition:0.3s;"
+                                onmouseover="this.style.backgroundColor='#ffe8a3'; this.style.boxShadow='0 0 8px rgba(244,210,121,0.7)'"
+                                onmouseout="this.style.backgroundColor='#f4d279'; this.style.boxShadow='none'">
+                                    <i class="bi bi-trash3-fill"></i>
+                                </a>
+                            @endcan
 
-</div>
-                            </td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="4" class="text-center">No hay usuarios registrados</td>
-                        </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                        </div>
+                                                    </td>
+                                                </tr>
+                                                @empty
+                                                <tr>
+                                                    <td colspan="4" class="text-center">No hay usuarios registrados</td>
+                                                </tr>
+                                                @endforelse
+                                            </tbody>
+                                        </table>
 
-                <!-- PAGINACIÓN -->
-                <div class="d-flex justify-content-end mt-2 ">
-                    {{ $usuarios->links() }}
-                </div>
+                                        <!-- PAGINACIÓN -->
+                                        <div class="d-flex justify-content-end mt-2 ">
+                                            {{ $usuarios->links() }}
+                                        </div>
 
-            </div>
+                                    </div>
 
-        </div>
-    </div>
-</div>
+                                </div>
+                            </div>
+                        </div>
 
 @endsection

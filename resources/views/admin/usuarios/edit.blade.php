@@ -122,136 +122,264 @@
                                     <i class="bi bi-check-all" style="margin-left:10px; color:#9aa0a6;"></i>                
                                 </h3>
                             <br>
-                                <div class="row">
-                                    <!--Campo estado de la cuenta Activa o Inactiva--> 
-                                    <div class="col-md-4">
+
+                            <div class="row">
+
+                                <!-- Estado -->
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                            <label style="color: #4a5568">Estado</label>
-                                            <select name="status" value="{{old('status') }}" class="form-control" data-gtm-form-interact-field-id="0" required style=" border:1px solid #fdde92da;" >
-                                                <option disabled>Ninguno</option>
-                                                <option value="activo" {{ $usuario->status == 'activo' ? 'selected' : '' }}>Activo</option>
-                                                <option value="inactivo" {{ $usuario->status == 'inactivo' ? 'selected' : '' }}>Inactivo</option>
-                                            </select>
-                                                @error('status')
-                                                <small style="color:red">{{ $message }}</small>                                               
-                                                @enderror    
-                                        </div>
+
+                                        <label style="color:#4a5568">Estado</label>
+
+                                        <select name="status" class="form-control" required 
+                                            style="border:1px solid #fdde92da;">
+
+                                            <option disabled>Ninguno</option>
+
+                                            <option value="activo"
+                                                {{ $usuario->status == 'activo' ? 'selected' : '' }}>
+                                                Activo
+                                            </option>
+
+                                            <option value="inactivo"
+                                                {{ $usuario->status == 'inactivo' ? 'selected' : '' }}>
+                                                Inactivo
+                                            </option>
+
+                                        </select>
+
+                                        @error('status')
+                                            <small style="color:red">{{ $message }}</small>
+                                        @enderror
+
                                     </div>
-                                    <!--Campo Rol medico,administrador o asistente--> 
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label style="color: #4a5568">Rol</label>
-                                            <select value="{{old('role') }}" name="role" class="form-control" id="rol" data-gtm-form-interact-field-id="0" required style=" border:1px solid #fdde92da;" >
-                                                 <option disabled>Ninguno</option>
-                                                <option value="admin" {{ $usuario->getRoleNames()->first() == 'admin' ? 'selected' : '' }}>
-                                                    Administrador
-                                                </option>
+                                </div>
 
-                                                <option value="asistente" {{ $usuario->getRoleNames()->first() == 'asistente' ? 'selected' : '' }}>
-                                                    Asistente
-                                                </option>
 
-                                                <option value="medico" {{ $usuario->getRoleNames()->first() == 'medico' ? 'selected' : '' }}>
-                                                    Medico
-                                                </option>
-                                            </select>
-                                                @error('role')
-                                                <small style="color:red">{{ $message }}</small>                                               
-                                                @enderror    
-                                        </div>
+                                <!-- Rol -->
+                                <div class="col-md-3">
+                                    <div class="form-group">
+
+                                        <label style="color:#4a5568">Rol</label>
+
+                                        <select name="role" id="rol" class="form-control" required
+                                            style="border:1px solid #fdde92da;">
+
+                                            <option disabled>Ninguno</option>
+
+                                            <option value="admin"
+                                            {{ $usuario->getRoleNames()->first() == 'admin' ? 'selected':'' }}>
+                                                Administrador
+                                            </option>
+
+
+                                            <option value="asistente"
+                                            {{ $usuario->getRoleNames()->first() == 'asistente' ? 'selected':'' }}>
+                                                Asistente
+                                            </option>
+
+
+                                            <option value="medico"
+                                            {{ $usuario->getRoleNames()->first() == 'medico' ? 'selected':'' }}>
+                                                Médico
+                                            </option>
+
+                                        </select>
+
+                                        @error('role')
+                                            <small style="color:red">{{ $message }}</small>
+                                        @enderror
+
                                     </div>
-                                    <!--campo especialidad-->
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label style="color: #4a5568">Especialidad</label>
-                                                <select  {{ $usuario->getRoleNames()->first() == 'medico' ? '' : 'disabled' }}  name="specialty" id="especialidad" class="form-control"   required style=" border:1px solid #fdde92da;" >                                       
-                                                 <option value="" disabled 
-                                                        {{ $usuario->getRoleNames()->first() != 'medico' ? 'selected' : '' }}>
-                                                        Seleccione
-                                                    </option>
+                                </div>
 
-                                                    <option value="Medicina general"
-                                                        {{ $usuario->specialty == 'Medicina general' ? 'selected' : '' }}>
-                                                        Medicina general
-                                                    </option>
+                                <!-- Especialidad -->
+                                <div class="col-md-3" id="divEspecialidad"
+                                    style="{{ $usuario->getRoleNames()->first() == 'medico' ? '' : 'display:none;' }}">
 
-                                                    <option value="Obstetricia"
-                                                        {{ $usuario->specialty == 'Obstetricia' ? 'selected' : '' }}>
-                                                        Obstetricia
-                                                    </option>
-                                            
-                                            </select>
-                                                @error('specialty')
-                                                    <small style="color:red">{{ $message }}</small>                                               
-                                                @enderror    
-                                        
-                                        </div>
+                                    <div class="form-group">
+
+                                        <label style="color:#4a5568">
+                                            Especialidad
+                                        </label>
+
+                                        <select 
+                                            name="specialty"
+                                            id="especialidad"
+                                            class="form-control"
+                                            {{ $usuario->getRoleNames()->first() == 'medico' ? '' : 'disabled' }}
+                                            style="border:1px solid #fdde92da;">
+
+
+                                            <option value="">
+                                                Seleccione
+                                            </option>
+
+
+                                            <option value="Medicina general"
+                                            {{ $usuario->specialty == 'Medicina general' ? 'selected':'' }}>
+                                                Medicina general
+                                            </option>
+
+
+                                            <option value="Obstetricia"
+                                            {{ $usuario->specialty == 'Obstetricia' ? 'selected':'' }}>
+                                                Obstetricia
+                                            </option>
+
+
+                                        </select>
+
+
+                                        @error('specialty')
+                                            <small style="color:red">{{ $message }}</small>
+                                        @enderror
+
+
                                     </div>
-
 
                                 </div>
-                                <div class="row">
-                                    <!-- Título profesional -->
-                                    
-                                    <div class="col-md-4">
 
-                                        <div class="form-group">
 
-                                            <label style="color:#4a5568">
-                                                Título profesional
-                                            </label>
 
-                                            <select
-                                                name="titulo_profesional"
-                                                id="titulo_profesional"
-                                                class="form-control"
-                                                style="border:1px solid #fdde92da;"required  >
 
-                                                <option value="">Seleccione</option>
+                                <!-- Título profesional -->
+                                <div class="col-md-3" id="divTitulo">
 
-                                                <option value="Dr." {{ $usuario->titulo_profesional == 'Dr.' ? 'selected' : '' }}>Dr.</option>
-                                                <option value="Dra." {{ $usuario->titulo_profesional == 'Dra.' ? 'selected' : '' }}>Dra.</option>
-                                                <option value="Lic.Enf." {{ $usuario->titulo_profesional == 'Lic.Enf.' ? 'selected' : '' }}>Lic.Enf.</option>
-                                                <option value="Licda.Enf." {{ $usuario->titulo_profesional == 'Licda.Enf.' ? 'selected' : '' }}>Licda.Enf.</option>
-                                                <option value="Mg." {{ $usuario->titulo_profesional == 'Mg.' ? 'selected' : '' }}>Mg.</option>
-                                                <option value="Esp." {{ $usuario->titulo_profesional == 'Esp.' ? 'selected' : '' }}>Esp.</option>
-                                                <option value="Téc.Enf." {{ $usuario->titulo_profesional == 'Téc.Enf.' ? 'selected' : '' }}>Téc.Enf.</option>
-                                                <option value="Enf." {{ $usuario->titulo_profesional == 'Enf.' ? 'selected' : '' }}>Enf.</option>
+                                    <div class="form-group">
 
-                                                <option value="otros"
-                                                    {{ !in_array($usuario->titulo_profesional,['Dr.','Dra.','Lic.Enf.','Licda.Enf.','Mg.','Esp.','Téc.Enf.','Enf.']) && $usuario->titulo_profesional ? 'selected' : '' }}>
-                                                    Otros
-                                                </option>
 
-                                            </select>
+                                        <label style="color:#4a5568">
+                                            Título profesional
+                                        </label>
 
-                                        </div>
+
+                                        <select 
+                                            name="titulo_profesional"
+                                            id="titulo_profesional"
+                                            class="form-control"
+                                            required
+                                            style="border:1px solid #fdde92da;">
+
+
+                                            <option value="">
+                                                Seleccione
+                                            </option>
+
+
+                                            <option value="Dr."
+                                            {{ $usuario->titulo_profesional=='Dr.'?'selected':'' }}>
+                                                Dr.
+                                            </option>
+
+
+                                            <option value="Dra."
+                                            {{ $usuario->titulo_profesional=='Dra.'?'selected':'' }}>
+                                                Dra.
+                                            </option>
+
+
+                                            <option value="Lic.Enf."
+                                            {{ $usuario->titulo_profesional=='Lic.Enf.'?'selected':'' }}>
+                                                Lic.Enf.
+                                            </option>
+
+
+                                            <option value="Licda.Enf."
+                                            {{ $usuario->titulo_profesional=='Licda.Enf.'?'selected':'' }}>
+                                                Licda.Enf.
+                                            </option>
+
+
+                                            <option value="Mg."
+                                            {{ $usuario->titulo_profesional=='Mg.'?'selected':'' }}>
+                                                Mg.
+                                            </option>
+
+
+                                            <option value="Esp."
+                                            {{ $usuario->titulo_profesional=='Esp.'?'selected':'' }}>
+                                                Esp.
+                                            </option>
+
+
+                                            <option value="Téc.Enf."
+                                            {{ $usuario->titulo_profesional=='Téc.Enf.'?'selected':'' }}>
+                                                Téc.Enf.
+                                            </option>
+
+
+                                            <option value="Enf."
+                                            {{ $usuario->titulo_profesional=='Enf.'?'selected':'' }}>
+                                                Enf.
+                                            </option>
+
+
+                                            <option value="otros"
+                                            {{ 
+                                            !in_array($usuario->titulo_profesional,
+                                            ['Dr.','Dra.','Lic.Enf.','Licda.Enf.','Mg.','Esp.','Téc.Enf.','Enf.'])
+                                            && $usuario->titulo_profesional 
+                                            ? 'selected':'' }}>
+                                                Otros
+                                            </option>
+
+
+                                        </select>
+
 
                                     </div>
 
-                                    <div class="col-md-4"
+                                </div>
+
+
+
+                                <!-- OTRO TITULO -->
+                                <div class="col-md-3"
                                     id="divOtroTitulo"
-                                    style="{{ !in_array($usuario->titulo_profesional,['Dr.','Dra.','Lic.Enf.','Licda.Enf.','Mg.','Esp.','Téc.Enf.','Enf.']) && $usuario->titulo_profesional ? '' : 'display:none;' }}">
+                                    style="
+                                    {{ 
+                                    !in_array($usuario->titulo_profesional,
+                                    ['Dr.','Dra.','Lic.Enf.','Licda.Enf.','Mg.','Esp.','Téc.Enf.','Enf.'])
+                                    && $usuario->titulo_profesional
+                                    ? ''
+                                    : 'display:none;'
+                                    }}">
+
 
                                     <div class="form-group">
+
 
                                         <label style="color:#4a5568">
                                             Especifique el título
                                         </label>
 
-                                        <input
+
+                                        <input 
                                             type="text"
                                             name="otro_titulo"
                                             id="otroTitulo"
                                             class="form-control"
-                                            value="{{ !in_array($usuario->titulo_profesional,['Dr.','Dra.','Lic.','Licda.','Mg.','Esp.','Téc.']) ? $usuario->titulo_profesional : '' }}"
+                                            value="{{ 
+                                            !in_array($usuario->titulo_profesional,
+                                            ['Dr.','Dra.','Lic.Enf.','Licda.Enf.','Mg.','Esp.','Téc.Enf.','Enf.'])
+                                            ? $usuario->titulo_profesional
+                                            : ''
+                                            }}"
                                             placeholder="Ejemplo: PhD."
                                             style="border:1px solid #fdde92da;">
 
+
                                     </div>
 
+
                                 </div>
-                                </div>
+
+
+                            </div>
+                                
+                                
+                              
                                 
                                 <!--Boton cancelar y Guardar datos-->
                                 <div class="row">
@@ -277,42 +405,63 @@
         
     </div>
 
-    <!--script que permite que al momento de seleccionar medico se habilite el campo especialidad-->
-         <script>
+ <script>
+    const rol = document.getElementById('rol');
 
-const rol = document.getElementById('rol');
-const especialidad = document.getElementById('especialidad');
+    const divEspecialidad = document.getElementById('divEspecialidad');
+    const especialidad = document.getElementById('especialidad');
 
-const titulo = document.getElementById('titulo_profesional');
-const divOtroTitulo = document.getElementById('divOtroTitulo');
-const otroTitulo = document.getElementById('otroTitulo');
+    const titulo = document.getElementById('titulo_profesional');
+    const divOtroTitulo = document.getElementById('divOtroTitulo');
+    const otroTitulo = document.getElementById('otroTitulo');
 
-rol.addEventListener('change', function(){
 
-    if(this.value === 'medico'){
-        especialidad.disabled = false;
-    }else{
-        especialidad.disabled = true;
-        especialidad.value = "";
+    function actualizarFormulario(){
+
+        // Mostrar especialidad solo si es médico
+        if(rol.value === "medico"){
+
+            divEspecialidad.style.display="block";
+
+            especialidad.disabled=false;
+            especialidad.required=true;
+
+        }else{
+
+            divEspecialidad.style.display="none";
+
+            especialidad.disabled=true;
+            especialidad.required=false;
+            especialidad.value="";
+
+        }
+
+
+
+        // Mostrar otro título
+        if(titulo.value==="otros"){
+
+            divOtroTitulo.style.display="block";
+            otroTitulo.required=true;
+
+        }else{
+
+            divOtroTitulo.style.display="none";
+            otroTitulo.required=false;
+            otroTitulo.value="";
+
+        }
+
     }
 
-});
 
-titulo.addEventListener('change', function(){
 
-    if(this.value === 'otros'){
-        divOtroTitulo.style.display = 'block';
-    }else{
-        divOtroTitulo.style.display = 'none';
-        otroTitulo.value = '';
-    }
+    rol.addEventListener('change', actualizarFormulario);
 
-});
+    titulo.addEventListener('change', actualizarFormulario);
 
-// Al cargar la página
-if(titulo.value === 'otros'){
-    divOtroTitulo.style.display = 'block';
-}
 
-</script>@endsection
+    actualizarFormulario();
+ </script>
+@endsection
 

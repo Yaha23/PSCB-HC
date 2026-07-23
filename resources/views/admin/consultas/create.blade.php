@@ -90,9 +90,17 @@
     </div>
 
     <div class="col-md-6">
-        <label style="color: #4a5568" >Especialidad:</label>
-        <input type="text" name="especialidad" id="especialidad"
-               class="form-control" readonly style=" border:1px solid #fdde92da;background-color:#fdde92da" >
+        <label style="color:#4a5568;">Especialidad:</label>
+
+        <input
+            type="text"
+            name="especialidad"
+            id="especialidad"
+            class="form-control"
+            readonly
+            style="border:1px solid #fdde92da;
+                background-color:#fdde92da;
+                text-transform:uppercase;">
     </div>
 
 </div>

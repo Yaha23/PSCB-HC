@@ -89,7 +89,17 @@ class PacienteController extends Controller
         'grupo_sanguineo' => 'required',
     ]);
 
-    Paciente::create($request->all());
+    if ($request->grupo_sanguineo == 'otros') {
+
+            $request->merge([
+                'grupo_sanguineo' => $request->otro_grupo_sanguineo
+            ]);
+
+        }
+
+        Paciente::create($request->all());
+
+    
 
     return redirect()
         ->route($this->getRouteBase().'.pacientes.index')
@@ -142,8 +152,16 @@ public function update(Request $request, $id)
         'direccion' => 'required',
         'grupo_sanguineo' => 'required',
     ]);
+        $datos = $request->all();
 
-    $paciente->update($request->all());
+            if ($request->grupo_sanguineo == 'otros') {
+
+                $datos['grupo_sanguineo'] = $request->otro_grupo_sanguineo;
+
+            }
+
+            $paciente->update($datos);
+
 
     return redirect()
         ->route($this->getRouteBase().'.pacientes.index')

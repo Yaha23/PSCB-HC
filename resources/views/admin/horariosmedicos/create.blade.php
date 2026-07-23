@@ -48,7 +48,7 @@
                                                     value="{{ $medico->id }}"
                                                     data-especialidad="{{ $medico->specialty }}"
                                                     {{ old('medico_id') == $medico->id ? 'selected' : '' }}>
-                                                    {{ $medico->name }} {{ $medico->surname }}
+                                                    {{$medico->titulo_profesional ?? ''}} {{ $medico->name }} {{ $medico->surname }}
                                                 </option>
                                             @endforeach
                                                                                     </select>

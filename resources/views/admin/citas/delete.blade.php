@@ -36,7 +36,7 @@
                         <label  style="color: #4a5568">Médico:</label>
                         <input type="text"
                                class="form-control"
-                               value="{{ $cita->medico->name ?? '---' }}   {{ $cita->medico->surname ?? '' }}"
+                               value="{{$cita->medico->titulo_profesional ?? ''}} {{ $cita->medico->name ?? '---' }} {{ $cita->medico->surname ?? '' }}"
                                disabled style="background-color: #f6e48bb1; border:1px solid #fdde92da;">
                     </div>
 

@@ -171,7 +171,7 @@
                     <div class="row">
 
                         {{-- EMAIL --}}
-                        <div class="col-md-4">
+                        <div class="col-md-3">
 
                             <div class="form-group">
 
@@ -197,7 +197,7 @@
                         </div>
 
                         {{-- GENERO --}}
-                        <div class="col-md-4">
+                        <div class="col-md-3">
 
                             <div class="form-group">
 
@@ -233,35 +233,65 @@
                         </div>
 
                         {{-- ESTADO CIVIL --}}
-                        <div class="col-md-4">
+                  
+                        <div class="col-md-3">
 
                             <div class="form-group">
 
                                 <label style="color:#4a5568;">
-                                    Estado Civil
+                                    Estado Civil:
                                 </label>
+
 
                                 <select name="estado_civil"
                                         class="form-control"
                                         required
                                         style="border:1px solid #fdde92da;">
 
+
+                                    <option value="" disabled>
+                                        Seleccione
+                                    </option>
+
+
                                     <option value="soltero"
                                         {{ $paciente->estado_civil == 'soltero' ? 'selected' : '' }}>
-                                        Soltero
+                                        Soltero(a)
                                     </option>
+
 
                                     <option value="casado"
                                         {{ $paciente->estado_civil == 'casado' ? 'selected' : '' }}>
-                                        Casado
+                                        Casado(a)
                                     </option>
+
+
+                                    <option value="conviviente"
+                                        {{ $paciente->estado_civil == 'conviviente' ? 'selected' : '' }}>
+                                        Conviviente
+                                    </option>
+
+
+                                    <option value="divorciado"
+                                        {{ $paciente->estado_civil == 'divorciado' ? 'selected' : '' }}>
+                                        Divorciado(a)
+                                    </option>
+
 
                                     <option value="viudo"
                                         {{ $paciente->estado_civil == 'viudo' ? 'selected' : '' }}>
-                                        Viudo
+                                        Viudo(a)
                                     </option>
 
+
+                                    <option value="separado"
+                                        {{ $paciente->estado_civil == 'separado' ? 'selected' : '' }}>
+                                        Separado(a)
+                                    </option>
+
+
                                 </select>
+
 
                                 @error('estado_civil')
                                     <small style="color:red">
@@ -269,19 +299,12 @@
                                     </small>
                                 @enderror
 
+
                             </div>
 
-                        </div>
-
-                    </div>
-
-                    <br>
-
-                    {{-- FILA 3 --}}
-                    <div class="row">
-
+</div>
                         {{-- CELULAR --}}
-                        <div class="col-md-4">
+                        <div class="col-md-3">
 
                             <div class="form-group">
 
@@ -306,8 +329,17 @@
 
                         </div>
 
+                    </div>
+
+                    <br>
+
+                    {{-- FILA 3 --}}
+                    <div class="row">
+
+                        
+
                         {{-- DIRECCION --}}
-                        <div class="col-md-4">
+                        <div class="col-md-3">
 
                             <div class="form-group">
 
@@ -333,39 +365,68 @@
                         </div>
 
                         {{-- GRUPO SANGUINEO --}}
-                        <div class="col-md-4">
+                        @php
+    $gruposNormales = ['A+','A-','B+','B-','AB+','AB-','O+','O-'];
 
-                            <div class="form-group">
+    $esOtroGrupo = !in_array($paciente->grupo_sanguineo, $gruposNormales);
+@endphp
 
-                                <label style="color:#4a5568;">
-                                    Grupo Sanguíneo
-                                </label>
+{{-- GRUPO SANGUÍNEO --}}
+<div class="col-md-3">
 
-                                <select name="grupo_sanguineo"
-                                        class="form-control"
-                                        required
-                                        style="border:1px solid #fdde92da;">
+    <div class="form-group">
 
-                                    @foreach(['A+','A-','B+','B-','AB+','AB-','O+','O-'] as $grupo)
+        <label style="color:#4a5568;">
+            Grupo Sanguíneo
+        </label>
 
-                                        <option value="{{ $grupo }}"
-                                            {{ $paciente->grupo_sanguineo == $grupo ? 'selected' : '' }}>
-                                            {{ $grupo }}
-                                        </option>
+        <select
+            name="grupo_sanguineo"
+            id="grupo_sanguineo"
+            class="form-control"
+            required
+            style="border:1px solid #fdde92da;">
 
-                                    @endforeach
+            @foreach($gruposNormales as $grupo)
 
-                                </select>
+                <option value="{{ $grupo }}"
+                    {{ !$esOtroGrupo && $paciente->grupo_sanguineo == $grupo ? 'selected' : '' }}>
+                    {{ $grupo }}
+                </option>
 
-                                @error('grupo_sanguineo')
-                                    <small style="color:red">
-                                        {{ $message }}
-                                    </small>
-                                @enderror
+            @endforeach
 
-                            </div>
+            <option value="otros" {{ $esOtroGrupo ? 'selected' : '' }}>
+                Otros
+            </option>
 
-                        </div>
+        </select>
+
+    </div>
+
+</div>
+
+{{-- ESPECIFICAR GRUPO --}}
+<div class="col-md-3 {{ $esOtroGrupo ? '' : 'd-none' }}" id="divOtroGrupo">
+
+    <div class="form-group">
+
+        <label style="color:#4a5568;">
+            Especifique el grupo sanguíneo
+        </label>
+
+        <input
+            type="text"
+            name="otro_grupo_sanguineo"
+            id="otro_grupo_sanguineo"
+            class="form-control"
+            value="{{ $esOtroGrupo ? $paciente->grupo_sanguineo : '' }}"
+            placeholder="Ejemplo: Bombay (hh)"
+            style="border:1px solid #fdde92da;">
+
+    </div>
+
+</div>
 
                     </div>
 
@@ -412,5 +473,35 @@
     </div>
 
 </div>
+
+<script>
+
+const grupo = document.getElementById('grupo_sanguineo');
+const divOtroGrupo = document.getElementById('divOtroGrupo');
+const otroGrupo = document.getElementById('otro_grupo_sanguineo');
+
+function mostrarOcultarGrupo() {
+
+    if (grupo.value === 'otros') {
+
+        divOtroGrupo.classList.remove('d-none');
+        otroGrupo.required = true;
+
+    } else {
+
+        divOtroGrupo.classList.add('d-none');
+        otroGrupo.required = false;
+        otroGrupo.value = '';
+
+    }
+
+}
+
+grupo.addEventListener('change', mostrarOcultarGrupo);
+
+// Al cargar la página
+mostrarOcultarGrupo();
+
+</script>
 
 @endsection

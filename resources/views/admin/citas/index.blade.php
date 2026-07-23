@@ -149,6 +149,7 @@
                             </td>
                              <!-- Médico -->
                             <td class="text-center">
+                                {{$cita->medico->titulo_profesional ?? ''}} 
                                 {{ $cita->medico->name ?? '---' }} 
                                 {{ $cita->medico->surname ?? '' }}
                             </td>

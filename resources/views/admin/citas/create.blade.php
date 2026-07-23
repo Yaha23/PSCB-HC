@@ -63,7 +63,7 @@
                                                 <option value="" disabled selected>Seleccione</option>
                                                 @foreach($medicos as $medico)
                                                     <option value="{{ $medico->id }}">
-                                                    {{ $medico->name }} {{ $medico->surname }}
+                                                    {{$medico->titulo_profesional ?? ''}} {{ $medico->name }} {{ $medico->surname }}
                                                     </option>
                                                 @endforeach
                                             </select>

@@ -215,7 +215,7 @@
                         </td>
 
                         <td class="text-center">
-                            {{ $paciente->genero }}
+                            {{ ucfirst($paciente->genero) }}
                         </td>
 
                         <td class="text-center">

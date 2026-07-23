@@ -110,7 +110,7 @@
 
         <input class="form-control"
                readonly
-               value="{{ $consulta->medico->name ?? 'No asignado' }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
+               value="{{$consulta->medico->titulo_profesional ?? ''}} {{$consulta->medico->name ?? ''}} {{$consulta->medico->surname ?? ''}}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
     </div>
 
     <div class="col-md-6">

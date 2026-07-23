@@ -237,9 +237,9 @@ table td {
 
                     <td>{{ \Carbon\Carbon::parse($consulta->fecha_atencion)->format('d/m/Y') }}</td>
 
-                    <td>{{ $consulta->medico->name ?? '---' }}</td>
+                    <td>{{$consulta->medico->titulo_profesional ?? ''}} {{$consulta->medico->name ?? ''}} {{$consulta->medico->surname ?? ''}}</td>
 
-                    <td>{{ $consulta->especialidad }}</td>
+                    <td style="text-transform:uppercase;">{{ $consulta->especialidad }}</td>
 
                  <td class="text-center">
 

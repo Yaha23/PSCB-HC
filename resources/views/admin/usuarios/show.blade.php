@@ -103,7 +103,7 @@
                             <br>
                                 <div class="row">
                                     <!--Campo estado de la cuenta Activa o Inactiva--> 
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                     <div class="form-group">
                                             <label  style="color: #4a5568">Estado</label>
                                             <select name="status" class="form-control" disabled     style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
@@ -117,7 +117,7 @@
                                         </div>
                                     </div>
                                     <!--Campo Rol medico,administrador o asistente--> 
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label  style="color: #4a5568">Rol</label>
                                                 @php
@@ -147,77 +147,61 @@
                                         </div>
                                     </div>
                                     <!--campo especialidad-->
-                                    <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label style="color:#4a5568;">Especialidad</label>
+                                   
+                                    @php
+                                        $rol = $usuario->getRoleNames()->first();
+                                    @endphp
 
-                                        @php
-                                            $rol = $usuario->getRoleNames()->first();
-                                        @endphp
 
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            value="{{ $rol == 'medico' ? $usuario->specialty : 'No aplica' }}"
-                                            disabled
-                                            style="background-color:#f6e48bb1;border:1px solid #fdde92da;cursor:not-allowed;"
-                                        >
-                                    </div>
-                                </div>
+                                    @if($rol == 'medico')
 
-                                @php
-                                $titulosPredeterminados = [
-                                    'Dr.',
-                                    'Dra.',
-                                    'Lic.Enf.',
-                                    'Licda.Enf.',
-                                    'Mg.',
-                                    'Esp.',
-                                    'Téc.Enf.',
-                                    'Enf.'
-                                ];
+                                    <div class="col-md-3" id="divEspecialidad">
 
-                                $esOtroTitulo = $usuario->titulo_profesional &&
-                                                !in_array($usuario->titulo_profesional, $titulosPredeterminados);
-                            @endphp
-
-                            <div class="row mt-3">
-
-                                <!-- Título profesional -->
-                                <div class="{{ $esOtroTitulo ? 'col-md-6' : 'col-md-12' }}">
-                                    <div class="form-group">
-                                        <label style="color:#4a5568;">Título profesional</label>
-
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            value="{{ $esOtroTitulo ? 'Otros' : ($usuario->titulo_profesional ?? 'No registrado') }}"
-                                            disabled
-                                            style="background-color:#f6e48bb1;
-                                                border:1px solid #fdde92da;
-                                                cursor:not-allowed;">
-                                    </div>
-                                </div>
-
-                                @if($esOtroTitulo)
-                                    <!-- Especifique el título -->
-                                    <div class="col-md-6">
                                         <div class="form-group">
-                                            <label style="color:#4a5568;">Especifique el título</label>
+
+                                            <label style="color:#4a5568;">
+                                                Especialidad
+                                            </label>
+
 
                                             <input
                                                 type="text"
                                                 class="form-control"
-                                                value="{{ $usuario->titulo_profesional }}"
+                                                value="{{ $usuario->specialty }}"
                                                 disabled
-                                                style="background-color:#f6e48bb1;
-                                                    border:1px solid #fdde92da;
-                                                    cursor:not-allowed;">
-                                        </div>
-                                    </div>
-                                @endif
+                                                style="
+                                                background-color:#f6e48bb1;
+                                                border:1px solid #fdde92da;
+                                                cursor:not-allowed;"
+                                            >
 
-                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    @endif
+                                   
+                                <div class="col-md-3">
+
+                                        <div class="form-group">
+
+                                            <label style="color:#4a5568;">
+                                                 Título profesional
+                                            </label>
+
+                                            <input type="text"
+                                                value="{{ $usuario->titulo_profesional }}"
+                                                class="form-control"
+                                                readonly
+                                                style="background-color:#f6e48bb1;
+                                                        border:1px solid #fdde92da;">
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                          
                                 
                                
                                 

@@ -92,6 +92,7 @@
 
                             <!-- Médico -->
                            <td class="text-center">
+                                {{$horariosmedico->medico->titulo_profesional ?? ''}}
                                 {{ $horariosmedico->medico->name ?? '---' }} 
                                 {{ $horariosmedico->medico->surname ?? '' }}
                             </td>

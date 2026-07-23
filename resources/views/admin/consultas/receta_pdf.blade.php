@@ -445,7 +445,7 @@ Tratamiento
 <div class="linea-firma">
 
 
-{{ strtoupper($consulta->medico->name . ' ' . $consulta->medico->surname) }}
+{{$consulta->medico->titulo_profesional ?? ''}} {{ strtoupper($consulta->medico->name . ' ' . $consulta->medico->surname) }}
 
 
 </div>

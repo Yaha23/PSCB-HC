@@ -66,9 +66,9 @@
                                                 <option value="" disabled selected>Seleccione</option>
                                                 @foreach($medicos as $medico)
                                                     <option value="{{ $medico->id }}"
-                                                        {{ $medico->id == $cita->medico_id ? 'selected' : '' }}>
+                                                         {{ $medico->id == $cita->medico_id ? 'selected' : '' }}>
                                                         
-                                                        {{ $medico->name }} {{ $medico->surname }}
+                                                       {{$cita->medico->titulo_profesional ?? ''}} {{ $medico->name }} {{ $medico->surname }}
                                                     </option>
                                                 @endforeach
                                             </select>

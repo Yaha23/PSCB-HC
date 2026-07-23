@@ -714,7 +714,7 @@ V. INDICACIONES / TRATAMIENTO
 <br>
 
 
-{{$consulta->medico->name ?? ''}}
+{{$consulta->medico->titulo_profesional ?? ''}} {{$consulta->medico->name ?? ''}} {{$consulta->medico->surname ?? ''}}
 
 
 <br>

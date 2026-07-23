@@ -171,7 +171,7 @@
                     <div class="row">
 
                         {{-- EMAIL --}}
-                        <div class="col-md-4">
+                        <div class="col-md-3">
 
                             <div class="form-group">
 
@@ -198,7 +198,7 @@
                         </div>
 
                         {{-- GENERO --}}
-                        <div class="col-md-4">
+                        <div class="col-md-3">
 
                             <div class="form-group">
 
@@ -236,7 +236,7 @@
                         </div>
 
                         {{-- ESTADO CIVIL --}}
-                        <div class="col-md-4">
+                        <div class="col-md-3">
 
                             <div class="form-group">
 
@@ -253,33 +253,20 @@
                                         Seleccione
                                     </option>
 
-                                    <option value="soltero">
-                                        Soltero
-                                    </option>
-
-                                    <option value="casado">
-                                        Casado
-                                    </option>
-
-                                    <option value="viudo">
-                                        Viudo
-                                    </option>
+                                    <option value="soltero">Soltero(a)</option>
+                                    <option value="casado">Casado(a)</option>
+                                    <option value="conviviente">Conviviente</option>
+                                    <option value="divorciado">Divorciado(a)</option>
+                                    <option value="viudo">Viudo(a)</option>
+                                    <option value="separado">Separado(a)</option>
 
                                 </select>
 
                             </div>
 
                         </div>
-
-                    </div>
-
-                    <br>
-
-                    {{-- FILA 3 --}}
-                    <div class="row">
-
-                        {{-- CELULAR --}}
-                        <div class="col-md-4">
+                         {{-- CELULAR --}}
+                        <div class="col-md-3">
 
                             <div class="form-group">
 
@@ -299,8 +286,17 @@
 
                         </div>
 
+                    </div>
+
+                    <br>
+
+                    {{-- FILA 3 --}}
+                    <div class="row">
+
+                       
+
                         {{-- DIRECCION --}}
-                        <div class="col-md-4">
+                        <div class="col-md-3">
 
                             <div class="form-group">
 
@@ -320,8 +316,8 @@
 
                         </div>
 
-                        {{-- GRUPO SANGUINEO --}}
-                        <div class="col-md-4">
+                        {{-- GRUPO SANGUÍNEO --}}
+                        <div class="col-md-3">
 
                             <div class="form-group">
 
@@ -329,10 +325,12 @@
                                     Grupo Sanguíneo:
                                 </label>
 
-                                <select name="grupo_sanguineo"
-                                        class="form-control"
-                                        required
-                                        style="border:1px solid #fdde92da;">
+                                <select
+                                    name="grupo_sanguineo"
+                                    id="grupo_sanguineo"
+                                    class="form-control"
+                                    required
+                                    style="border:1px solid #fdde92da;">
 
                                     <option value="" disabled selected>
                                         Seleccione
@@ -347,13 +345,42 @@
                                     <option value="O+">O+</option>
                                     <option value="O-">O-</option>
 
+                                    <option value="otros">Otros</option>
+
                                 </select>
 
                             </div>
 
                         </div>
 
+                        
+
+                        <div class="col-md-3 d-none" id="divOtroGrupo">
+
+                            <div class="form-group">
+
+                                <label style="color:#4a5568;">
+                                    Especifique el grupo sanguíneo:
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="otro_grupo_sanguineo"
+                                    id="otro_grupo_sanguineo"
+                                    class="form-control"
+                                    placeholder="Ejemplo: Bombay (hh)"
+                                    style="border:1px solid #fdde92da;">
+
+                            </div>
+
+                        </div>
+
                     </div>
+
+
+                    
+
+                   
 
                     <hr>
 
@@ -398,5 +425,42 @@
     </div>
 
 </div>
+<script>
+
+const grupo = document.getElementById('grupo_sanguineo');
+const divOtroGrupo = document.getElementById('divOtroGrupo');
+const otroGrupo = document.getElementById('otro_grupo_sanguineo');
+
+grupo.addEventListener('change', function () {
+
+    if (this.value === 'otros') {
+
+        divOtroGrupo.classList.remove('d-none');
+        otroGrupo.required = true;
+
+    } else {
+
+        divOtroGrupo.classList.add('d-none');
+        otroGrupo.required = false;
+        otroGrupo.value = '';
+
+    }
+
+});
+
+// Al cargar la página
+if (grupo.value === 'otros') {
+
+    divOtroGrupo.classList.remove('d-none');
+    otroGrupo.required = true;
+
+} else {
+
+    divOtroGrupo.classList.add('d-none');
+    otroGrupo.required = false;
+
+}
+
+</script>
 
 @endsection

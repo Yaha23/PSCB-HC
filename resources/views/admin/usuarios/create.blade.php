@@ -123,114 +123,201 @@
                                     </h3>
                                 <br>
                                     <div class="row">
-                                        <!--Campo estado de la cuenta Activa o Inactiva--> 
-                                        <div class="col-md-4">
-                                        <div class="form-group">
-                                                <label style="color: #4a5568">Estado:</label>
-                                                <select name="status" value="{{old('status') }}" class="form-control" data-gtm-form-interact-field-id="0" required style=" border:1px solid #fdde92da;" >
-                                                    <option value="" disabled selected>Ninguno</option>
-                                                    <option value="activo">Activo</option>
-                                                    <option value="inactivo">Inactivo</option>
-                                                </select>
-                                                    @error('status')
-                                                    <small style="color:red">{{ $message }}</small>                                               
-                                                    @enderror    
-                                            </div>
-                                        </div>
-                                        <!--Campo Rol medico,administrador o asistente--> 
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label style="color: #4a5568">Rol:</label>
-                                                <select value="{{old('role') }}" name="role" class="form-control" id="rol" data-gtm-form-interact-field-id="0" required style=" border:1px solid #fdde92da;" >
-                                                    <option value="" disabled selected>Ninguno</option>
-                                                    <option value="admin">Administrador</option>
-                                                    <option value="asistente">Asistente</option>
-                                                    <option value="medico">Medico</option>
 
-                                                </select>
-                                                    @error('role')
-                                                    <small style="color:red">{{ $message }}</small>                                               
-                                                    @enderror    
-                                            </div>
-                                        </div>
-                                        <!--campo especialidad-->
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label style="color: #4a5568">Especialidad:</label>
-                                                    <select value="{{old('specialty') }}" name="specialty" id="especialidad" class="form-control"  disabled="" required style=" border:1px solid #fdde92da;" >                                       
-                                                    <option value="" disabled selected >Seleccione</option>
-                                                    <option value="medicina general">Medicina general</option>
-                                                    <option value="obstetricia">Obstetricia</option>
-                                                
-                                                </select>
-                                                    @error('specialty')
-                                                        <small style="color:red">{{ $message }}</small>                                               
-                                                    @enderror    
-                                            
-                                            </div>
-                                        </div>
+    <!-- Estado -->
+    <div class="col-md-3">
+        <div class="form-group">
 
-                                       
+            <label style="color:#4a5568">Estado:</label>
+
+            <select name="status" class="form-control" required
+            style="border:1px solid #fdde92da;">
+
+                <option value="" disabled selected>Ninguno</option>
+                <option value="activo">Activo</option>
+                <option value="inactivo">Inactivo</option>
+
+            </select>
+
+        </div>
+    </div>
 
 
-                                    </div>
+    <!-- Rol -->
+    <div class="col-md-3">
 
-                                    <div class="row">
-                                        <div class="col-md-4">
+        <div class="form-group">
 
-                                            <div class="form-group">
+            <label style="color:#4a5568">Rol:</label>
 
-                                                <label style="color:#4a5568">
-                                                    Título profesional:
-                                                </label>
+            <select name="role" id="rol" class="form-control" required
+            style="border:1px solid #fdde92da;">
 
-                                                <select
-                                                    name="titulo_profesional"
-                                                    id="titulo_profesional"
-                                                    class="form-control"
-                                                    style="border:1px solid #fdde92da;">
+                <option value="" disabled selected>Ninguno</option>
 
-                                                    <option value="">Seleccione</option>
+                <option value="admin">
+                    Administrador
+                </option>
 
-                                                    <option value="Dr.">Dr.</option>
-                                                    <option value="Dra.">Dra.</option>
-                                                    <option value="Lic.Enf.">Licda.Enf.</option>
-                                                    <option value="Licda.Enf.">Licda.Enf.</option>
-                                                    <option value="Mg.">Mg.</option>
-                                                    <option value="Esp.">Esp.</option>
-                                                    <option value="Téc.Enf.">Téc.Enf.</option>
-                                                    <option value="Enf.">Enf.</option>
+                <option value="asistente">
+                    Asistente
+                </option>
 
-                                                    <option value="otros">Otros</option>
+                <option value="medico">
+                    Médico
+                </option>
 
-                                                </select>
+            </select>
 
-                                            </div>
+        </div>
 
-                                        </div>
-                                        <div class="col-md-4" id="divOtroTitulo" style="display:none;">
+    </div>
 
-                                        <div class="form-group">
 
-                                            <label style="color:#4a5568">
 
-                                                Especifique el título
 
-                                            </label>
+    <!-- Especialidad -->
+    <div class="col-md-3" id="divEspecialidad" style="display:none;">
 
-                                            <input
-                                                type="text"
-                                                id="otroTitulo"
-                                                class="form-control"
-                                                placeholder="Ejemplo: PhD."
-                                                style="border:1px solid #fdde92da;">
+        <div class="form-group">
 
-                                        </div>
-                                    </div>
 
-                                        
+            <label style="color:#4a5568">
+                Especialidad:
+            </label>
 
-                                </div>
+
+            <select 
+                name="specialty"
+                id="especialidad"
+                class="form-control"
+                disabled
+                style="border:1px solid #fdde92da;">
+
+
+                <option value="">
+                    Seleccione
+                </option>
+
+
+                <option value="Medicina general">
+                    Medicina general
+                </option>
+
+
+                <option value="Obstetricia">
+                    Obstetricia
+                </option>
+
+
+            </select>
+
+
+        </div>
+
+    </div>
+
+
+
+
+
+    <!-- Titulo profesional -->
+    <div class="col-md-3">
+
+        <div class="form-group">
+
+
+            <label style="color:#4a5568">
+                Título profesional:
+            </label>
+
+
+            <select
+                name="titulo_profesional"
+                id="titulo_profesional"
+                class="form-control"
+                required
+                style="border:1px solid #fdde92da;">
+
+
+                <option value="">
+                    Seleccione
+                </option>
+
+                <option value="Dr.">
+                    Dr.
+                </option>
+
+                <option value="Dra.">
+                    Dra.
+                </option>
+
+                <option value="Lic.Enf.">
+                    Lic.Enf.
+                </option>
+
+                <option value="Licda.Enf.">
+                    Licda.Enf.
+                </option>
+
+                <option value="Mg.">
+                    Mg.
+                </option>
+
+                <option value="Esp.">
+                    Esp.
+                </option>
+
+                <option value="Téc.Enf.">
+                    Téc.Enf.
+                </option>
+
+                <option value="Enf.">
+                    Enf.
+                </option>
+
+                <option value="otros">
+                    Otros
+                </option>
+
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+
+
+    <!-- Otro título -->
+    <div class="col-md-3" id="divOtroTitulo" style="display:none;">
+
+
+        <div class="form-group">
+
+            <label style="color:#4a5568">
+                Especifique el título:
+            </label>
+
+
+            <input
+                type="text"
+                name="otro_titulo"
+                id="otroTitulo"
+                class="form-control"
+                placeholder="Ejemplo: PhD."
+                style="border:1px solid #fdde92da;">
+
+
+        </div>
+
+
+    </div>
+
+
+
+</div>
                                     
                                     <!--Boton cancelar y Guardar datos-->
                                     <div class="row">
@@ -259,48 +346,95 @@
         <!--script que permite que al momento de seleccionar medico se habilite el campo especialidad-->
             <script>
                     
-                document.getElementById('rol').addEventListener('change', function () {
+               document.addEventListener("DOMContentLoaded", function(){
 
-                    let especialidad = document.getElementById('especialidad');
 
-                    // Siempre desactivado por defecto
-                    especialidad.disabled = true;
-                    especialidad.value = "";
+    const rol = document.getElementById('rol');
 
-                    // SOLO si es médico → activar
-                    if (this.value === 'medico') {
-                        especialidad.disabled = false;
-                    }
+    const divEspecialidad = document.getElementById('divEspecialidad');
 
-                });
+    const especialidad = document.getElementById('especialidad');
 
-                document.getElementById('titulo_profesional').addEventListener('change', function(){
 
-                        let otro = document.getElementById('divOtroTitulo');
+    const titulo = document.getElementById('titulo_profesional');
 
-                        let input = document.getElementById('otroTitulo');
+    const divOtroTitulo = document.getElementById('divOtroTitulo');
 
-                        if(this.value=="otros"){
 
-                            otro.style.display="block";
 
-                            this.removeAttribute('name');
+    function actualizarCampos(){
 
-                            input.setAttribute('name','titulo_profesional');
 
-                        }else{
+        // ==========================
+        // CONTROL ESPECIALIDAD
+        // ==========================
 
-                            otro.style.display="none";
+        if(rol.value === "medico"){
 
-                            input.value="";
 
-                            input.removeAttribute('name');
+            divEspecialidad.style.display="block";
 
-                            this.setAttribute('name','titulo_profesional');
 
-                        }
+            especialidad.disabled=false;
 
-                    });
+            especialidad.required=true;
+
+
+
+        }else{
+
+
+            divEspecialidad.style.display="none";
+
+
+            especialidad.disabled=true;
+
+            especialidad.required=false;
+
+            especialidad.value="";
+
+
+        }
+
+
+
+
+
+        // ==========================
+        // CONTROL OTRO TITULO
+        // ==========================
+
+
+        if(titulo.value==="otros"){
+
+
+            divOtroTitulo.style.display="block";
+
+
+        }else{
+
+
+            divOtroTitulo.style.display="none";
+
+
+            document.getElementById('otroTitulo').value="";
+
+
+        }
+
+
+
+    }
+
+
+
+    rol.addEventListener('change', actualizarCampos);
+
+
+    titulo.addEventListener('change', actualizarCampos);
+
+
+});
             </script>
 
 

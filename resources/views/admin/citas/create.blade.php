@@ -59,11 +59,16 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label  style="color: #4a5568">Medico:</label>
-                                            <select name="medico_id" id="" class="form-control" required style=" border:1px solid #fdde92da;" required >
+                                            <select name="medico_id"  id="medico_id" class="form-control" required style=" border:1px solid #fdde92da;" required >
                                                 <option value="" disabled selected>Seleccione</option>
                                                 @foreach($medicos as $medico)
-                                                    <option value="{{ $medico->id }}">
-                                                    {{$medico->titulo_profesional ?? ''}} {{ $medico->name }} {{ $medico->surname }}
+                                                    <option
+                                                        value="{{ $medico->id }}"
+                                                        data-especialidad="{{ $medico->specialty }}"
+                                                    >
+                                                        {{ $medico->titulo_profesional ?? '' }}
+                                                        {{ $medico->name }}
+                                                        {{ $medico->surname }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -73,7 +78,28 @@
                                         
                                         </div>
                                     </div>
-                                    <!--Hora-->
+                                    <!-- Especialidad -->
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label style="color:#4a5568">Especialidad:</label>
+
+                                            <input type="text"
+                                                id="especialidad"
+                                                class="form-control"
+                                                readonly
+                                                style="border:1px solid #fdde92da; background-color:#fdde92da;text-transform:uppercase;">
+                                        </div>
+                                    </div>
+                                   
+                                    
+                                    
+
+                                </div>   
+                                                          
+                                <br>
+                                
+                                <div class="row">
+                                     <!--Hora-->
                                      <div class="col-md-4">
                                         <div class="form ground">
                                         <label for=""  style="color: #4a5568">Fecha :</label>
@@ -84,14 +110,6 @@
                                         </div>
                                     </div>
                                     
-                                    
-                                    
-
-                                </div>   
-                                                          
-                                <br>
-                                
-                                <div class="row">
                                     
                                      <div class="col-md-4">
                                         <div class="form ground">
@@ -160,35 +178,22 @@
         
     </div>
 
-   <script>
-        document.addEventListener('DOMContentLoaded', function () {
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
 
-            const medicoSelect = document.getElementById('medico_id');
-            const especialidadSelect = document.getElementById('especialidad');
+        const medicoSelect = document.getElementById('medico_id');
+        const especialidad = document.getElementById('especialidad');
 
-            medicoSelect.addEventListener('change', function () {
+        medicoSelect.addEventListener('change', function () {
 
-                let especialidad = this.options[this.selectedIndex].dataset.especialidad;
+            const opcion = this.options[this.selectedIndex];
 
-                if (!especialidad) return;
-
-                // recorrer opciones de especialidad
-                for (let i = 0; i < especialidadSelect.options.length; i++) {
-
-                    if (especialidadSelect.options[i].value === especialidad) {
-                        especialidadSelect.selectedIndex = i;
-                        break;
-                    }
-                }
-
-            });
+            especialidad.value = opcion.dataset.especialidad || '';
 
         });
-        </script>
 
+    });
+    </script>
 
-
-    
-
-@endsection
+ @endsection
 

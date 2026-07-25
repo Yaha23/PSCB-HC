@@ -35,4 +35,10 @@ public function signosVitales()
 {
     return $this->hasOne(SignoVital::class);
 }
+
+public function documentos()
+{
+    return $this->hasMany(DocumentoMedico::class);
+}
+
 }

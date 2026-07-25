@@ -61,33 +61,53 @@
                                      <!--campo medico-->
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label  style="color: #4a5568">Medico:</label>
-                                            <select name="medico_id" id="" class="form-control" required style=" border:1px solid #fdde92da;">
-                                                <option value="" disabled selected>Seleccione</option>
+                                            <label style="color:#4a5568">Médico:</label>
+
+                                            <select name="medico_id"
+                                                    id="medico_id"
+                                                    class="form-control"
+                                                    style="border:1px solid #fdde92da;"
+                                                    required>
+
+                                                <option value="" disabled>Seleccione</option>
+
                                                 @foreach($medicos as $medico)
-                                                    <option value="{{ $medico->id }}"
-                                                         {{ $medico->id == $cita->medico_id ? 'selected' : '' }}>
+                                                    <option
+                                                        value="{{ $medico->id }}"
+                                                        data-especialidad="{{ $medico->specialty }}"
+                                                        {{ $medico->id == $cita->medico_id ? 'selected' : '' }}>
                                                         
-                                                       {{$cita->medico->titulo_profesional ?? ''}} {{ $medico->name }} {{ $medico->surname }}
+                                                        {{ $medico->titulo_profesional ?? '' }}
+                                                        {{ $medico->name }}
+                                                        {{ $medico->surname }}
                                                     </option>
                                                 @endforeach
+
                                             </select>
-                                                @error('medico_id')
-                                                    <small style="color:red">{{ $message }}</small>                                               
-                                                @enderror    
-                                        
+
+                                            @error('medico_id')
+                                                <small style="color:red">{{ $message }}</small>
+                                            @enderror
+
                                         </div>
                                     </div>
-                                    <!--Hora-->
-                                     <div class="col-md-4">
-                                        <div class="form ground">
-                                        <label for=""  style="color: #4a5568">Fecha :</label>
-                                            <input type="date" value="{{ $cita->fecha }}"  name="fecha"class="form-control" id="" placeholder="fecha de atencion" required  style=" border:1px solid #fdde92da;"  >
-                                                @error('fecha')
-                                                <small style="color:red">{{ $message }}</small>                                               
-                                                @enderror    
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label style="color:#4a5568">Especialidad:</label>
+
+                                            <input
+                                                type="text"
+                                                id="especialidad"
+                                                class="form-control"
+                                                value="{{ strtoupper($cita->medico->specialty ?? '') }}"
+                                                readonly
+                                                style="border:1px solid #fdde92da;
+                                                    background-color:#fdde92da;
+                                                    text-transform:uppercase;">
                                         </div>
                                     </div>
+                                   
                                     
                                     
                                     
@@ -97,6 +117,17 @@
                                 <br>
                                 
                                 <div class="row">
+
+                                     <!--Hora-->
+                                     <div class="col-md-4">
+                                        <div class="form ground">
+                                        <label for=""  style="color: #4a5568">Fecha :</label>
+                                            <input type="date" value="{{ $cita->fecha }}"  name="fecha"class="form-control" id="" placeholder="fecha de atencion" required  style=" border:1px solid #fdde92da;"  >
+                                                @error('fecha')
+                                                <small style="color:red">{{ $message }}</small>                                               
+                                                @enderror    
+                                        </div>
+                                    </div>
                                     
                                      <div class="col-md-4">
                                         <div class="form ground">
@@ -165,31 +196,27 @@
         
     </div>
 
-   <script>
+    <script>
         document.addEventListener('DOMContentLoaded', function () {
 
             const medicoSelect = document.getElementById('medico_id');
-            const especialidadSelect = document.getElementById('especialidad');
+            const especialidad = document.getElementById('especialidad');
 
-            medicoSelect.addEventListener('change', function () {
+            function actualizarEspecialidad() {
+                const opcion = medicoSelect.options[medicoSelect.selectedIndex];
+                especialidad.value = opcion.dataset.especialidad || '';
+            }
 
-                let especialidad = this.options[this.selectedIndex].dataset.especialidad;
+            // Mostrar la especialidad del médico seleccionado al abrir la página
+            actualizarEspecialidad();
 
-                if (!especialidad) return;
-
-                // recorrer opciones de especialidad
-                for (let i = 0; i < especialidadSelect.options.length; i++) {
-
-                    if (especialidadSelect.options[i].value === especialidad) {
-                        especialidadSelect.selectedIndex = i;
-                        break;
-                    }
-                }
-
-            });
+            // Actualizar si cambia el médico
+            medicoSelect.addEventListener('change', actualizarEspecialidad);
 
         });
-        </script>
+    </script>
+
+
 
 
 

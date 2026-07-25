@@ -37,7 +37,24 @@
                                disabled style="background-color: #f6e48bb1; border:1px solid #fdde92da;">
                     </div>
 
-                    <!-- FECHA -->
+                    <!-- ESPECIALIDAD -->
+                    <div class="col-md-4">
+                        <label style="color:#4a5568">Especialidad:</label>
+                        <input type="text"
+                            class="form-control"
+                            value="{{ strtoupper($cita->medico->specialty ?? '') }}"
+                            disabled
+                            style="background-color:#f6e48bb1; border:1px solid #fdde92da;">
+                    </div>
+
+                  
+
+                </div>
+
+                <br>
+
+                <div class="row">
+                      <!-- FECHA -->
                     <div class="col-md-4">
                         <label  style="color: #4a5568" >Fecha:</label>
                         <input type="text"
@@ -46,18 +63,12 @@
                                disabled style="background-color: #f6e48bb1; border:1px solid #fdde92da;">
                     </div>
 
-                </div>
-
-                <br>
-
-                <div class="row">
-
                     <!-- HORA -->
                     <div class="col-md-4">
                         <label  style="color: #4a5568">Hora:</label>
                         <input type="text"
                                class="form-control"
-                               value="{{ $cita->hora }}"
+                               value="{{ \Carbon\Carbon::createFromFormat('H:i:s', $cita->hora)->format('h:i a') }}"
                                disabled style="background-color: #f6e48bb1; border:1px solid #fdde92da;">
                     </div>
 

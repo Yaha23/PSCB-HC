@@ -125,6 +125,7 @@ Route::prefix('admin')
     '/consultas/store',
     [ConsultaController::class,'store']
     )->name('consultas.store');
+    
 
     Route::get(
     'consultas/{id}',
@@ -163,6 +164,8 @@ Route::prefix('admin')
     'consultas/{id}/receta-pdf',
     [ConsultaController::class,'recetaPdf']
     )->name('consultas.recetaPdf');
+
+
 });
 
 

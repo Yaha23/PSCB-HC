@@ -111,7 +111,7 @@
 <hr>
 
 <h5 style="font-size:12px; color:#6c757d; font-weight:500;">
-    Ingrese los Signos Vitales
+    Ingrese los Signos Vitales( Examen Físico)
 
      <i class="bi bi-activity" style="margin-left:10px; color:#9aa0a6;"></i>
 </h5>
@@ -163,9 +163,26 @@
 <div class="row">
 
     <div class="col-md-4">
-        <label style="color: #4a5568" >Fecha Atención:</label>
-        <input type="date" name="fecha_atencion" class="form-control" required style=" border:1px solid #fdde92da;" >
+        <label style="color:#4a5568;">Fecha_Atención:</label>
+        <input type="date"
+               name="fecha_atencion"
+               class="form-control"
+               required
+               style="border:1px solid #fdde92da;">
     </div>
+
+    <div class="col-md-4">
+        <label style="color:#4a5568;">Hora_Atención:</label>
+        <input type="time"
+               name="hora_atencion"
+               class="form-control"
+               style="border:1px solid #fdde92da;">
+    </div>
+
+    {{-- ================= PRÓXIMA CITA ================= --}}
+
+
+
 
 </div>
 
@@ -174,25 +191,250 @@
 {{-- ================= SOLO MÉDICO ================= --}}
 @if($isMedico || $isAdmin)
 
+<hr>
+
+<h5 style="font-size:12px;color:#6c757d;font-weight:500;">
+    Atención Médica
+    <i class="bi bi-file-earmark-medical-fill"
+       style="margin-left:10px;color:#9aa0a6;"></i>
+</h5>
+
+{{-- ================= MOTIVO ================= --}}
+
 <div class="row">
 
-    <div class="col-md-12">
-        <label style="color: #4a5568" >Diagnóstico:</label>
-        <textarea name="diagnostico_principal" class="form-control" rows="3" style=" border:1px solid #fdde92da;" ></textarea>
+    <div class="col-md-3">
+        <label style="color:#4a5568;">Motivo de Consulta:</label>
+        <input type="text"
+               name="motivo_consulta"
+               class="form-control"
+               placeholder="consulta..."
+               style="border:1px solid #fdde92da;">
+        
+    </div>
+
+    {{-- ================= TIEMPO ================= --}}
+
+     <div class="col-md-3">
+        <label style="color:#4a5568;">Tiempo de Enfermedad:</label>
+
+        <input type="text"
+               name="tiempo_enfermedad"
+               class="form-control"
+               placeholder="Ej. 3 días"
+               style="border:1px solid #fdde92da;">
+    </div>
+
+    <div class="col-md-3">
+        <label style="color: #4a5568 ">Apetito:</label>
+
+        <select name="apetito"
+                class="form-control"
+                style="border:1px solid #fdde92da;">
+
+            <option value="">Seleccione</option>
+            <option>Normal</option>
+            <option>Disminuido</option>
+            <option>Aumentado</option>
+
+        </select>
+    </div>
+    <div class="col-md-3">
+
+        <label style="color: #4a5568 "  >Sed:</label>
+
+        <select name="sed"
+                class="form-control"
+                style="border:1px solid #fdde92da;">
+
+            <option value="">Seleccione</option>
+            <option>Normal</option>
+            <option>Aumentada</option>
+            <option>Disminuida</option>
+
+        </select>
+
+    </div>
+
+
+
+</div>
+
+<br>
+
+
+
+{{-- ================= ANAMNESIS ================= --}}
+
+<div class="row">
+
+    
+     <div class="col-md-3">
+
+        <label style="color: #4a5568 " >Sueño:</label>
+
+        <select name="sueno"
+                class="form-control"
+                style="border:1px solid #fdde92da;">
+
+            <option value="">Seleccione</option>
+            <option>Normal</option>
+            <option>Alterado</option>
+
+        </select>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <label style="color: #4a5568 "  >Estado de Ánimo:</label>
+
+        <input type="text"
+               name="estado_animo"
+               class="form-control"
+               style="border:1px solid #fdde92da;">
+
+    </div>
+
+    <div class="col-md-3">
+
+        <label style="color: #4a5568 "  >Orina:</label>
+
+        <input type="text"
+               name="orina"
+               class="form-control"
+               style="border:1px solid #fdde92da;">
+
+    </div>
+
+    <div class="col-md-3">
+
+        <label style="color: #4a5568 " >Deposiciones:</label>
+
+        <input type="text"
+               name="deposiciones"
+               class="form-control"
+               style="border:1px solid #fdde92da;">
+
     </div>
 
 </div>
 
 <br>
 
+
+
+{{-- ================= DIAGNÓSTICO ================= --}}
+
 <div class="row">
 
-    <div class="col-md-12">
-        <label style="color: #4a5568" >Tratamiento:</label>
-        <textarea name="tratamiento" class="form-control" rows="3" style=" border:1px solid #fdde92da;" ></textarea>
+    <div class="col-md-6">
+
+        <label style="color:#4a5568;">
+            Diagnóstico
+        </label>
+
+        <textarea
+            name="diagnostico_principal"
+            rows="3"
+            class="form-control"
+            style="border:1px solid #fdde92da;"></textarea>
+
+    </div>
+{{-- ================= TRATAMIENTO ================= --}}
+    <div class="col-md-6">
+
+        <label style="color:#4a5568;">
+            Tratamiento
+        </label>
+
+        <textarea
+            name="tratamiento"
+            rows="3"
+            class="form-control"
+            style="border:1px solid #fdde92da;"></textarea>
+
+    </div>
+</div>
+
+
+
+
+<br>
+
+{{-- ================= ACUERDOS ================= --}}
+
+<div class="row">
+
+    <div class="col-md-6">
+
+         <label style="color: #4a5568" >Acuerdos y Compromisos:</label>
+
+        <textarea
+            name="acuerdos_compromisos"
+            rows="3"
+            class="form-control"
+            style="border:1px solid #fdde92da;"></textarea>
+
+    </div>
+
+    {{-- ================= EXÁMENES ================= --}}
+
+    <div class="col-md-6">
+
+       <label style="color: #4a5568" >Exámenes Auxiliares:</label>
+
+        <textarea
+            name="examenes_auxiliares"
+            rows="3"
+            class="form-control"
+            style="border:1px solid #fdde92da;"></textarea>
+
     </div>
 
 </div>
+
+<br>
+
+
+{{-- ================= REFERENCIA ================= --}}
+
+<div class="row">
+
+    <div class="col-md-6">
+
+        <label style="color: #4a5568" >Referencia:</label>
+
+        <textarea
+            name="referencia"
+            rows="3"
+            class="form-control"
+            style="border:1px solid #fdde92da;"></textarea>
+
+    </div>
+
+    {{-- ================= OBSERVACIONES ================= --}}
+
+    <div class="col-md-6">
+
+        <label style="color: #4a5568" >Observaciones:</label>
+
+        <textarea
+            name="observaciones"
+            rows="3"
+            class="form-control"
+            style="border:1px solid #fdde92da;"></textarea>
+
+    </div>
+
+</div>
+
+
+<br>
+
+
+
+
 
 @endif
 

@@ -226,7 +226,7 @@ border:1px solid #fdde92da;
 <div class="col-md-4">
 
 <label style="color:#4a5568;">
-Hora Inicio:
+Hora_Inicio:
 </label>
 
 
@@ -256,7 +256,7 @@ border:1px solid #fdde92da;
 <div class="col-md-4">
 
 <label style="color:#4a5568;">
-Hora Fin:
+Hora_Fin:
 </label>
 
 

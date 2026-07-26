@@ -58,13 +58,13 @@
 
 <div class="row">
 
-    <div class="col-md-3">
+    <div class="col-md-2">
         <label style="color: #4a5568" >Nombres Completos:</label>
         <input class="form-control"
                readonly
                value="{{ $consulta->paciente->nombres }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         <label style="color: #4a5568" >Apellidos Completos:</label>
         <input class="form-control"
                readonly
@@ -88,7 +88,15 @@
     <div class="col-md-2">
                     <label style="color: #4a5568" >Fecha de Consulta:</label>
                     <input class="form-control" readonly value="{{ \Carbon\Carbon::parse($consulta->fecha_atencion)->format('d/m/Y')}}" style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
-                </div>
+    </div>
+    <div class="col-md-2">
+        <label style="color:#4a5568;">Hora de Atención:</label>
+
+        <input class="form-control"
+            readonly
+            value="{{ \Carbon\Carbon::createFromFormat('H:i:s', $consulta->hora_atencion)->format('h:i a') }}"
+            style="background-color:#f6e48bb1;border:1px solid #fdde92da;">
+    </div>
 
     
 
@@ -253,55 +261,193 @@
 @if($isMedico || $isAdmin)
 
 <hr>
-
-{{-- ================= DIAGNÓSTICO ================= --}}
-<h5 style="font-size:12px; color:#6c757d; font-weight:500;">
-    Diagnóstico Médico
-     <i class="bi bi-journal-medical" style="margin-left:10px; color:#9aa0a6;"></i>
+<h5 style="font-size:12px;color:#6c757d;font-weight:500;">
+    Atención Médica
+    <i class="bi bi-file-earmark-medical-fill"
+       style="margin-left:10px;color:#9aa0a6;"></i>
 </h5>
 
 <div class="row">
+      <div class="col-md-3">
+         <label style="color:#4a5568;">Motivo de Consulta:</label>
+        <input class="form-control"
+               readonly
+               value="{{ $consulta->motivo_consulta }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
+    </div>
 
-    <div class="col-md-12">
+    <div class="col-md-3">
+         <label style="color:#4a5568;">Tiempo de Enfermedad:</label>
+        <input class="form-control"
+               readonly
+               value="{{ $consulta->tiempo_enfermedad }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
+    </div>
+      <div class="col-md-3">
+         <label style="color:#4a5568;">Apetito:</label>
+        <input class="form-control"
+               readonly
+               value="{{ $consulta->apetito }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
+    </div>
 
-        <textarea class="form-control"
-          rows="4"
-          readonly
-          style="background-color:#f6e48bb1;
-                 color:{{ empty($consulta->diagnostico_principal) ? 'red' : '#000' }};
-                 font-size:13px;
-                 border:1px solid #fdde92da;
-                 cursor:not-allowed;">{{ $consulta->diagnostico_principal ?? 'Pendiente de evaluación médica' }}</textarea>
+    <div class="col-md-3">
+         <label style="color:#4a5568;">Sed:</label>
+        <input class="form-control"
+               readonly
+               value="{{ $consulta->sed }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
+    </div>
 
+    
+     
+
+
+    
+
+</div>
+<div class="row">
+     <div class="col-md-3">
+         <label style="color:#4a5568;">Sueño:</label>
+        <input class="form-control"
+               readonly
+               value="{{ $consulta->sueno }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
+    </div>
+     <div class="col-md-3">
+         <label style="color:#4a5568;">Estado de Ánimo:</label>
+        <input class="form-control"
+               readonly
+               value="{{ $consulta->estado_animo }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
+    </div>
+     <div class="col-md-3">
+         <label style="color:#4a5568;">Orina:</label>
+        <input class="form-control"
+               readonly
+               value="{{ $consulta->orina }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
+    </div>
+     <div class="col-md-3">
+         <label style="color:#4a5568;">Deposiciones:</label>
+        <input class="form-control"
+               readonly
+               value="{{ $consulta->deposiciones }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
     </div>
 
 </div>
 
-<hr>
 
-{{-- ================= TRATAMIENTO ================= --}}
-<h5 style="font-size:12px; color:#6c757d; font-weight:500;">
-    Tratamiento
-     <i class="bi bi-prescription2" style="margin-left:10px; color:#9aa0a6;"></i>
-</h5>
+
+<br>
 
 <div class="row">
 
-    <div class="col-md-12">
 
-        <textarea class="form-control"
-          rows="4"
-          readonly
-          style="background-color:#f6e48bb1;
-                 color:{{ empty($consulta->tratamiento) ? 'red' : '#000' }};
-                 font-size:13px;
-                 border:1px solid #fdde92da;
-                 cursor:not-allowed;">{{ $consulta->tratamiento ?? 'Pendiente de registro' }}</textarea>
+    <div class="col-md-6">
 
+         <label style="color: #4a5568" >Diagnostico:</label>
+
+        <div class="input-group">
+
+                <textarea class="form-control"
+                rows="4"
+                readonly
+                style="background-color:#f6e48bb1;
+                        color:{{ empty($consulta->diagnostico_principal) ? 'red' : '#000' }};
+                        font-size:13px;
+                        border:1px solid #fdde92da;
+                        cursor:not-allowed;">{{ $consulta->diagnostico_principal ?? 'Pendiente de evaluación médica' }}</textarea>
+        </div>
+    </div>
+
+     <div class="col-md-6">
+
+         <label style="color: #4a5568" >Tratamiento:</label>
+
+        <div class="input-group">
+
+                <textarea class="form-control"
+                rows="4"
+                readonly
+                style="background-color:#f6e48bb1;
+                        color:{{ empty($consulta->tratamiento) ? 'red' : '#000' }};
+                        font-size:13px;
+                        border:1px solid #fdde92da;
+                        cursor:not-allowed;">{{ $consulta->tratamiento?? 'Pendiente registro' }}</textarea>
+        </div>
     </div>
 
 </div>
 
+<div class="row">
+
+    <div class="col-md-6">
+
+         <label style="color: #4a5568" >Acuerdos y Compromisos:</label>
+
+        <div class="input-group">
+
+                <textarea class="form-control"
+                rows="4"
+                readonly
+                style="background-color:#f6e48bb1;
+                        color:{{ empty($consulta->acuerdos_compromisos) ? 'red' : '#000' }};
+                        font-size:13px;
+                        border:1px solid #fdde92da;
+                        cursor:not-allowed;">{{ $consulta->acuerdos_compromisos ?? 'Pendiente registro' }}</textarea>
+        </div>
+    </div>
+
+     <div class="col-md-6">
+
+         <label style="color: #4a5568" >Exámenes Auxiliares:</label>
+
+        <div class="input-group">
+
+                <textarea class="form-control"
+                rows="4"
+                readonly
+                style="background-color:#f6e48bb1;
+                        color:{{ empty($consulta->examenes_auxiliares) ? 'red' : '#000' }};
+                        font-size:13px;
+                        border:1px solid #fdde92da;
+                        cursor:not-allowed;">{{ $consulta->examenes_auxiliares?? 'Pendiente registro' }}</textarea>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="col-md-6">
+
+         <label style="color: #4a5568" >Referencia:</label>
+
+        <div class="input-group">
+
+                <textarea class="form-control"
+                rows="4"
+                readonly
+                style="background-color:#f6e48bb1;
+                        color:{{ empty($consulta->referencia) ? 'red' : '#000' }};
+                        font-size:13px;
+                        border:1px solid #fdde92da;
+                        cursor:not-allowed;">{{ $consulta->referencia ?? 'Pendiente registro' }}</textarea>
+        </div>
+    </div>
+
+     <div class="col-md-6">
+
+         <label style="color: #4a5568" >Observaciones:</label>
+
+        <div class="input-group">
+
+                <textarea class="form-control"
+                rows="4"
+                readonly
+                style="background-color:#f6e48bb1;
+                        color:{{ empty($consulta->observaciones) ? 'red' : '#000' }};
+                        font-size:13px;
+                        border:1px solid #fdde92da;
+                        cursor:not-allowed;">{{ $consulta->observaciones?? 'Pendiente registro' }}</textarea>
+        </div>
+    </div>
+
+</div>
 
 
 

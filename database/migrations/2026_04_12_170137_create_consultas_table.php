@@ -12,23 +12,99 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('consultas', function (Blueprint $table) {
-    $table->id();
 
-    $table->foreignId('paciente_id')->constrained()->onDelete('cascade');
-    $table->foreignId('medico_id')->constrained('users')->onDelete('cascade');
+            $table->id();
 
-    $table->string('especialidad');
-    $table->date('fecha_atencion');
+            //==========================
+            // RELACIONES
+            //==========================
+            $table->foreignId('paciente_id')
+                ->constrained()
+                ->onDelete('cascade');
 
-    $table->text('diagnostico_principal')->nullable();
-    $table->text('tratamiento')->nullable();
+            $table->foreignId('medico_id')
+                ->constrained('users')
+                ->onDelete('cascade');
 
-    // 🔥 CLAVE DEL FLUJO
-    $table->enum('estado', ['pendiente','revision','finalizada'])
-          ->default('pendiente');
+            $table->foreignId('asistente_id')
+            ->nullable()
+            ->constrained('users')
+            ->nullOnDelete();
 
-    $table->timestamps();
-});
+            //==========================
+            // DATOS GENERALES
+            //==========================
+            $table->string('especialidad');
+
+            $table->date('fecha_atencion');
+
+            $table->time('hora_atencion')->nullable();
+
+            //==========================
+            // ANAMNESIS
+            //==========================
+            $table->text('motivo_consulta')->nullable();
+
+            $table->string('tiempo_enfermedad')->nullable();
+
+            $table->string('apetito')->nullable();
+
+            $table->string('sed')->nullable();
+
+            $table->string('sueno')->nullable();
+
+            $table->string('estado_animo')->nullable();
+
+            $table->string('orina')->nullable();
+
+            $table->string('deposiciones')->nullable();
+
+        
+
+            //==========================
+            // DIAGNÓSTICO
+            //==========================
+            $table->text('diagnostico_principal')->nullable();
+
+            //==========================
+            // TRATAMIENTO
+            //==========================
+            $table->text('tratamiento')->nullable();
+
+            //==========================
+            // ACUERDOS
+            //==========================
+            $table->text('acuerdos_compromisos')->nullable();
+
+            //==========================
+            // EXÁMENES
+            //==========================
+            $table->text('examenes_auxiliares')->nullable();
+
+            //==========================
+            // REFERENCIA
+            //==========================
+            $table->text('referencia')->nullable();
+
+          
+
+            //==========================
+            // OBSERVACIONES
+            //==========================
+            $table->text('observaciones')->nullable();
+
+            //==========================
+            // ESTADO DE LA CONSULTA
+            //==========================
+            $table->enum('estado', [
+                'pendiente',
+                'revision',
+                'finalizada'
+            ])->default('pendiente');
+
+            $table->timestamps();
+
+        });
     }
 
     /**

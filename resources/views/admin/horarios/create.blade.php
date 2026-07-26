@@ -127,7 +127,7 @@
                                 <div class="col-md-4">
 
                                     <label style="color:#4a5568">
-                                        Hora Inicio:
+                                        Hora_Inicio:
                                     </label>
 
                                     <input type="time"
@@ -144,7 +144,7 @@
                                 <div class="col-md-4">
 
                                     <label style="color:#4a5568">
-                                        Hora Fin:
+                                        Hora_Fin:
                                     </label>
 
                                     <input type="time"

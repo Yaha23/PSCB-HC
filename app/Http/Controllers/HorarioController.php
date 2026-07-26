@@ -268,55 +268,11 @@ class HorarioController extends Controller
 
 
 
-    public function update(Request $request, $id)
+ public function update(Request $request, $id)
 {
-        if($request->rol == 'medico'){
-
-        $conflicto = Horario::whereHas('user', function ($query) use ($usuario){
-
-                $query->where('specialty', $usuario->specialty);
-
-            })
-
-            ->where('id','!=',$id)
-
-            ->where('dia_semana',$request->dia_semana)
-
-            ->where(function($query) use($request){
-
-                $query->whereBetween('hora_inicio',[
-                    $request->hora_inicio,
-                    $request->hora_fin
-                ])
-
-                ->orWhereBetween('hora_fin',[
-                    $request->hora_inicio,
-                    $request->hora_fin
-                ])
-
-                ->orWhere(function($q) use($request){
-
-                    $q->where('hora_inicio','<=',$request->hora_inicio)
-                    ->where('hora_fin','>=',$request->hora_fin);
-
-                });
-
-            })
-
-            ->exists();
-
-        if($conflicto){
-
-            return back()
-                ->withInput()
-                ->with('mensaje','Ya existe un horario para esa especialidad')
-                ->with('icono','error');
-
-        }
-
-    }
     $request->validate([
         'user_id'      => 'required|exists:users,id',
+        'rol'          => 'required',
         'dia_semana'   => 'required',
         'hora_inicio'  => 'required',
         'hora_fin'     => 'required',
@@ -326,67 +282,73 @@ class HorarioController extends Controller
 
     $usuario = User::findOrFail($request->user_id);
 
-    $conflicto = Horario::whereHas('user', function ($query) use ($usuario) {
+    // Validación únicamente para médicos
+    if ($request->rol == 'medico') {
 
-            $query->where('specialty', $usuario->specialty);
+        $conflicto = Horario::whereHas('user', function ($query) use ($usuario) {
 
-        })
+                $query->where('specialty', $usuario->specialty);
 
-        ->where('id', '!=', $id)
+            })
 
-        ->where('dia_semana', $request->dia_semana)
+            ->where('id', '!=', $id)
 
-        ->where(function ($query) use ($request) {
+            ->where('dia_semana', $request->dia_semana)
 
-            $query->whereBetween('hora_inicio', [
-                $request->hora_inicio,
-                $request->hora_fin
-            ])
+            ->where(function ($query) use ($request) {
 
-            ->orWhereBetween('hora_fin', [
-                $request->hora_inicio,
-                $request->hora_fin
-            ])
+                $query->whereBetween('hora_inicio', [
+                    $request->hora_inicio,
+                    $request->hora_fin
+                ])
 
-            ->orWhere(function ($q) use ($request) {
+                ->orWhereBetween('hora_fin', [
+                    $request->hora_inicio,
+                    $request->hora_fin
+                ])
 
-                $q->where('hora_inicio', '<=', $request->hora_inicio)
-                  ->where('hora_fin', '>=', $request->hora_fin);
+                ->orWhere(function ($q) use ($request) {
 
-            });
+                    $q->where('hora_inicio', '<=', $request->hora_inicio)
+                      ->where('hora_fin', '>=', $request->hora_fin);
 
-        })
+                });
 
-        ->exists();
+            })
 
-    if ($conflicto) {
+            ->exists();
 
-        return back()
-            ->withInput()
-            ->with('mensaje', 'Existe conflicto de horario.')
-            ->with('icono', 'error');
+        if ($conflicto) {
+
+            return back()
+                ->withInput()
+                ->with('mensaje', 'Ya existe un horario para esa especialidad.')
+                ->with('icono', 'error');
+
+        }
+
     }
 
     $horario->update([
 
-        'user_id'       => $request->user_id,
+        'user_id' => $request->user_id,
 
         'especialidad' => $request->rol == 'medico'
-                    ? $usuario->specialty
-                    : null,
+            ? $usuario->specialty
+            : null,
 
-        'dia_semana'    => $request->dia_semana,
+        'dia_semana' => $request->dia_semana,
 
-        'hora_inicio'   => $request->hora_inicio,
+        'hora_inicio' => $request->hora_inicio,
 
-        'hora_fin'      => $request->hora_fin,
+        'hora_fin' => $request->hora_fin,
 
     ]);
 
     return redirect()
         ->route($this->getRouteBase().'.horarios.index')
-        ->with('mensaje','Horario actualizado correctamente')
-        ->with('icono','success');
+        ->with('mensaje', 'Horario actualizado correctamente')
+        ->with('icono', 'success');
 }
 
 

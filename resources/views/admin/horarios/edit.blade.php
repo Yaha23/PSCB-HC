@@ -162,7 +162,7 @@
 
                             <label style="color:#4a5568">
 
-                                Hora Inicio:
+                                Hora_Inicio:
 
                             </label>
 
@@ -170,7 +170,7 @@
                                 type="time"
                                 name="hora_inicio"
                                 class="form-control"
-                                value="{{ $horario->hora_inicio }}"
+                                value="{{ \Carbon\Carbon::parse($horario->hora_inicio)->format('H:i') }}"
                                 required
                                 style="border:1px solid #fdde92da;">
 
@@ -180,7 +180,7 @@
 
                             <label style="color:#4a5568">
 
-                                Hora Fin:
+                                Hora_Fin:
 
                             </label>
 
@@ -188,7 +188,7 @@
                                 type="time"
                                 name="hora_fin"
                                 class="form-control"
-                                value="{{ $horario->hora_fin }}"
+                                value="{{ \Carbon\Carbon::parse($horario->hora_fin)->format('H:i') }}"
                                 required
                                 style="border:1px solid #fdde92da;">
 

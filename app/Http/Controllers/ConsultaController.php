@@ -89,22 +89,66 @@ public function store(Request $request)
     $consulta = Consulta::create([
 
     'paciente_id' => $request->paciente_id,
+
     'medico_id' => $request->medico_id,
+
+    'asistente_id' => auth()->user()->hasRole('asistente')
+        ? auth()->id()
+        : null,
+
     'especialidad' => $request->especialidad,
+
     'fecha_atencion' => $request->fecha_atencion,
+
+    'hora_atencion' => $request->hora_atencion,
+
+    'motivo_consulta' => $request->motivo_consulta,
+
+    'tiempo_enfermedad' => $request->tiempo_enfermedad,
+
+    'apetito' => $request->apetito,
+
+    'sed' => $request->sed,
+
+    'sueno' => $request->sueno,
+
+    'estado_animo' => $request->estado_animo,
+
+    'orina' => $request->orina,
+
+    'deposiciones' => $request->deposiciones,
 
     'diagnostico_principal' =>
         auth()->user()->hasRole('admin')
-        ? $request->diagnostico_principal
-        : null,
+            ? $request->diagnostico_principal
+            : null,
 
     'tratamiento' =>
         auth()->user()->hasRole('admin')
-        ? $request->tratamiento
-        : null,
+            ? $request->tratamiento
+            : null,
 
-    'estado' =>
+    'acuerdos_compromisos' =>
         auth()->user()->hasRole('admin')
+            ? $request->acuerdos_compromisos
+            : null,
+
+    'examenes_auxiliares' =>
+        auth()->user()->hasRole('admin')
+            ? $request->examenes_auxiliares
+            : null,
+
+    'referencia' =>
+        auth()->user()->hasRole('admin')
+            ? $request->referencia
+            : null,
+
+    'observaciones' =>
+        auth()->user()->hasRole('admin')
+            ? $request->observaciones
+            : null,
+
+    'estado' => auth()->user()->hasRole('admin')
         ? 'finalizada'
         : 'pendiente'
 
@@ -141,7 +185,10 @@ public function store(Request $request)
      * VER UNA CONSULTA
      */
     public function show($id)
+    
     {
+
+    
         $consulta = Consulta::with(
             'paciente',
             'medico',
@@ -235,12 +282,41 @@ public function update(Request $request, $id)
         // Actualizar asignación médica
 
         $consulta->update([
-
             'medico_id'=>$request->medico_id,
             'especialidad'=>$request->especialidad,
             'fecha_atencion'=>$request->fecha_atencion,
 
-        ]);
+            'diagnostico_principal'=>$request->diagnostico_principal,
+
+            'tratamiento'=>$request->tratamiento,
+
+            'motivo_consulta'=>$request->motivo_consulta,
+
+            'tiempo_enfermedad'=>$request->tiempo_enfermedad,
+
+            'apetito'=>$request->apetito,
+
+            'sed'=>$request->sed,
+
+            'sueno'=>$request->sueno,
+
+            'estado_animo'=>$request->estado_animo,
+
+            'orina'=>$request->orina,
+
+            'deposiciones'=>$request->deposiciones,
+
+            'acuerdos_compromisos'=>$request->acuerdos_compromisos,
+
+            'examenes_auxiliares'=>$request->examenes_auxiliares,
+
+            'referencia'=>$request->referencia,
+
+            'observaciones'=>$request->observaciones,
+
+            'estado'=>'finalizada'
+
+            ]);
 
 
 
@@ -303,18 +379,43 @@ public function update(Request $request, $id)
 
 
 
+       
         $consulta->update([
-
             'medico_id'=>$request->medico_id,
             'especialidad'=>$request->especialidad,
             'fecha_atencion'=>$request->fecha_atencion,
 
             'diagnostico_principal'=>$request->diagnostico_principal,
+
             'tratamiento'=>$request->tratamiento,
+
+            'motivo_consulta'=>$request->motivo_consulta,
+
+            'tiempo_enfermedad'=>$request->tiempo_enfermedad,
+
+            'apetito'=>$request->apetito,
+
+            'sed'=>$request->sed,
+
+            'sueno'=>$request->sueno,
+
+            'estado_animo'=>$request->estado_animo,
+
+            'orina'=>$request->orina,
+
+            'deposiciones'=>$request->deposiciones,
+
+            'acuerdos_compromisos'=>$request->acuerdos_compromisos,
+
+            'examenes_auxiliares'=>$request->examenes_auxiliares,
+
+            'referencia'=>$request->referencia,
+
+            'observaciones'=>$request->observaciones,
 
             'estado'=>'finalizada'
 
-        ]);
+            ]);
 
 
 

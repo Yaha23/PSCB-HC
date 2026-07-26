@@ -41,7 +41,7 @@
                                     <!--Campo usuario-->
                                     <div class="col-md-4">
                                         <div class="form ground">
-                                        <label for=""  style="color: #4a5568" >Nombre de Usuario</label>
+                                        <label for=""  style="color: #4a5568" >Nombre de Usuario:</label>
                                             <input type="text" value="{{$usuario->name }}" name="name"  class="form-control" id="" placeholder="Nombres" required   style=" border:1px solid #fdde92da;">
                                                 @error('name')
                                                 <small style="color:red">{{ $message }}</small>                                               
@@ -52,7 +52,7 @@
 
                                      <div class="col-md-4">
                                         <div class="form ground">
-                                        <label for=""  style="color: #4a5568">Apellidos</label>
+                                        <label for=""  style="color: #4a5568">Apellidos:</label>
                                             <input type="text" value="{{$usuario->surname }}" name="surname" class="form-control" id="" placeholder="Apellidos" required  style=" border:1px solid #fdde92da;"  >
                                                 @error('surname')
                                                 <small style="color:red">{{ $message }}</small>                                               
@@ -63,7 +63,7 @@
                                     <!--Campo correo electronico-->
                                       <div class="col-md-4">
                                         <div class="form ground">
-                                        <label for=""  style="color: #4a5568">Email</label>
+                                        <label for=""  style="color: #4a5568">Email:</label>
                                             <input type="email" value="{{$usuario->email }}" name="email" class="form-control" id="" placeholder="Correo electronico" required  style=" border:1px solid #fdde92da;" >
                                                 @error('email')
                                                 <small style="color:red">{{ $message }}</small>                                               
@@ -80,7 +80,7 @@
                                      <!--Campo telefono-->
                                     <div class="col-md-4">
                                         <div class="form ground">
-                                        <label for=""  style="color: #4a5568">Telefono</label>
+                                        <label for=""  style="color: #4a5568">Telefono:</label>
                                             <input type="cel" value="{{$usuario->phone }}" name="phone" class="form-control" id="" placeholder="Telefono" required  style=" border:1px solid #fdde92da;" >
                                                 @error('phone')
                                                 <small style="color:red">{{ $message }}</small>                                               
@@ -91,7 +91,7 @@
                                     <!--Campo contraseña-->
                                     <div class="col-md-4">
                                         <div class="form ground">
-                                        <label for=""  style="color: #4a5568">Contraseña</label>
+                                        <label for=""  style="color: #4a5568">Contraseña:</label>
                                             <input type="password" value="{{old('password') }}" name="password" class="form-control" id="" placeholder="Contraseña"  style=" border:1px solid #fdde92da;"//le dire que no es requerido para poder modificar la contraseña y cambiarla por una nueva >
                                                 @error('password')
                                                 <small style="color:red">{{ $message }}</small>                                               
@@ -102,7 +102,7 @@
                                     <!--campo confirmar contraseña-->
                                      <div class="col-md-4">
                                         <div class="form ground">
-                                        <label for="" style="color: #4a5568" >Confirmar Contraseña</label>
+                                        <label for="" style="color: #4a5568" >Confirmar Contraseña:</label>
                                             <input type="password" name="password_confirmation" class="form-control" id="" placeholder="Confirmar Contraseña"  style=" border:1px solid #fdde92da;" >
                                                 @error('password_confirmation')
                                                 <small style="color:red">{{ $message }}</small>                                               
@@ -129,7 +129,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
 
-                                        <label style="color:#4a5568">Estado</label>
+                                        <label style="color:#4a5568">Estado:</label>
 
                                         <select name="status" class="form-control" required 
                                             style="border:1px solid #fdde92da;">
@@ -160,7 +160,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
 
-                                        <label style="color:#4a5568">Rol</label>
+                                        <label style="color:#4a5568">Rol:</label>
 
                                         <select name="role" id="rol" class="form-control" required
                                             style="border:1px solid #fdde92da;">
@@ -200,7 +200,7 @@
                                     <div class="form-group">
 
                                         <label style="color:#4a5568">
-                                            Especialidad
+                                            Especialidad:
                                         </label>
 
                                         <select 
@@ -243,90 +243,66 @@
 
 
 
+                       
                                 <!-- Título profesional -->
                                 <div class="col-md-3" id="divTitulo">
 
                                     <div class="form-group">
 
-
                                         <label style="color:#4a5568">
-                                            Título profesional
+                                            Título profesional:
                                         </label>
 
-
-                                        <select 
+                                        <select
                                             name="titulo_profesional"
                                             id="titulo_profesional"
                                             class="form-control"
                                             required
                                             style="border:1px solid #fdde92da;">
 
-
-                                            <option value="">
-                                                Seleccione
-                                            </option>
-
+                                            <option value="">Seleccione</option>
 
                                             <option value="Dr."
-                                            {{ $usuario->titulo_profesional=='Dr.'?'selected':'' }}>
+                                                {{ $usuario->titulo_profesional == 'Dr.' ? 'selected' : '' }}>
                                                 Dr.
                                             </option>
 
-
                                             <option value="Dra."
-                                            {{ $usuario->titulo_profesional=='Dra.'?'selected':'' }}>
+                                                {{ $usuario->titulo_profesional == 'Dra.' ? 'selected' : '' }}>
                                                 Dra.
                                             </option>
 
-
-                                            <option value="Lic.Enf."
-                                            {{ $usuario->titulo_profesional=='Lic.Enf.'?'selected':'' }}>
-                                                Lic.Enf.
+                                            <option value="Obst."
+                                                {{ $usuario->titulo_profesional == 'Obst.' ? 'selected' : '' }}>
+                                                Obst.
                                             </option>
 
-
-                                            <option value="Licda.Enf."
-                                            {{ $usuario->titulo_profesional=='Licda.Enf.'?'selected':'' }}>
-                                                Licda.Enf.
+                                            <option value="Lic. Enf."
+                                                {{ $usuario->titulo_profesional == 'Lic. Enf.' ? 'selected' : '' }}>
+                                                Lic. Enf.
                                             </option>
 
-
-                                            <option value="Mg."
-                                            {{ $usuario->titulo_profesional=='Mg.'?'selected':'' }}>
-                                                Mg.
+                                            <option value="Téc. Enf."
+                                                {{ $usuario->titulo_profesional == 'Téc. Enf.' ? 'selected' : '' }}>
+                                                Téc. Enf.
                                             </option>
 
-
-                                            <option value="Esp."
-                                            {{ $usuario->titulo_profesional=='Esp.'?'selected':'' }}>
-                                                Esp.
+                                            <option value="Enfermera"
+                                                {{ $usuario->titulo_profesional == 'Enfermera' ? 'selected' : '' }}>
+                                                Enfermero(a)
                                             </option>
-
-
-                                            <option value="Téc.Enf."
-                                            {{ $usuario->titulo_profesional=='Téc.Enf.'?'selected':'' }}>
-                                                Téc.Enf.
-                                            </option>
-
-
-                                            <option value="Enf."
-                                            {{ $usuario->titulo_profesional=='Enf.'?'selected':'' }}>
-                                                Enf.
-                                            </option>
-
 
                                             <option value="otros"
-                                            {{ 
-                                            !in_array($usuario->titulo_profesional,
-                                            ['Dr.','Dra.','Lic.Enf.','Licda.Enf.','Mg.','Esp.','Téc.Enf.','Enf.'])
-                                            && $usuario->titulo_profesional 
-                                            ? 'selected':'' }}>
+                                                {{
+                                                    !in_array($usuario->titulo_profesional,
+                                                    ['Dr.','Dra.','Obst.','Lic. Enf.','Téc. Enf.','Enfermera'])
+                                                    && $usuario->titulo_profesional
+                                                    ? 'selected' : ''
+                                                }}>
                                                 Otros
                                             </option>
 
-
                                         </select>
-
 
                                     </div>
 
@@ -340,7 +316,7 @@
                                     style="
                                     {{ 
                                     !in_array($usuario->titulo_profesional,
-                                    ['Dr.','Dra.','Lic.Enf.','Licda.Enf.','Mg.','Esp.','Téc.Enf.','Enf.'])
+                                    ['Dr.','Dra.','Obst.','Lic. Enf.','Téc. Enf.','Enfermera'])
                                     && $usuario->titulo_profesional
                                     ? ''
                                     : 'display:none;'
@@ -351,7 +327,7 @@
 
 
                                         <label style="color:#4a5568">
-                                            Especifique el título
+                                            Especifique el título:
                                         </label>
 
 
@@ -377,6 +353,7 @@
 
 
                             </div>
+                            <hr>
                                 
                                 
                               

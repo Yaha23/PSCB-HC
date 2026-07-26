@@ -110,11 +110,8 @@
                                         <div class="col-md-3">
                                         <div class="form-group">
                                                 <label  style="color: #4a5568">Estado:</label>
-                                                <select name="status" class="form-control" disabled     style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
-                                                    <option disabled>Ninguno</option>
-                                                    <option value="activo" {{ $usuario->status == 'activo' ? 'selected' : '' }}>Activo</option>
-                                                    <option value="inactivo" {{ $usuario->status == 'inactivo' ? 'selected' : '' }}>Inactivo</option>
-                                                </select>
+                                                 <input type="text" value="{{$usuario->status }}" name="status" class="form-control" id="" placeholder="Telefono" disabled     style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;text-transform:uppercase;">
+                                                
                                                     @error('status')
                                                     <small style="color:red">{{ $message }}</small>                                               
                                                     @enderror    
@@ -124,12 +121,8 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label  style="color: #4a5568">Rol:</label>
-                                                <select name="role" class="form-control" id="rol" disabled     style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
-                                                    <option disabled>Ninguno</option>
-                                                <option value="admin" {{ $usuario->hasRole('admin') ? 'selected' : '' }}>Administrador</option>
-                                                    <option value="asistente" {{ $usuario->hasRole('asistente') ? 'selected' : '' }}>Asistente</option>
-                                                    <option value="medico" {{ $usuario->hasRole('medico') ? 'selected' : '' }}>Medico</option>
-                                                </select>
+                                                 <input type="text" value="{{$usuario->role }}" name="role" class="form-control" id="" placeholder="Telefono" disabled     style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;text-transform:uppercase;">
+                                                
                                                     @error('role')
                                                     <small style="color:red">{{ $message }}</small>                                               
                                                     @enderror    
@@ -161,7 +154,7 @@
                                                     style="
                                                     background-color:#f6e48bb1;
                                                     border:1px solid #fdde92da;
-                                                    cursor:not-allowed;"
+                                                    cursor:not-allowed;text-transform:uppercase;"
                                                 >
 
                                             </div>
@@ -187,14 +180,12 @@
 
                                         </div>
                                     </div> 
+                                    
                                 </div>
 
-</div>
+                                <hr>
 
-
-                                    </div>
-                                    
-                                    <!--Boton cancelar y Guardar datos-->
+                                  <!--Boton cancelar y Guardar datos-->
                                     <div class="row">
                                         <div class="col-md-12 text-center">
                                             <div class="form-ground">
@@ -207,10 +198,19 @@
                                             </div>
                                         </div>
                                     </div>
+
+</div>
+
+
+                                    </div>
+
+                                    
+                                    
+                                  
                             </form>
 
 
-                        </div>
+                        
                             
                                     
                 </div>

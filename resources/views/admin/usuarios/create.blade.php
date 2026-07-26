@@ -240,45 +240,15 @@
                 style="border:1px solid #fdde92da;">
 
 
-                <option value="">
-                    Seleccione
-                </option>
+                <option value="">Seleccione</option>
 
-                <option value="Dr.">
-                    Dr.
-                </option>
-
-                <option value="Dra.">
-                    Dra.
-                </option>
-
-                <option value="Lic.Enf.">
-                    Lic.Enf.
-                </option>
-
-                <option value="Licda.Enf.">
-                    Licda.Enf.
-                </option>
-
-                <option value="Mg.">
-                    Mg.
-                </option>
-
-                <option value="Esp.">
-                    Esp.
-                </option>
-
-                <option value="Téc.Enf.">
-                    Téc.Enf.
-                </option>
-
-                <option value="Enf.">
-                    Enf.
-                </option>
-
-                <option value="otros">
-                    Otros
-                </option>
+                <option value="Dr.">Dr.</option>
+                <option value="Dra.">Dra.</option>
+                <option value="Obst.">Obst.</option>
+                <option value="Lic. Enf.">Lic. Enf.</option>
+                <option value="Téc. Enf.">Téc. Enf.</option>
+                <option value="Enfermera">Enfermero(a)</option>
+                <option value="otros">Otros</option>
 
 
             </select>
@@ -318,6 +288,7 @@
 
 
 </div>
+<hr>
                                     
                                     <!--Boton cancelar y Guardar datos-->
                                     <div class="row">

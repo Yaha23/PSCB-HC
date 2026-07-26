@@ -88,7 +88,7 @@
                             <td class="text-center">{{ $usuario->name }}</td>
                             <td class="text-center">{{ $usuario->surname }}</td>
                             <td class="text-center">{{ $usuario->email }}</td>
-                            <td class="text-center">{{ $usuario->status }}</td>
+                            <td class="text-center" style="text-transform:uppercase;">{{ $usuario->status }}</td>
                             <td class="text-center">
 
                                 @php

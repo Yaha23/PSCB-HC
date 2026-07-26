@@ -40,7 +40,7 @@
                                     <!--Campo usuario-->
                                     <div class="col-md-6">
                                         <div class="form ground">
-                                        <label for="" style="color: #4a5568" >Nombre de Usuario</label>
+                                        <label for="" style="color: #4a5568" >Nombre de Usuario:</label>
                                             <input type="text" value="{{$usuario->name }}" name="name"  class="form-control" id="" placeholder="Nombres" disabled     style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
                                                 @error('name')
                                                 <small style="color:red">{{ $message }}</small>                                               
@@ -51,7 +51,7 @@
 
                                      <div class="col-md-6">
                                         <div class="form ground">
-                                        <label for="" style="color: #4a5568">Apellidos</label>
+                                        <label for="" style="color: #4a5568">Apellidos:</label>
                                             <input type="text" value="{{$usuario->surname }}" name="surname" class="form-control" id="" placeholder="Apellidos" disabled     style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
                                                 @error('surname')
                                                 <small style="color:red">{{ $message }}</small>                                               
@@ -70,7 +70,7 @@
                                      <!--Campo correo electronico-->
                                       <div class="col-md-6">
                                         <div class="form ground">
-                                        <label for=""  style="color: #4a5568">Email</label>
+                                        <label for=""  style="color: #4a5568">Email:</label>
                                             <input type="email" value="{{$usuario->email }}" name="email" class="form-control" id="" placeholder="Correo electronico" disabled     style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
                                                 @error('email')
                                                 <small style="color:red">{{ $message }}</small>                                               
@@ -80,7 +80,7 @@
                                      <!--Campo telefono-->
                                     <div class="col-md-6">
                                         <div class="form ground">
-                                        <label for=""  style="color: #4a5568">Telefono</label>
+                                        <label for=""  style="color: #4a5568">Telefono:</label>
                                             <input type="cel" value="{{$usuario->phone }}" name="phone" class="form-control" id="" placeholder="Telefono" disabled     style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
                                                 @error('phone')
                                                 <small style="color:red">{{ $message }}</small>                                               
@@ -105,12 +105,9 @@
                                     <!--Campo estado de la cuenta Activa o Inactiva--> 
                                     <div class="col-md-3">
                                     <div class="form-group">
-                                            <label  style="color: #4a5568">Estado</label>
-                                            <select name="status" class="form-control" disabled     style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
-                                                <option disabled>Ninguno</option>
-                                                <option value="activo" {{ $usuario->status == 'activo' ? 'selected' : '' }}>Activo</option>
-                                                <option value="inactivo" {{ $usuario->status == 'inactivo' ? 'selected' : '' }}>Inactivo</option>
-                                            </select>
+                                            <label  style="color: #4a5568">Estado:</label>
+                                    <input type="text" value="{{$usuario->status }}" name="status" class="form-control" id="" placeholder="Telefono" disabled     style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;text-transform:uppercase;">
+ 
                                                 @error('status')
                                                 <small style="color:red">{{ $message }}</small>                                               
                                                 @enderror    
@@ -119,27 +116,13 @@
                                     <!--Campo Rol medico,administrador o asistente--> 
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label  style="color: #4a5568">Rol</label>
+                                            <label  style="color: #4a5568">Rol:</label>
                                                 @php
                                                     $rol = $usuario->getRoleNames()->first();
                                                 @endphp
 
-                                                <select name="role" class="form-control" id="rol" disabled
-                                                        style="background-color:#f6e48bb1;border:1px solid #fdde92da;cursor:not-allowed;">
+                                                <input type="text" value="{{$usuario->role }}" name="role" class="form-control" id="" placeholder="Telefono" disabled     style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;text-transform:uppercase;">
 
-                                                    <option value="administrador" {{ $rol == 'admin' ? 'selected' : '' }}>
-                                                        Administrador
-                                                    </option>
-
-                                                    <option value="asistente" {{ $rol == 'asistente' ? 'selected' : '' }}>
-                                                        Asistente
-                                                    </option>
-
-                                                    <option value="medico" {{ $rol == 'medico' ? 'selected' : '' }}>
-                                                        Médico
-                                                    </option>
-
-                                                </select>
                                             
                                                 @error('role')
                                                 <small style="color:red">{{ $message }}</small>                                               
@@ -160,7 +143,7 @@
                                         <div class="form-group">
 
                                             <label style="color:#4a5568;">
-                                                Especialidad
+                                                Especialidad:
                                             </label>
 
 
@@ -172,7 +155,7 @@
                                                 style="
                                                 background-color:#f6e48bb1;
                                                 border:1px solid #fdde92da;
-                                                cursor:not-allowed;"
+                                                cursor:not-allowed;text-transform:uppercase;"
                                             >
 
                                         </div>
@@ -186,7 +169,7 @@
                                         <div class="form-group">
 
                                             <label style="color:#4a5568;">
-                                                 Título profesional
+                                                 Título profesional:
                                             </label>
 
                                             <input type="text"
@@ -202,7 +185,7 @@
                                 </div>
 
                           
-                                
+                                <hr>
                                
                                 
 
@@ -220,6 +203,7 @@
                                     </div>
                                 </div>
                         </form>
+                        <br>
 
 
                     </div>

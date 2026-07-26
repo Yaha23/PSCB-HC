@@ -77,7 +77,7 @@
                             <div class="form-group">
 
                                 <label style="color:#4a5568;">
-                                    Nombres
+                                    Nombres del Paciente:
                                 </label>
 
                                 <input type="text"
@@ -98,7 +98,7 @@
                             <div class="form-group">
 
                                 <label style="color:#4a5568;">
-                                    Apellidos
+                                    Apellidos del Paciente:
                                 </label>
 
                                 <input type="text"
@@ -119,7 +119,7 @@
                             <div class="form-group">
 
                                 <label style="color:#4a5568;">
-                                    DNI
+                                    DNI:
                                 </label>
 
                                 <input type="text"
@@ -140,7 +140,7 @@
                             <div class="form-group">
 
                                 <label style="color:#4a5568;">
-                                    Fecha Nacimiento
+                                    Fecha de Nacimiento:
                                 </label>
 
                                 <input type="date"
@@ -168,7 +168,7 @@
                             <div class="form-group">
 
                                 <label style="color:#4a5568;">
-                                    Email
+                                    Correo Electrónico:
                                 </label>
 
                                 <input type="email"
@@ -189,7 +189,7 @@
                             <div class="form-group">
 
                                 <label style="color:#4a5568;">
-                                    Género
+                                    Género:
                                 </label>
 
                                 <input type="text"
@@ -210,7 +210,7 @@
                             <div class="form-group">
 
                                 <label style="color:#4a5568;">
-                                    Estado Civil
+                                    Estado Civil:
                                 </label>
 
                                 <input type="text"
@@ -238,7 +238,7 @@
                             <div class="form-group">
 
                                 <label style="color:#4a5568;">
-                                    Celular
+                                    Teléfono:
                                 </label>
 
                                 <input type="text"
@@ -259,7 +259,7 @@
                             <div class="form-group">
 
                                 <label style="color:#4a5568;">
-                                    Dirección
+                                    Dirección:
                                 </label>
 
                                 <input type="text"
@@ -280,7 +280,7 @@
                             <div class="form-group">
 
                                 <label style="color:#4a5568;">
-                                    Grupo Sanguíneo
+                                    Grupo Sanguíneo:
                                 </label>
 
                                 <input type="text"

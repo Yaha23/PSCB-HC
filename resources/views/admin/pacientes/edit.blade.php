@@ -65,7 +65,7 @@
                             <div class="form-group">
 
                                 <label style="color:#4a5568;">
-                                    Nombres
+                                    Nombres del Paciente:
                                 </label>
 
                                 <input type="text"
@@ -91,7 +91,7 @@
                             <div class="form-group">
 
                                 <label style="color:#4a5568;">
-                                    Apellidos
+                                    Apellidos del Paciente:
                                 </label>
 
                                 <input type="text"
@@ -117,7 +117,7 @@
                             <div class="form-group">
 
                                 <label style="color:#4a5568;">
-                                    DNI
+                                    DNI:
                                 </label>
 
                                 <input type="text"
@@ -143,7 +143,7 @@
                             <div class="form-group">
 
                                 <label style="color:#4a5568;">
-                                    Fecha Nacimiento
+                                    Fecha de Nacimiento:
                                 </label>
 
                                 <input type="date"
@@ -176,7 +176,7 @@
                             <div class="form-group">
 
                                 <label style="color:#4a5568;">
-                                    Email
+                                    Correo Electrónico:
                                 </label>
 
                                 <input type="email"
@@ -202,7 +202,7 @@
                             <div class="form-group">
 
                                 <label style="color:#4a5568;">
-                                    Género
+                                    Género:
                                 </label>
 
                                 <select name="genero"
@@ -309,7 +309,7 @@
                             <div class="form-group">
 
                                 <label style="color:#4a5568;">
-                                    Celular
+                                    Teléfono:
                                 </label>
 
                                 <input type="text"
@@ -344,7 +344,7 @@
                             <div class="form-group">
 
                                 <label style="color:#4a5568;">
-                                    Dirección
+                                    Dirección:
                                 </label>
 
                                 <input type="text"
@@ -366,67 +366,67 @@
 
                         {{-- GRUPO SANGUINEO --}}
                         @php
-    $gruposNormales = ['A+','A-','B+','B-','AB+','AB-','O+','O-'];
+                            $gruposNormales = ['A+','A-','B+','B-','AB+','AB-','O+','O-'];
 
-    $esOtroGrupo = !in_array($paciente->grupo_sanguineo, $gruposNormales);
-@endphp
+                            $esOtroGrupo = !in_array($paciente->grupo_sanguineo, $gruposNormales);
+                        @endphp
 
-{{-- GRUPO SANGUÍNEO --}}
-<div class="col-md-3">
+                        {{-- GRUPO SANGUÍNEO --}}
+                        <div class="col-md-3">
 
-    <div class="form-group">
+                            <div class="form-group">
 
-        <label style="color:#4a5568;">
-            Grupo Sanguíneo
-        </label>
+                                <label style="color:#4a5568;">
+                                    Grupo Sanguíneo:
+                                </label>
 
-        <select
-            name="grupo_sanguineo"
-            id="grupo_sanguineo"
-            class="form-control"
-            required
-            style="border:1px solid #fdde92da;">
+                                <select
+                                    name="grupo_sanguineo"
+                                    id="grupo_sanguineo"
+                                    class="form-control"
+                                    required
+                                    style="border:1px solid #fdde92da;">
 
-            @foreach($gruposNormales as $grupo)
+                                    @foreach($gruposNormales as $grupo)
 
-                <option value="{{ $grupo }}"
-                    {{ !$esOtroGrupo && $paciente->grupo_sanguineo == $grupo ? 'selected' : '' }}>
-                    {{ $grupo }}
-                </option>
+                                        <option value="{{ $grupo }}"
+                                            {{ !$esOtroGrupo && $paciente->grupo_sanguineo == $grupo ? 'selected' : '' }}>
+                                            {{ $grupo }}
+                                        </option>
 
-            @endforeach
+                                    @endforeach
 
-            <option value="otros" {{ $esOtroGrupo ? 'selected' : '' }}>
-                Otros
-            </option>
+                                    <option value="otros" {{ $esOtroGrupo ? 'selected' : '' }}>
+                                        Otros
+                                    </option>
 
-        </select>
+                                </select>
 
-    </div>
+                            </div>
 
-</div>
+                        </div>
 
-{{-- ESPECIFICAR GRUPO --}}
-<div class="col-md-3 {{ $esOtroGrupo ? '' : 'd-none' }}" id="divOtroGrupo">
+                        {{-- ESPECIFICAR GRUPO --}}
+                        <div class="col-md-3 {{ $esOtroGrupo ? '' : 'd-none' }}" id="divOtroGrupo">
 
-    <div class="form-group">
+                            <div class="form-group">
 
-        <label style="color:#4a5568;">
-            Especifique el grupo sanguíneo
-        </label>
+                                <label style="color:#4a5568;">
+                                    Especifique el grupo sanguíneo:
+                                </label>
 
-        <input
-            type="text"
-            name="otro_grupo_sanguineo"
-            id="otro_grupo_sanguineo"
-            class="form-control"
-            value="{{ $esOtroGrupo ? $paciente->grupo_sanguineo : '' }}"
-            placeholder="Ejemplo: Bombay (hh)"
-            style="border:1px solid #fdde92da;">
+                                <input
+                                    type="text"
+                                    name="otro_grupo_sanguineo"
+                                    id="otro_grupo_sanguineo"
+                                    class="form-control"
+                                    value="{{ $esOtroGrupo ? $paciente->grupo_sanguineo : '' }}"
+                                    placeholder="Ejemplo: Bombay (hh)"
+                                    style="border:1px solid #fdde92da;">
 
-    </div>
+                            </div>
 
-</div>
+                        </div>
 
                     </div>
 

@@ -62,7 +62,7 @@
                             <div class="form-group">
 
                                 <label style="color:#4a5568;">
-                                    Nombres:
+                                    Nombres del Paciente:
                                 </label>
 
                                 <input type="text"
@@ -89,7 +89,7 @@
                             <div class="form-group">
 
                                 <label style="color:#4a5568;">
-                                    Apellidos:
+                                    Apellidos del Paciente:
                                 </label>
 
                                 <input type="text"
@@ -176,7 +176,7 @@
                             <div class="form-group">
 
                                 <label style="color:#4a5568;">
-                                    Email:
+                                    Correo Electrónico:
                                 </label>
 
                                 <input type="email"
@@ -271,7 +271,7 @@
                             <div class="form-group">
 
                                 <label style="color:#4a5568;">
-                                    Celular:
+                                    Teléfono:
                                 </label>
 
                                 <input type="text"

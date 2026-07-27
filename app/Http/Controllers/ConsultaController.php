@@ -226,23 +226,37 @@ public function store(Request $request)
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+   public function edit($id)
 {
-    $consulta = Consulta::with('paciente','medico','signosVitales')
-        ->findOrFail($id);
+    $consulta = Consulta::with([
+        'paciente',
+        'medico',
+        'signosVitales'
+    ])->findOrFail($id);
+
+
+    $medicos = \App\Models\User::role('medico')->get();
+
 
     $base = $this->getRouteBase();
 
-    // SOLO MÉDICO Y ADMIN PUEDEN EDITAR
-    if (
-    !auth()->user()->hasRole('medico') &&
-    !auth()->user()->hasRole('admin') &&
-    !auth()->user()->hasRole('asistente')
-) {
-    abort(403, 'No autorizado');
-}
 
-    return view('admin.consultas.edit', compact('consulta','base'));
+    if (
+        !auth()->user()->hasRole('medico') &&
+        !auth()->user()->hasRole('admin') &&
+        !auth()->user()->hasRole('asistente')
+    ) {
+        abort(403);
+    }
+
+
+    return view('admin.consultas.edit',
+        compact(
+            'consulta',
+            'base',
+            'medicos'
+        )
+    );
 }
 
     /**
@@ -456,37 +470,57 @@ public function update(Request $request, $id)
     if(auth()->user()->hasRole('medico')){
 
 
-        $request->validate([
+$request->validate([
 
-            'diagnostico_principal'=>'required',
-            'tratamiento'=>'required',
+    'diagnostico_principal'=>'required',
+    'tratamiento'=>'required',
+    'acuerdos_compromisos'=>'required',
+    'examenes_auxiliares'=>'required',
+    'referencia'=>'required',
+    'observaciones'=>'required',
 
-        ]);
-
-
-
-        $consulta->update([
-
-            'diagnostico_principal'=>$request->diagnostico_principal,
-            'tratamiento'=>$request->tratamiento,
-
-            'estado'=>'finalizada'
-
-        ]);
+]);
 
 
 
-        return redirect()
-        ->route(
-            $this->getRouteBase().'.consultas.index',
-            $consulta->paciente_id
-        )
-        ->with([
-            'mensaje'=>'Atención médica finalizada correctamente',
-            'icono'=>'success'
-        ]);
+$consulta->update([
 
-    }
+
+    'diagnostico_principal'=>$request->diagnostico_principal,
+
+    'tratamiento'=>$request->tratamiento,
+
+
+    'acuerdos_compromisos'=>$request->acuerdos_compromisos,
+
+
+    'examenes_auxiliares'=>$request->examenes_auxiliares,
+
+
+    'referencia'=>$request->referencia,
+
+
+    'observaciones'=>$request->observaciones,
+
+
+    'estado'=>'finalizada'
+
+
+]);
+
+
+
+return redirect()
+->route(
+    $this->getRouteBase().'.consultas.index',
+    $consulta->paciente_id
+)
+->with([
+    'mensaje'=>'Atención médica actualizada correctamente',
+    'icono'=>'success'
+]);
+
+}
 
 
 
@@ -572,7 +606,7 @@ public function historiaPdf($id)
     )->setPaper('a4', 'portrait');
 
     return $pdf->stream(
-        'consulta-'.$consulta->id.'.PSCB_Historia_Clinica'
+        'Historia_Clinica_'.$consulta->paciente->DNI.'.pdf'
     );
 }
 

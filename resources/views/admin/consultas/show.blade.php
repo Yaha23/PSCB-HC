@@ -126,7 +126,7 @@
 
         <input class="form-control"
                readonly
-               value="{{ $consulta->especialidad }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
+               value="{{ $consulta->especialidad }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;text-transform:uppercase;">
     </div>
 
 </div>
@@ -350,7 +350,7 @@
                         color:{{ empty($consulta->diagnostico_principal) ? 'red' : '#000' }};
                         font-size:13px;
                         border:1px solid #fdde92da;
-                        cursor:not-allowed;">{{ $consulta->diagnostico_principal ?? 'Pendiente de evaluación médica' }}</textarea>
+                        cursor:not-allowed;">{{ $consulta->diagnostico_principal ?? 'Pendiente registro' }}</textarea>
         </div>
     </div>
 

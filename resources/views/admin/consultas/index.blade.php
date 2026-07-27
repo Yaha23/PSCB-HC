@@ -274,7 +274,7 @@ table td {
     {{-- VER --}}
 <a href="{{ route($base.'.consultas.show', $consulta->id) }}"
    class="btn"
-   title="{{ auth()->user()->hasRole('asistente') ? 'Ver registro' : 'Ver historia clínica' }}"
+   title="{{ auth()->user()->hasRole('asistente') ? 'Ver Datos Clinicos' : 'Ver historia clínica' }}"
    style="background:#f4d279;color:#4a5568;border:none;transition:.3s;"
    onmouseover="this.style.backgroundColor='#ffe8a3';this.style.boxShadow='0 0 8px rgba(244,210,121,.7)'"
    onmouseout="this.style.backgroundColor='#f4d279';this.style.boxShadow='none'">
@@ -321,7 +321,7 @@ table td {
         {{-- Edita únicamente signos vitales --}}
         <a href="{{ route($base.'.consultas.edit', $consulta->id) }}"
            class="btn"
-           title="Actualizar Signos y Datos Clinicos"
+           title="Actualizar Datos Clinicos"
            style="background:#f4d279;color:#4a5568;border:none;transition:.3s;"
            onmouseover="this.style.backgroundColor='#ffe8a3';this.style.boxShadow='0 0 8px rgba(244,210,121,.7)'"
            onmouseout="this.style.backgroundColor='#f4d279';this.style.boxShadow='none'">

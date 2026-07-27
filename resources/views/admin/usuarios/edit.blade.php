@@ -287,15 +287,15 @@
                                                 Téc. Enf.
                                             </option>
 
-                                            <option value="Enfermera"
-                                                {{ $usuario->titulo_profesional == 'Enfermera' ? 'selected' : '' }}>
+                                            <option value="Enf."
+                                                {{ $usuario->titulo_profesional == 'Enf.' ? 'selected' : '' }}>
                                                 Enfermero(a)
                                             </option>
 
                                             <option value="otros"
                                                 {{
                                                     !in_array($usuario->titulo_profesional,
-                                                    ['Dr.','Dra.','Obst.','Lic. Enf.','Téc. Enf.','Enfermera'])
+                                                    ['Dr.','Dra.','Obst.','Lic. Enf.','Téc. Enf.','Enf.'])
                                                     && $usuario->titulo_profesional
                                                     ? 'selected' : ''
                                                 }}>
@@ -316,7 +316,7 @@
                                     style="
                                     {{ 
                                     !in_array($usuario->titulo_profesional,
-                                    ['Dr.','Dra.','Obst.','Lic. Enf.','Téc. Enf.','Enfermera'])
+                                    ['Dr.','Dra.','Obst.','Lic. Enf.','Téc. Enf.','Enf.'])
                                     && $usuario->titulo_profesional
                                     ? ''
                                     : 'display:none;'

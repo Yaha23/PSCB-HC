@@ -83,7 +83,7 @@ class AdminController extends Controller
     });
 
     return view(
-        $this->getRouteBase().'.index',
+        'admin.index',
         compact(
             'total_usuarios',
             'total_pacientes',
@@ -91,8 +91,6 @@ class AdminController extends Controller
             'total_citas',
             'citas_calendario'
         )
-
-        
     );
 
     

@@ -59,21 +59,65 @@ class DatabaseSeeder extends Seeder
             ],
 
             //  HORARIOS
-            // HORARIOS
-            'horarios' => [
-                'index' => ['admin','asistente','medico'],
+           // HORARIOS
+                'horarios' => [
 
-                'create' => ['admin','asistente'],
-                'store' => ['admin','asistente'],
+                    // Ver horarios
+                    'index' => [
+                        'admin',
+                        'asistente',
+                        'medico'
+                    ],
 
-                'show' => ['admin','asistente','medico'],
 
-                'edit' => ['admin','asistente'],
-                'update' => ['admin','asistente'],
+                    // Registrar horario
+                    // Solo admin y asistente organizan horarios
+                    'create' => [
+                        'admin',
+                        'asistente'
+                    ],
 
-                'confirm-delete' => ['admin','asistente'],
-                'destroy' => ['admin','asistente'],
-            ],
+                    'store' => [
+                        'admin',
+                        'asistente'
+                    ],
+
+
+
+                    // Ver detalle horario
+                    'show' => [
+                        'admin',
+                        'asistente',
+                        'medico'
+                    ],
+
+
+
+                    // Editar horario
+                    'edit' => [
+                        'admin',
+                        'asistente'
+                    ],
+
+                    'update' => [
+                        'admin',
+                        'asistente'
+                    ],
+
+
+
+                    // Eliminar horario
+                    'confirm-delete' => [
+                        'admin',
+                        'asistente'
+                    ],
+
+                    'destroy' => [
+                        'admin',
+                        'asistente'
+                    ],
+
+                ],
 
             // CITAS
             'citas' => [

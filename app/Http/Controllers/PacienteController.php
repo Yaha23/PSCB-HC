@@ -70,9 +70,16 @@ class PacienteController extends Controller
 
    public function create()
 {
+    if(!auth()->user()->hasAnyRole(['admin','asistente'])){
+        abort(403);
+    }
+
     $medicos = User::role('medico')->get();
 
-    return view('admin.pacientes.create', compact('medicos'));
+    return view(
+        'admin.pacientes.create',
+        compact('medicos')
+    );
 }
 
     public function store(Request $request)
@@ -111,11 +118,14 @@ class PacienteController extends Controller
      * Display the specified resource.
      */
     public function show($id)
-    {
-        $paciente = Paciente::with('consultas.signosVitales')->findOrFail($id);
+{
+    $paciente = Paciente::with('consultas.signosVitales')->findOrFail($id);
 
-        return view('admin.pacientes.show', compact('paciente'));
-    }
+    return view(
+        'admin.pacientes.show',
+        compact('paciente')
+    );
+}
 
     /**
      * Show the form for editing the specified resource.
@@ -128,7 +138,10 @@ class PacienteController extends Controller
 
         $paciente = Paciente::with('consultas.signosVitales')->findOrFail($id);
         $medicos = User::role('medico')->get();
-        return view('admin.pacientes.edit', compact('paciente', 'medicos'));
+        return view(
+            'admin.pacientes.edit',
+            compact('paciente','medicos')
+        );
     }
 
     /**
@@ -229,7 +242,7 @@ public function reportePdf(Request $request)
 
 
     $pdf = Pdf::loadView(
-        'admin.pacientes.reporte',
+         'admin.pacientes.reporte',
         compact('pacientes')
     )
     ->setPaper('a4','portrait');
@@ -250,7 +263,8 @@ public function delete($id)
     $base = $this->getRouteBase();
 
     return view('admin.pacientes.delete',
-        compact('paciente', 'base'));
+            compact('paciente','base')
+        );
 }
 
 public function destroy($id)

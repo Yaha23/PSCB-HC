@@ -266,7 +266,11 @@
 <div class="btn-group">
 
 
-@can('admin.horarios.show')
+@canany([
+    'admin.horarios.show',
+    'asistente.horarios.show',
+    'medico.horarios.show'
+])
 
 <a href="{{ url($base.'/horarios/'.$horario->id) }}"
 title="Ver Horario"
@@ -277,18 +281,17 @@ style="background:#f4d279;color:#4a5568">
 
 </a>
 
-@endcan
+@endcanany
 
 
 
 @canany([
-'admin.horarios.show',
-'asistente.horarios.show',
-'medico.horarios.show'
+'admin.horarios.edit',
+'asistente.horarios.edit'
 ])
 
 <a href="{{ url($base.'/horarios/'.$horario->id.'/edit') }}"
-    title="Editar Horario"
+title="Editar Horario"
 class="btn"
 style="background:#f4d279;color:#4a5568">
 
@@ -300,10 +303,7 @@ style="background:#f4d279;color:#4a5568">
 
 
 
-@canany([
-'admin.horarios.destroy',
-'asistente.horarios.destroy'
-])
+@can('admin.horarios.destroy')
 
 <a href="{{ route($base.'.horarios.confirmDelete',$horario->id) }}"
 title="Eliminar Horario"
@@ -314,7 +314,7 @@ style="background:#f4d279;color:#4a5568">
 
 </a>
 
-@endcanany
+@endcan
 
 
 </div>

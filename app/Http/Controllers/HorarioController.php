@@ -452,9 +452,9 @@ class HorarioController extends Controller
         ->get();
 
     $pdf = Pdf::loadView(
-        'admin.horarios.reporte_pdf',
-        compact('horarios')
-        );
+    'admin.horarios.reporte_pdf',
+    compact('horarios')
+    );
 
     return $pdf->stream('horarios_personal.pdf');
 }

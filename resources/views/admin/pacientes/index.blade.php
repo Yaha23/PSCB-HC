@@ -53,13 +53,16 @@
 
                 @php
                     $user = auth()->user();
+
+                    $ruta = $user->hasRole('admin') 
+                        ? 'admin' 
+                        : ($user->hasRole('asistente') 
+                            ? 'asistente' 
+                            : 'medico');
                 @endphp
 
-                @if($user->hasRole('admin') || $user->hasRole('asistente'))
 
-                    @php
-                        $ruta = $user->hasRole('admin') ? 'admin' : 'asistente';
-                    @endphp
+                @if($user->hasRole('admin') || $user->hasRole('asistente'))
 
 
               
@@ -77,8 +80,7 @@
             <!-- BODY -->
             <div class="card-body">
                 @php
-                    $base = auth()->user()->hasRole('admin') ? 'admin' :
-                            (auth()->user()->hasRole('asistente') ? 'asistente' : 'medico');
+                    $base = $ruta;
                 @endphp
 
                 @php

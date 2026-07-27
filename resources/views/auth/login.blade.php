@@ -258,13 +258,15 @@
             @csrf
 
             <div class="group">
-                <input type="email" name="email"
-                    class="input"
-                    placeholder="Correo electrónico"
-                    value="{{ old('email') }}"
-                    required>
+                <input
+                type="text"
+                name="username"
+                class="input"
+                placeholder="Nombre de usuario"
+                value="{{ old('username') }}"
+                required>
 
-                @error('email')
+                @error('username')
                     <div class="error">{{ $message }}</div>
                 @enderror
             </div>

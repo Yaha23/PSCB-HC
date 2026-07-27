@@ -38,10 +38,26 @@
                                 @csrf
                                 
                                     <div class="row">
+                                        <div class="col-md-4">
+                                            <label style="color:#4a5568">Usuario:</label>
+
+                                            <input
+                                                type="text"
+                                                name="username"
+                                                class="form-control"
+                                                placeholder="usuario"
+                                                value="{{ old('username') }}"
+                                                style="border:1px solid #fdde92da;"
+                                                required>
+
+                                            @error('username')
+                                                <small style="color:red">{{ $message }}</small>
+                                            @enderror
+                                        </div>
                                         <!--Campo usuario-->
                                         <div class="col-md-4">
                                             <div class="form ground">
-                                            <label for=""  style="color: #4a5568" >Nombre de Usuario:</label>
+                                            <label for=""  style="color: #4a5568" >Nombres Completos:</label>
                                                 <input type="text" value="{{old('name') }}" name="name"  class="form-control" id="" placeholder="Nombres" required   style=" border:1px solid #fdde92da;">
                                                     @error('name')
                                                     <small style="color:red">{{ $message }}</small>                                               
@@ -52,13 +68,15 @@
 
                                         <div class="col-md-4">
                                             <div class="form ground">
-                                            <label for=""  style="color: #4a5568">Apellidos:</label>
+                                            <label for=""  style="color: #4a5568">Apellidos Completos:</label>
                                                 <input type="text" value="{{old('surname') }}" name="surname" class="form-control" id="" placeholder="Apellidos" required  style=" border:1px solid #fdde92da;"  >
                                                     @error('surname')
                                                     <small style="color:red">{{ $message }}</small>                                               
                                                     @enderror    
                                             </div>
                                         </div>
+
+
 
                                         <!--Campo correo electronico-->
                                         <div class="col-md-4">

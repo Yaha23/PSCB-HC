@@ -33,24 +33,50 @@ Route::get('/dashboard', function () {
 */
 Route::get('/redirect', function () {
 
+
     $user = Auth::user();
 
-    if ($user->hasRole('admin')) {
-        return redirect('/admin');
+
+    if(!$user){
+        return redirect()->route('login');
     }
 
-    if ($user->hasRole('medico')) {
-        return redirect('/medico');
+
+
+    if($user->hasRole('admin')){
+
+        return redirect()->route('admin.dashboard');
+
     }
 
-    if ($user->hasRole('asistente')) {
-        return redirect('/asistente');
+
+
+    if($user->hasRole('medico')){
+
+        return redirect()->route('medico.dashboard');
+
     }
 
-    return redirect('/login');
+
+
+    if($user->hasRole('asistente')){
+
+        return redirect()->route('asistente.dashboard');
+
+    }
+
+
+
+    Auth::logout();
+
+
+    return redirect()->route('login')
+        ->withErrors([
+            'username'=>'El usuario no tiene un rol asignado.'
+        ]);
+
 
 })->middleware('auth')->name('redirect');
-
 /*
 |--------------------------------------------------------------------------
 | PERFIL

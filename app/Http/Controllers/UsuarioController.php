@@ -29,6 +29,7 @@ class UsuarioController extends Controller
         
 
         $request->validate([ //permite que cada campo llenado no sea modificado y este protegido ya que se requiere asi.
+            'username'=>'required|unique:users,username',
             'name'=>'required|max:250',
             'surname'=>'required|max:250',//apellidos
             'email'=>'required|max:250|unique:users',//correo electronico
@@ -42,6 +43,7 @@ class UsuarioController extends Controller
         ]);
 
         $usuario = new User();
+        $usuario->username = $request->username;
         $usuario->name = $request->name;
         $usuario->surname = $request->surname;
         $usuario->email = $request->email;
@@ -91,6 +93,7 @@ class UsuarioController extends Controller
     public function update(Request $request, $id){
 
          $request->validate([ //permite que cada campo llenado no sea modificado y este protegido ya que se requiere asi.
+             'username'=>'required|unique:users,username',
             'name'=>'required|max:250',
             'surname'=>'required|max:250',//apellidos
             'email'=>'required|max:250|unique:users,email,'.$id,//correo electronico
@@ -104,6 +107,7 @@ class UsuarioController extends Controller
         ]);
 
         $usuario = User::find($id);
+         $usuario->username = $request->username;
         $usuario->name = $request->name;
         $usuario->surname = $request->surname;
         $usuario->email = $request->email;

@@ -23,11 +23,16 @@ class DatabaseSeeder extends Seeder
 
         // ✅ USUARIOS
         $admin = User::create([
-            'name' => 'yahaira',
+            'name' => 'Yahaira',
+            'surname' => 'Tipian Mesias',
+            'username' => 'YAHAIRA.TIPIAN',
             'email' => 'yahairatipian23@gmail.com',
+            'phone' => '999999999',
+            'status' => 'activo',
             'password' => Hash::make('12345678'),
         ]);
-        $admin->assignRole($adminRole);
+
+        $admin->assignRole('admin');
 
        
 

@@ -48,12 +48,12 @@ class AdminController extends Controller
         $total_usuarios = 0;
 
         $total_pacientes = Paciente::whereHas('consultas', function ($q) use ($user) {
-            $q->where('medico_id', $user->id);
+            $q->where('user_id', $user->id);
         })->count();
 
-        $total_horarios = Horario::where('medico_id', $user->id)->count();
+        $total_horarios = Horario::where('user_id', $user->id)->count();
 
-        $total_citas = Cita::where('medico_id', $user->id)
+        $total_citas = Cita::where('user_id', $user->id)
             ->where('estado', 'pendiente')
             ->count();
     }
@@ -70,7 +70,7 @@ class AdminController extends Controller
     } else {
 
         // 👨‍⚕️ MÉDICO → SOLO SUS CITAS
-        $citas = Cita::where('medico_id', $user->id)
+        $citas = Cita::where('user_id', $user->id)
             ->where('estado', 'pendiente')
             ->get();
     }
@@ -82,13 +82,39 @@ class AdminController extends Controller
         ];
     });
 
-    return view('admin.index', compact(
-        'total_usuarios',
-        'total_pacientes',
-        'total_horarios',
-        'total_citas',
-        'citas_calendario'
-    ));
+    return view(
+        $this->getRouteBase().'.index',
+        compact(
+            'total_usuarios',
+            'total_pacientes',
+            'total_horarios',
+            'total_citas',
+            'citas_calendario'
+        )
+
+        
+    );
+
+    
+
+    
+}
+
+private function getRouteBase()
+{
+    if(auth()->user()->hasRole('admin')){
+        return 'admin';
+    }
+
+    if(auth()->user()->hasRole('asistente')){
+        return 'asistente';
+    }
+
+    if(auth()->user()->hasRole('medico')){
+        return 'medico';
+    }
+
+    abort(403);
 }
 
 }

@@ -185,99 +185,101 @@ text-transform:uppercase;
 
 
 
-
-{{-- DIA --}}
-
-<div class="
-@if($esMedico)
-col-md-4
-@else
-col-md-4
-@endif
-">
-
-
-<label style="color:#4a5568;">
-Día:
-</label>
-
-
-<input type="text"
-disabled
-
-value="{{ ucfirst($horario->dia_semana) }}"
-
-class="form-control"
-
-style="
-background:#f6e48bb1;
-border:1px solid #fdde92da;
-">
-
-
 </div>
 
+<br>
+
+<div class="row">
+        {{-- DIA --}}
+
+    <div class="
+    @if($esMedico)
+    col-md-4
+    @else
+    col-md-4
+    @endif
+    ">
+
+
+    <label style="color:#4a5568;">
+    Día:
+    </label>
+
+
+    <input type="text"
+    disabled
+
+    value="{{ ucfirst($horario->dia_semana) }}"
+
+    class="form-control"
+
+    style="
+    background:#f6e48bb1;
+    border:1px solid #fdde92da;
+    ">
+
+
+    </div>
 
 
 
 
-{{-- HORA INICIO --}}
 
-<div class="col-md-4">
+    {{-- HORA INICIO --}}
 
-<label style="color:#4a5568;">
-Hora_Inicio:
-</label>
+    <div class="col-md-4">
 
-
-<input type="text"
-disabled
-
-value="
-{{ \Carbon\Carbon::parse($horario->hora_inicio)->format('h:i A') }}
-"
-
-class="form-control"
-
-style="
-background:#f6e48bb1;
-border:1px solid #fdde92da;
-">
+    <label style="color:#4a5568;">
+    Hora_Inicio:
+    </label>
 
 
-</div>
+    <input type="text"
+    disabled
+
+    value="
+    {{ \Carbon\Carbon::parse($horario->hora_inicio)->format('h:i A') }}
+    "
+
+    class="form-control"
+
+    style="
+    background:#f6e48bb1;
+    border:1px solid #fdde92da;
+    ">
+
+
+    </div>
 
 
 
 
 
-{{-- HORA FIN --}}
+    {{-- HORA FIN --}}
 
-<div class="col-md-4">
+    <div class="col-md-4">
 
-<label style="color:#4a5568;">
-Hora_Fin:
-</label>
-
-
-<input type="text"
-disabled
-
-value="
-{{ \Carbon\Carbon::parse($horario->hora_fin)->format('h:i A') }}
-"
-
-class="form-control"
-
-style="
-background:#f6e48bb1;
-border:1px solid #fdde92da;
-">
+    <label style="color:#4a5568;">
+    Hora_Fin:
+    </label>
 
 
-</div>
+    <input type="text"
+    disabled
+
+    value="
+    {{ \Carbon\Carbon::parse($horario->hora_fin)->format('h:i A') }}
+    "
+
+    class="form-control"
+
+    style="
+    background:#f6e48bb1;
+    border:1px solid #fdde92da;
+    ">
 
 
+    </div>
 
 
 </div>

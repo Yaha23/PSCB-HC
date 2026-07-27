@@ -50,7 +50,10 @@
                     <i class="fas fa-file-alt" style="margin-left:10px; color:#9aa0a6;"></i>
                 </h3>
 
-                @can('admin.horarios.create')
+                @canany([
+                    'admin.horarios.create',
+                    'asistente.horarios.create'
+                    ])
 
                      <div  class="card-tools">
                         <a href="{{url($base.'/horarios/create')}}" class="btn btn-primary"  style="background-color: #f4d279; width: 150px;font-size: 14px;font-weight: 400;font-family: sans-serif;letter-spacing: 0.5px;border-color:#f4d279;border-radius: 6px;padding: 5px;color:  #4a5568";" >
@@ -59,7 +62,7 @@
                     </div>
 
 
-                @endcan
+                @endcanany
 
                
             </div>
@@ -70,6 +73,8 @@
                 @php
                     $contador = ($horarios->currentPage() - 1) * $horarios->perPage() + 1;
                 @endphp
+
+                @if(!auth()->user()->hasRole('medico'))
 
                 <form method="GET" action="{{url($base.'/horarios')}}">
 
@@ -162,6 +167,8 @@
                 </div>
 
                 </form>
+
+            @endif
 
                 <br>
 
@@ -262,6 +269,7 @@
 @can('admin.horarios.show')
 
 <a href="{{ url($base.'/horarios/'.$horario->id) }}"
+title="Ver Horario"
 class="btn"
 style="background:#f4d279;color:#4a5568">
 
@@ -273,9 +281,14 @@ style="background:#f4d279;color:#4a5568">
 
 
 
-@can('admin.horarios.edit')
+@canany([
+'admin.horarios.show',
+'asistente.horarios.show',
+'medico.horarios.show'
+])
 
 <a href="{{ url($base.'/horarios/'.$horario->id.'/edit') }}"
+    title="Editar Horario"
 class="btn"
 style="background:#f4d279;color:#4a5568">
 
@@ -283,13 +296,17 @@ style="background:#f4d279;color:#4a5568">
 
 </a>
 
-@endcan
+@endcanany
 
 
 
-@can('admin.horarios.destroy')
+@canany([
+'admin.horarios.destroy',
+'asistente.horarios.destroy'
+])
 
 <a href="{{ route($base.'.horarios.confirmDelete',$horario->id) }}"
+title="Eliminar Horario"
 class="btn"
 style="background:#f4d279;color:#4a5568">
 
@@ -297,7 +314,7 @@ style="background:#f4d279;color:#4a5568">
 
 </a>
 
-@endcan
+@endcanany
 
 
 </div>

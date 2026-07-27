@@ -194,12 +194,18 @@ text-transform:uppercase;
 
 @endif
 
+</div>
 
 
 
 
 
-{{-- DIA --}}
+
+
+
+<br>
+<div class="row">
+    {{-- DIA --}}
 
 <div class="col-md-4">
 
@@ -286,16 +292,7 @@ border:1px solid #fdde92da;
 
 </div>
 
-
-
-
-
 </div>
-
-
-
-
-
 
 <br>
 

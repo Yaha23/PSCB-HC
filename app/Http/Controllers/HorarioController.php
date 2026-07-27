@@ -21,7 +21,7 @@ class HorarioController extends Controller
     $query = Horario::with('user');
 
 
-    // Médico solo ve su horario
+    // Médico solamente ve su horario
     if($user->hasRole('medico')){
 
         $query->where('user_id',$user->id);
@@ -29,8 +29,8 @@ class HorarioController extends Controller
     }
 
 
-    // Buscar por nombre
-    if($buscar){
+    // Buscar personal
+    if($buscar && !$user->hasRole('medico')){
 
         $query->whereHas('user', function($q) use ($buscar){
 
@@ -43,8 +43,8 @@ class HorarioController extends Controller
 
 
 
-    // Filtrar por rol
-    if($rol){
+    // Filtrar rol solo para admin y asistente
+    if($rol && !$user->hasRole('medico')){
 
         $query->whereHas('user', function($q) use ($rol){
 
@@ -64,10 +64,13 @@ class HorarioController extends Controller
 
 
     return view(
-         $this->getRouteBase().'.horarios.index',
-        compact('horarios','buscar','rol')
+        'admin.horarios.index',
+        compact(
+            'horarios',
+            'buscar',
+            'rol'
+        )
     );
-
 }
 
 
@@ -81,9 +84,12 @@ class HorarioController extends Controller
 
 
        return view(
-            $this->getRouteBase().'.horarios.create',
-            compact('medicos','asistentes')
-        );
+    'admin.horarios.create',
+    compact(
+        'medicos',
+        'asistentes'
+    )
+);
     }
 
 
@@ -232,7 +238,10 @@ class HorarioController extends Controller
         ->findOrFail($id);
 
 
-        return view( $this->getRouteBase().'.horarios.show',compact('horario'));
+        return view(
+            'admin.horarios.show',
+            compact('horario')
+            );
 
     }
 
@@ -255,7 +264,7 @@ class HorarioController extends Controller
     $asistentes = User::role('asistente')->get();
 
     return view(
-        $this->getRouteBase().'.horarios.edit',
+    'admin.horarios.edit',
         compact(
             'horario',
             'medicos',
@@ -443,9 +452,9 @@ class HorarioController extends Controller
         ->get();
 
     $pdf = Pdf::loadView(
-        $this->getRouteBase().'.horarios.reporte_pdf',
+        'admin.horarios.reporte_pdf',
         compact('horarios')
-    );
+        );
 
     return $pdf->stream('horarios_personal.pdf');
 }

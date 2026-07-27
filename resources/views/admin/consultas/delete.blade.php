@@ -22,9 +22,9 @@
 
         <h1 style="margin:0; font-size:26px; color:#4a5568;">
             @if($isAsistente)
-                Confirmar Eliminación de Datos Clínicos:{{ $consulta->paciente->nombres }}
+                Eliminación de Datos Clínicos
             @else
-                Confirmar Eliminación de Historia Clínica
+                Eliminación de Historia Clínica
             @endif
         </h1>
     </div>

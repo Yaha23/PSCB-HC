@@ -48,12 +48,12 @@ class AdminController extends Controller
         $total_usuarios = 0;
 
         $total_pacientes = Paciente::whereHas('consultas', function ($q) use ($user) {
-            $q->where('user_id', $user->id);
+            $q->where('medico_id', $user->id);
         })->count();
 
         $total_horarios = Horario::where('user_id', $user->id)->count();
 
-        $total_citas = Cita::where('user_id', $user->id)
+        $total_citas = Cita::where('medico_id', $user->id)
             ->where('estado', 'pendiente')
             ->count();
     }
@@ -70,7 +70,7 @@ class AdminController extends Controller
     } else {
 
         // 👨‍⚕️ MÉDICO → SOLO SUS CITAS
-        $citas = Cita::where('user_id', $user->id)
+        $citas = Cita::where('medico_id', $user->id)
             ->where('estado', 'pendiente')
             ->get();
     }

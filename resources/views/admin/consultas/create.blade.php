@@ -16,8 +16,16 @@
     <i class="bi bi-clipboard2-plus" style="font-size:28px; color:#5f6b7a;"></i>
 
     <h1 style="margin:0; font-size:26px; color:#4a5568;">
-        Registro de Historia Clinica
-    </h1>
+
+            @if($isAsistente)
+                 Registro de Asignación Médica y Datos clínicos
+            @else
+                Registro de Historia Clinica
+            @endif
+
+        </h1>
+
+   
 </div>
 
 <hr>

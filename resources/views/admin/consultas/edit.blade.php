@@ -300,11 +300,15 @@
 
 <hr>
 
+@if(!$isAsistente)
+
 <h5 style="font-size:12px;color:#6c757d;font-weight:500;">
     Atención Médica
     <i class="bi bi-file-earmark-medical-fill"
        style="margin-left:10px;color:#9aa0a6;"></i>
 </h5>
+
+<div class="row">
 
 <div class="row">
 
@@ -462,7 +466,7 @@
 
 
 {{-- ================= SOLO MÉDICO / ADMIN ================= --}}
-@if(!$isAsistente)
+
 
   <br>
     <div class="row">

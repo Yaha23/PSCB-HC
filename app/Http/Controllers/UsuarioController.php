@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash; // ← Esto es importante
 use Spatie\Permission\Models\Role;
+use Illuminate\Validation\Rule;
 class UsuarioController extends Controller
 {
     public function index(){
@@ -92,16 +93,29 @@ class UsuarioController extends Controller
 
     public function update(Request $request, $id){
 
-         $request->validate([ //permite que cada campo llenado no sea modificado y este protegido ya que se requiere asi.
-             'username'=>'required|unique:users,username',
+         $request->validate([
+
+            'username'=>[
+                'required',
+                Rule::unique('users','username')->ignore($id)
+            ],
+
             'name'=>'required|max:250',
-            'surname'=>'required|max:250',//apellidos
-            'email'=>'required|max:250|unique:users,email,'.$id,//correo electronico
-            'phone'=>'required|max:9',//celular
-            'password'=>'nullable|max:250|confirmed',//contraseña y en confirmed ,estoy diciendo que necesita ser confirmada.
-            'status'=>'required',   // Estado
-            'role'=>'required',     // Rol
-            'specialty'=>'required_if:role,medico', // Especialidad solo si rol = medico
+
+            'surname'=>'required|max:250',
+
+            'email'=>'required|max:250|unique:users,email,'.$id,
+
+            'phone'=>'required|max:9',
+
+            'password'=>'nullable|max:250|confirmed',
+
+            'status'=>'required',
+
+            'role'=>'required',
+
+            'specialty'=>'required_if:role,medico',
+
             'titulo_profesional'=>'nullable|string|max:50',
 
         ]);

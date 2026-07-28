@@ -184,6 +184,7 @@
         <input type="time"
                name="hora_atencion"
                class="form-control"
+               required
                style="border:1px solid #fdde92da;">
     </div>
 
@@ -215,6 +216,7 @@
         <label style="color:#4a5568;">Motivo de Consulta:</label>
         <input type="text"
                name="motivo_consulta"
+               required
                class="form-control"
                placeholder="consulta..."
                style="border:1px solid #fdde92da;">
@@ -229,6 +231,7 @@
         <input type="text"
                name="tiempo_enfermedad"
                class="form-control"
+               required
                placeholder="Ej. 3 días"
                style="border:1px solid #fdde92da;">
     </div>
@@ -238,6 +241,7 @@
 
         <select name="apetito"
                 class="form-control"
+                required
                 style="border:1px solid #fdde92da;">
 
             <option value="">Seleccione</option>
@@ -252,6 +256,7 @@
         <label style="color: #4a5568 "  >Sed:</label>
 
         <select name="sed"
+                 required
                 class="form-control"
                 style="border:1px solid #fdde92da;">
 
@@ -283,6 +288,7 @@
 
         <select name="sueno"
                 class="form-control"
+                required
                 style="border:1px solid #fdde92da;">
 
             <option value="">Seleccione</option>
@@ -300,6 +306,7 @@
         <input type="text"
                name="estado_animo"
                class="form-control"
+               required
                style="border:1px solid #fdde92da;">
 
     </div>
@@ -311,6 +318,7 @@
         <input type="text"
                name="orina"
                class="form-control"
+               required
                style="border:1px solid #fdde92da;">
 
     </div>
@@ -322,6 +330,7 @@
         <input type="text"
                name="deposiciones"
                class="form-control"
+               required
                style="border:1px solid #fdde92da;">
 
     </div>
@@ -346,6 +355,7 @@
             name="diagnostico_principal"
             rows="3"
             class="form-control"
+            required
             style="border:1px solid #fdde92da;"></textarea>
 
     </div>
@@ -360,6 +370,7 @@
             name="tratamiento"
             rows="3"
             class="form-control"
+            required
             style="border:1px solid #fdde92da;"></textarea>
 
     </div>
@@ -382,6 +393,7 @@
             name="acuerdos_compromisos"
             rows="3"
             class="form-control"
+            required
             style="border:1px solid #fdde92da;"></textarea>
 
     </div>
@@ -396,6 +408,7 @@
             name="examenes_auxiliares"
             rows="3"
             class="form-control"
+            required
             style="border:1px solid #fdde92da;"></textarea>
 
     </div>
@@ -417,6 +430,7 @@
             name="referencia"
             rows="3"
             class="form-control"
+            required
             style="border:1px solid #fdde92da;"></textarea>
 
     </div>
@@ -431,6 +445,7 @@
             name="observaciones"
             rows="3"
             class="form-control"
+            required
             style="border:1px solid #fdde92da;"></textarea>
 
     </div>

@@ -38,7 +38,7 @@
                                 @csrf
                                 
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <label style="color:#4a5568">Usuario:</label>
 
                                             <input
@@ -55,7 +55,7 @@
                                             @enderror
                                         </div>
                                         <!--Campo usuario-->
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <div class="form ground">
                                             <label for=""  style="color: #4a5568" >Nombres Completos:</label>
                                                 <input type="text" value="{{old('name') }}" name="name"  class="form-control" id="" placeholder="Nombres" required   style=" border:1px solid #fdde92da;">
@@ -66,7 +66,7 @@
                                         </div>
                                         <!--Campo -Apellidos-->
 
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <div class="form ground">
                                             <label for=""  style="color: #4a5568">Apellidos Completos:</label>
                                                 <input type="text" value="{{old('surname') }}" name="surname" class="form-control" id="" placeholder="Apellidos" required  style=" border:1px solid #fdde92da;"  >
@@ -79,7 +79,7 @@
 
 
                                         <!--Campo correo electronico-->
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <div class="form ground">
                                             <label for=""  style="color: #4a5568">Email:</label>
                                                 <input type="email" value="{{old('email') }}" name="email" class="form-control" id="" placeholder="Correo electronico" required  style=" border:1px solid #fdde92da;" >

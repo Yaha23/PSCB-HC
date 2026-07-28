@@ -72,6 +72,7 @@
                             <td class="text-center"><b>Nro</b></td>
                             <td class="text-center"><b>Nombres</b></td>
                             <td class="text-center"><b>Apellidos</b></td>
+                            <td class="text-center"><b>Usuario</b></td>
                             <td class="text-center"><b>Correo</b></td>
                             <td class="text-center"><b>Estado</b></td>
                             <td class="text-center"><b>Roles</b></td>
@@ -87,6 +88,7 @@
                             <td class="text-center">{{ $contador++ }}</td>
                             <td class="text-center">{{ $usuario->name }}</td>
                             <td class="text-center">{{ $usuario->surname }}</td>
+                            <td class="text-center">{{ $usuario->username }}</td>
                             <td class="text-center">{{ $usuario->email }}</td>
                             <td class="text-center" style="text-transform:uppercase;">{{ $usuario->status }}</td>
                             <td class="text-center">

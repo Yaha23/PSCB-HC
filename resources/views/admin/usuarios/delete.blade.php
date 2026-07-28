@@ -41,10 +41,21 @@
                                 @method('DELETE')
                                 
                                     <div class="row">
+                                         <div class="col-md-4">
+                                            <label style="color:#4a5568">Usuario:</label>
+
+                                            <input type="text" value="{{$usuario->username }}" name="username"  class="form-control" id="" placeholder="Nombres" disabled     style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
+
+
+                                            @error('username')
+                                                <small style="color:red">{{ $message }}</small>
+                                            @enderror
+                                        </div>
+
                                         <!--Campo usuario-->
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="form ground">
-                                            <label for="" style="color: #4a5568" >Nombre de Usuario:</label>
+                                            <label for="" style="color: #4a5568" >Nombres Completos:</label>
                                                 <input type="text" value="{{$usuario->name }}" name="name"  class="form-control" id="" placeholder="Nombres" disabled     style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
                                                     @error('name')
                                                     <small style="color:red">{{ $message }}</small>                                               
@@ -53,9 +64,9 @@
                                         </div>
                                         <!--Campo -Apellidos-->
 
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="form ground">
-                                            <label for="" style="color: #4a5568">Apellidos:</label>
+                                            <label for="" style="color: #4a5568">Apellidos Completos:</label>
                                                 <input type="text" value="{{$usuario->surname }}" name="surname" class="form-control" id="" placeholder="Apellidos" disabled     style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
                                                     @error('surname')
                                                     <small style="color:red">{{ $message }}</small>                                               

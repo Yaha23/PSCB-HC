@@ -26,62 +26,62 @@ z-index:0;
 }
 
 body::before{
-width:900px;
-height:900px;
-background:radial-gradient(circle,rgba(52,152,219,.12),transparent 60%);
-top:-250px;
-left:-250px;
+width:500px;
+height:500px;
+background:radial-gradient(circle,rgba(52,152,219,.12),transparent 65%);
+top:-150px;
+left:-150px;
 }
 
 body::after{
-width:700px;
-height:700px;
-background:radial-gradient(circle,rgba(44,62,80,.10),transparent 60%);
-bottom:-250px;
-right:-250px;
+width:400px;
+height:400px;
+background:radial-gradient(circle,rgba(44,62,80,.10),transparent 65%);
+bottom:-150px;
+right:-150px;
 }
 
 /* CARD */
 .box{
-width:850px;
-max-width:95%;
+width:650px;
+max-width:90%;
 display:flex;
-background:#fff;
-border-radius:18px;
+background:white;
+border-radius:16px;
 overflow:hidden;
-box-shadow:0 20px 50px rgba(0,0,0,.12);
+box-shadow:0 15px 35px rgba(0,0,0,.12);
 position:relative;
 z-index:1;
 }
 
 /* IZQUIERDA */
 .left{
-width:40%;
+width:38%;
 background:linear-gradient(135deg,#2c3e50,#1f2c38);
 display:flex;
-flex-direction:column;
 justify-content:center;
 align-items:center;
-color:#fff;
-padding:40px;
+flex-direction:column;
+padding:25px;
+color:white;
 text-align:center;
 }
 
 .left img{
-width:260px;
-max-width:100%;
-margin-bottom:10px;
+    width:190px;
+    max-width:100%;
+    margin-bottom:15px;
 }
 
 .left h2{
-font-size:16px;
-font-weight:700;
+font-size:14px;
+font-weight:600;
 }
 
 /* DERECHA */
 .right{
-width:60%;
-padding:55px 50px;
+width:62%;
+padding:35px 40px;
 }
 
 .title{
@@ -89,14 +89,14 @@ text-align:center;
 font-size:20px;
 font-weight:700;
 color:#1f2c38;
-margin-bottom:10px;
+margin-bottom:20px;
 }
 
 .subtitle{
 text-align:center;
-font-size:14px;
+font-size:13px;
 color:#6b7280;
-margin-bottom:28px;
+margin-bottom:18px;
 line-height:1.6;
 }
 

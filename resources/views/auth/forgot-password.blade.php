@@ -43,8 +43,8 @@ right:-250px;
 
 /* CARD */
 .box{
-width:850px;
-max-width:95%;
+width:650px;
+max-width:90%;
 display:flex;
 background:#fff;
 border-radius:18px;
@@ -122,13 +122,7 @@ margin-bottom:15px;
 margin-top:20px;
 }
 
-.subtitle{
-text-align:center;
-font-size:14px;
-color:#6b7280;
-margin-bottom:30px;
-line-height:1.6;
-}
+
 
 .group{
 margin-bottom:18px;
@@ -244,6 +238,16 @@ font-size:14px;
 }
 }
 
+
+.status-message{
+    color:#dc2626;
+    font-size:11px;
+    text-align:center;
+    margin-bottom:15px;
+    line-height:1.4;
+    font-weight:500;
+}
+
 </style>
 
 
@@ -270,13 +274,13 @@ font-size:14px;
 Recuperar contraseña
 </div>
 
-<div class="subtitle">
-Ingresa tu correo electrónico para recibir
-un enlace de recuperación seguro.
-</div>
 
-<x-auth-session-status class="mb-3"
-:status="session('status')" />
+
+@if (session('status'))
+    <div class="status-message">
+        {{ session('status') }}
+    </div>
+@endif
 
 <form method="POST"
 action="{{ route('password.email') }}">

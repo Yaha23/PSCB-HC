@@ -204,7 +204,7 @@ $fechaReporte=\Carbon\Carbon::now('America/Lima');
 
 <h2>PUESTO DE SALUD CRUZ BLANCA</h2>
 
-<h3>Reporte General de Pacientes</h3>
+<h3>RReporte General de Pacientes Atendidos</h3>
 
 </td>
 

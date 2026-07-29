@@ -71,49 +71,44 @@
 @csrf
 @method('PUT')
 
-    <ul class="nav nav-tabs mb-4">
+        <ul class="nav nav-tabs mb-4">
 
-        <li class="nav-item">
+    <li class="nav-item">
         <a class="nav-link active"
         data-toggle="tab"
         href="#paciente">
-
-        Paciente
-
+            Datos Generales
         </a>
-        </li>
+    </li>
 
-        <li class="nav-item">
+
+    <li class="nav-item">
         <a class="nav-link"
         data-toggle="tab"
         href="#fisico">
-
-        Examen Físico
-
+            Evaluación Inicial
         </a>
-        </li>
+    </li>
 
-        <li class="nav-item">
+
+    <li class="nav-item">
         <a class="nav-link"
         data-toggle="tab"
         href="#atencion">
-
-        Atención Médica
-
+            Anamnesis y Evaluación Médica
         </a>
-        </li>
+    </li>
 
-        <li class="nav-item">
+
+    <li class="nav-item">
         <a class="nav-link"
         data-toggle="tab"
         href="#diagnostico">
-
-        Diagnóstico
-
+            Diagnóstico y Plan Terapéutico
         </a>
-        </li>
+    </li>
 
-    </ul>
+</ul>
 
  <div class="tab-content">
     <div class="tab-pane fade show active" id="paciente">

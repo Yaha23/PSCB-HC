@@ -142,7 +142,7 @@
             name="buscar" 
             value="{{ $buscar ?? '' }}"
             class="form-control"
-            placeholder="Buscar por nombre o apellido"
+            placeholder="Buscar por Nombre , Apellido o DNI"
             style="
                 border:1px solid #f4d279;
                 width:300px;

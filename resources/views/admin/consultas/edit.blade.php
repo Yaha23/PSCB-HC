@@ -91,22 +91,25 @@
     </li>
 
 
-    <li class="nav-item">
-        <a class="nav-link"
-        data-toggle="tab"
-        href="#atencion">
-            Anamnesis y Evaluación Médica
-        </a>
-    </li>
+    @if($isMedico || $isAdmin)
 
+<li class="nav-item">
+    <a class="nav-link"
+       data-toggle="tab"
+       href="#atencion">
+        Anamnesis y Evaluación Médica
+    </a>
+</li>
 
-    <li class="nav-item">
-        <a class="nav-link"
-        data-toggle="tab"
-        href="#diagnostico">
-            Diagnóstico y Plan Terapéutico
-        </a>
-    </li>
+<li class="nav-item">
+    <a class="nav-link"
+       data-toggle="tab"
+       href="#diagnostico">
+        Diagnóstico y Plan Terapéutico
+    </a>
+</li>
+
+@endif
 
 </ul>
 
@@ -518,6 +521,7 @@
             </div>
         @endif
 
+    <hr>
     </div>
 
     <div class="tab-pane fade" id="diagnostico">

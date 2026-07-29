@@ -87,22 +87,25 @@
     </li>
 
 
-    <li class="nav-item">
-        <a class="nav-link"
-        data-toggle="tab"
-        href="#atencion">
-            Anamnesis y Evaluación Médica
-        </a>
-    </li>
+    @if($isMedico || $isAdmin)
 
+<li class="nav-item">
+    <a class="nav-link"
+       data-toggle="tab"
+       href="#atencion">
+        Anamnesis y Evaluación Médica
+    </a>
+</li>
 
-    <li class="nav-item">
-        <a class="nav-link"
-        data-toggle="tab"
-        href="#diagnostico">
-            Diagnóstico y Plan Terapéutico
-        </a>
-    </li>
+<li class="nav-item">
+    <a class="nav-link"
+       data-toggle="tab"
+       href="#diagnostico">
+        Diagnóstico y Plan Terapéutico
+    </a>
+</li>
+
+@endif
 
 </ul>
      <div class="tab-content">
@@ -312,7 +315,9 @@
 
             </div>
 
+        <hr>
         </div>
+       
         <div class="tab-pane fade" id="atencion">
             {{-- ========================================================= --}}
             {{-- SOLO MÉDICO Y ADMIN VEN DIAGNÓSTICO Y TRATAMIENTO --}}
@@ -389,8 +394,9 @@
 
                 </div>
             @endif
-            <br>
+    
 
+        <hr>
         </div>
         <div class="tab-pane fade" id="diagnostico">
         @if($isMedico || $isAdmin)

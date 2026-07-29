@@ -35,9 +35,9 @@
     <h1 style="margin:0; font-size:26px; color:#4a5568;">
 
             @if($isAsistente)
-                 Registro de Asignación Médica y Datos clínicos
+                Registro de Datos Iniciales de Atención
             @else
-                Registro de Historia Clinica
+                Registro de Historia Clínica
             @endif
 
         </h1>
@@ -77,22 +77,25 @@
     </li>
 
 
-    <li class="nav-item">
-        <a class="nav-link"
-        data-toggle="tab"
-        href="#atencion">
-            Anamnesis y Evaluación Médica
-        </a>
-    </li>
+    @if($isMedico || $isAdmin)
 
+<li class="nav-item">
+    <a class="nav-link"
+       data-toggle="tab"
+       href="#atencion">
+        Anamnesis y Evaluación Médica
+    </a>
+</li>
 
-    <li class="nav-item">
-        <a class="nav-link"
-        data-toggle="tab"
-        href="#diagnostico">
-            Diagnóstico y Plan Terapéutico
-        </a>
-    </li>
+<li class="nav-item">
+    <a class="nav-link"
+       data-toggle="tab"
+       href="#diagnostico">
+        Diagnóstico y Plan Terapéutico
+    </a>
+</li>
+
+@endif
 
 </ul>
 
@@ -299,6 +302,7 @@
 
                 <div class="col-md-3">
                     <label style="color: #4a5568 ">Apetito:</label>
+                    
 
                     <select name="apetito"
                             class="form-control"

@@ -76,6 +76,8 @@
     </li>
 
 
+    @if($isMedico || $isAdmin)
+
     <li class="nav-item">
         <a class="nav-link"
         data-toggle="tab"
@@ -84,7 +86,6 @@
         </a>
     </li>
 
-
     <li class="nav-item">
         <a class="nav-link"
         data-toggle="tab"
@@ -92,6 +93,8 @@
             Diagnóstico y Plan Terapéutico
         </a>
     </li>
+
+    @endif
 
 </ul>
         <form action="{{ route($base.'.consultas.destroy', $consulta->id) }}" method="POST" enctype="multipart/form-data">
@@ -298,7 +301,7 @@
         </div>
         <div class="tab-pane fade" id="atencion">
 
-                        <hr>
+                 
             @if($isAdmin)
                 {{-- ================= DIAGNÓSTICO ================= --}}
                 <h5 style="font-size:12px;color:#6c757d;font-weight:500;">
@@ -369,9 +372,9 @@
                 </div>
 
             </div>
-            <br>
+       
             @endif
-
+            <hr>
         </div>
         <div class="tab-pane fade" id="diagnostico">
 
@@ -393,7 +396,7 @@
                         color:{{ empty($consulta->diagnostico_principal) ? 'red' : '#000' }};
                         font-size:13px;
                         border:1px solid #fdde92da;
-                        cursor:not-allowed;">{{ $consulta->diagnostico_principal ?? 'Pendiente de evaluación médica' }}</textarea>
+                        cursor:not-allowed;">{{ $consulta->diagnostico_principal ?? 'Pendiente registro' }}</textarea>
         </div>
     </div>
 
@@ -494,7 +497,8 @@
 
 
      @endif
-           <br>
+      
+           <hr>
         </div>
         
 

@@ -13,6 +13,22 @@
 
     $sv = $consulta->signosVitales ?? null;
 @endphp
+<style>
+    .nav-tabs .nav-link{
+    color:#4a5568 !important;   /* Color del texto */
+    font-weight:600;
+}
+
+.nav-tabs .nav-link:hover{
+    color:#4a5568 !important;
+}
+
+.nav-tabs .nav-link.active{
+    color:#4a5568 !important;
+    background-color:#f4d279;
+    border-color:#f4d279 #f4d279 #fff;
+}
+</style>
 
 {{-- ================= HEADER ================= --}}
 <div class="d-flex justify-content-between align-items-center">
@@ -40,10 +56,54 @@
 <div class="card card-outline" style="border-top:3px solid #f4d279;">
 
     <div class="card-body">
+         <ul class="nav nav-tabs mb-4">
+
+        <li class="nav-item">
+        <a class="nav-link active"
+        data-toggle="tab"
+        href="#paciente">
+
+        Paciente
+
+        </a>
+        </li>
+
+        <li class="nav-item">
+        <a class="nav-link"
+        data-toggle="tab"
+        href="#fisico">
+
+        Examen Físico
+
+        </a>
+        </li>
+
+        <li class="nav-item">
+        <a class="nav-link"
+        data-toggle="tab"
+        href="#atencion">
+
+        Atención Médica
+
+        </a>
+        </li>
+
+        <li class="nav-item">
+        <a class="nav-link"
+        data-toggle="tab"
+        href="#diagnostico">
+
+        Diagnóstico
+
+        </a>
+        </li>
+
+    </ul>
         <form action="{{ route($base.'.consultas.destroy', $consulta->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('DELETE')
-
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="paciente">
             {{-- ================= PACIENTE ================= --}}
             <h5 style="color:#4a5568;">Datos del Paciente</h5>
 
@@ -113,203 +173,214 @@
             </div>
 
             <hr>
-
-{{-- ================= SIGNOS VITALES ================= --}}
-<h5 style="font-size:12px; color:#6c757d; font-weight:500;">
-    Signos Vitales
-
-    <i class="bi bi-activity" style="margin-left:10px; color:#9aa0a6;"></i>
-</h5>
-
-<div class="row">
-
-    <div class="col-md-2">
-        <label style="color:#4a5568">Peso:</label>
-
-        <div class="input-group">
-            <input class="form-control"
-                   readonly
-                   value="{{ $sv->peso ?? '-' }}"
-                   style="background-color:#f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
-
-            <div class="input-group-append">
-                <span class="input-group-text"
-                      style="background-color:#f4d279; border:#f4d279;">
-                    Kg
-                </span>
-            </div>
         </div>
-    </div>
+        <div class="tab-pane fade" id="fisico">
+            {{-- ================= SIGNOS VITALES ================= --}}
+            <h5 style="font-size:12px; color:#6c757d; font-weight:500;">
+                Signos Vitales
+
+                <i class="bi bi-activity" style="margin-left:10px; color:#9aa0a6;"></i>
+            </h5>
+
+            <div class="row">
+
+                <div class="col-md-2">
+                    <label style="color:#4a5568">Peso:</label>
+
+                    <div class="input-group">
+                        <input class="form-control"
+                            readonly
+                            value="{{ $sv->peso ?? '-' }}"
+                            style="background-color:#f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
+
+                        <div class="input-group-append">
+                            <span class="input-group-text"
+                                style="background-color:#f4d279; border:#f4d279;">
+                                Kg
+                            </span>
+                        </div>
+                    </div>
+                </div>
 
 
-    <div class="col-md-2">
-        <label style="color:#4a5568">Talla:</label>
+                <div class="col-md-2">
+                    <label style="color:#4a5568">Talla:</label>
 
-        <div class="input-group">
-            <input class="form-control"
-                   readonly
-                   value="{{ $sv->talla ?? '-' }}"
-                   style="background-color:#f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
+                    <div class="input-group">
+                        <input class="form-control"
+                            readonly
+                            value="{{ $sv->talla ?? '-' }}"
+                            style="background-color:#f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
 
-            <div class="input-group-append">
-                <span class="input-group-text"
-                      style="background-color:#f4d279; border:#f4d279;">
-                    m
-                </span>
+                        <div class="input-group-append">
+                            <span class="input-group-text"
+                                style="background-color:#f4d279; border:#f4d279;">
+                                m
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-2">
+                    <label style="color:#4a5568">Presión:</label>
+
+                    <div class="input-group">
+                        <input class="form-control"
+                            readonly
+                            value="{{ $sv->presion_arterial ?? '-' }}"
+                            style="background-color:#f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
+
+                        <div class="input-group-append">
+                            <span class="input-group-text"
+                                style="background-color:#f4d279; border:#f4d279;">
+                                mmHg
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-2">
+                    <label style="color:#4a5568">Temperatura:</label>
+
+                    <div class="input-group">
+                        <input class="form-control"
+                            readonly
+                            value="{{ $sv->temperatura ?? '-' }}"
+                            style="background-color:#f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
+
+                        <div class="input-group-append">
+                            <span class="input-group-text"
+                                style="background-color:#f4d279; border:#f4d279;">
+                                °C
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-2">
+                    <label style="color:#4a5568">F.C:</label>
+
+                    <div class="input-group">
+                        <input class="form-control"
+                            readonly
+                            value="{{ $sv->frecuencia_cardiaca ?? '-' }}"
+                            style="background-color:#f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
+
+                        <div class="input-group-append">
+                            <span class="input-group-text"
+                                style="background-color:#f4d279; border:#f4d279;">
+                                lpm
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-2">
+                    <label style="color:#4a5568">F.R:</label>
+
+                    <div class="input-group">
+                        <input class="form-control"
+                            readonly
+                            value="{{ $sv->frecuencia_respiratoria ?? '-' }}"
+                            style="background-color:#f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
+
+                        <div class="input-group-append">
+                            <span class="input-group-text"
+                                style="background-color:#f4d279; border:#f4d279;">
+                                rpm
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-        </div>
-    </div>
-
-
-    <div class="col-md-2">
-        <label style="color:#4a5568">Presión:</label>
-
-        <div class="input-group">
-            <input class="form-control"
-                   readonly
-                   value="{{ $sv->presion_arterial ?? '-' }}"
-                   style="background-color:#f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
-
-            <div class="input-group-append">
-                <span class="input-group-text"
-                      style="background-color:#f4d279; border:#f4d279;">
-                    mmHg
-                </span>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="col-md-2">
-        <label style="color:#4a5568">Temperatura:</label>
-
-        <div class="input-group">
-            <input class="form-control"
-                   readonly
-                   value="{{ $sv->temperatura ?? '-' }}"
-                   style="background-color:#f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
-
-            <div class="input-group-append">
-                <span class="input-group-text"
-                      style="background-color:#f4d279; border:#f4d279;">
-                    °C
-                </span>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="col-md-2">
-        <label style="color:#4a5568">F.C:</label>
-
-        <div class="input-group">
-            <input class="form-control"
-                   readonly
-                   value="{{ $sv->frecuencia_cardiaca ?? '-' }}"
-                   style="background-color:#f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
-
-            <div class="input-group-append">
-                <span class="input-group-text"
-                      style="background-color:#f4d279; border:#f4d279;">
-                    lpm
-                </span>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="col-md-2">
-        <label style="color:#4a5568">F.R:</label>
-
-        <div class="input-group">
-            <input class="form-control"
-                   readonly
-                   value="{{ $sv->frecuencia_respiratoria ?? '-' }}"
-                   style="background-color:#f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
-
-            <div class="input-group-append">
-                <span class="input-group-text"
-                      style="background-color:#f4d279; border:#f4d279;">
-                    rpm
-                </span>
-            </div>
-        </div>
-    </div>
-
-</div>
-
             <hr>
+
+        </div>
+        <div class="tab-pane fade" id="atencion">
+
+                        <hr>
             @if($isAdmin)
                 {{-- ================= DIAGNÓSTICO ================= --}}
                 <h5 style="font-size:12px;color:#6c757d;font-weight:500;">
-    Atención Médica
-    <i class="bi bi-file-earmark-medical-fill"
-       style="margin-left:10px;color:#9aa0a6;"></i>
-</h5>
+                Atención Médica
+                <i class="bi bi-file-earmark-medical-fill"
+                style="margin-left:10px;color:#9aa0a6;"></i>
+            </h5>
 
-<div class="row">
-      <div class="col-md-3">
-         <label style="color:#4a5568;">Motivo de Consulta:</label>
-        <input class="form-control"
-               readonly
-               value="{{ $consulta->motivo_consulta }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
-    </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label style="color:#4a5568;">Motivo de Consulta:</label>
+                    <input class="form-control"
+                        readonly
+                        value="{{ $consulta->motivo_consulta }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
+                </div>
 
-    <div class="col-md-3">
-         <label style="color:#4a5568;">Tiempo de Enfermedad:</label>
-        <input class="form-control"
-               readonly
-               value="{{ $consulta->tiempo_enfermedad }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
-    </div>
-      <div class="col-md-3">
-         <label style="color:#4a5568;">Apetito:</label>
-        <input class="form-control"
-               readonly
-               value="{{ $consulta->apetito }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
-    </div>
+                <div class="col-md-3">
+                    <label style="color:#4a5568;">Tiempo de Enfermedad:</label>
+                    <input class="form-control"
+                        readonly
+                        value="{{ $consulta->tiempo_enfermedad }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
+                </div>
+                <div class="col-md-3">
+                    <label style="color:#4a5568;">Apetito:</label>
+                    <input class="form-control"
+                        readonly
+                        value="{{ $consulta->apetito }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
+                </div>
 
-    <div class="col-md-3">
-         <label style="color:#4a5568;">Sed:</label>
-        <input class="form-control"
-               readonly
-               value="{{ $consulta->sed }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
-    </div>
+                <div class="col-md-3">
+                    <label style="color:#4a5568;">Sed:</label>
+                    <input class="form-control"
+                        readonly
+                        value="{{ $consulta->sed }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
+                </div>
 
-    
-     
+                
+                
 
 
-    
+                
 
-</div>
-<div class="row">
-     <div class="col-md-3">
-         <label style="color:#4a5568;">Sueño:</label>
-        <input class="form-control"
-               readonly
-               value="{{ $consulta->sueno }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
-    </div>
-     <div class="col-md-3">
-         <label style="color:#4a5568;">Estado de Ánimo:</label>
-        <input class="form-control"
-               readonly
-               value="{{ $consulta->estado_animo }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
-    </div>
-     <div class="col-md-3">
-         <label style="color:#4a5568;">Orina:</label>
-        <input class="form-control"
-               readonly
-               value="{{ $consulta->orina }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
-    </div>
-     <div class="col-md-3">
-         <label style="color:#4a5568;">Deposiciones:</label>
-        <input class="form-control"
-               readonly
-               value="{{ $consulta->deposiciones }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
-    </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label style="color:#4a5568;">Sueño:</label>
+                    <input class="form-control"
+                        readonly
+                        value="{{ $consulta->sueno }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
+                </div>
+                <div class="col-md-3">
+                    <label style="color:#4a5568;">Estado de Ánimo:</label>
+                    <input class="form-control"
+                        readonly
+                        value="{{ $consulta->estado_animo }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
+                </div>
+                <div class="col-md-3">
+                    <label style="color:#4a5568;">Orina:</label>
+                    <input class="form-control"
+                        readonly
+                        value="{{ $consulta->orina }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
+                </div>
+                <div class="col-md-3">
+                    <label style="color:#4a5568;">Deposiciones:</label>
+                    <input class="form-control"
+                        readonly
+                        value="{{ $consulta->deposiciones }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
+                </div>
 
-</div>
-<br>
+            </div>
+            <br>
+            @endif
+
+        </div>
+        <div class="tab-pane fade" id="diagnostico">
+
+             @if($isAdmin)
 
 <div class="row">
 
@@ -429,6 +500,16 @@
 
      @endif
            <br>
+        </div>
+        
+
+
+    </div>
+
+            
+
+
+  
         
 
              {{-- BOTONES --}}

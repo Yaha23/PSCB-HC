@@ -60,7 +60,7 @@
                                     required
                                     style="border:1px solid #fdde92da;">
 
-                                <option value="">Seleccione</option>
+                                <option value="" disabled selected>Seleccione</option>
 
                                 <option value="medico"
                                     {{ $rolActual=='medico' ? 'selected':'' }}>
@@ -88,8 +88,10 @@
                                 class="form-control"
                                 required
                                 style="border:1px solid #fdde92da;">
+                                
 
                             </select>
+                            
 
                         </div>
 

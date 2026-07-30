@@ -44,7 +44,7 @@
                                     <select name="rol" id="rol" class="form-control"
                                         required style="border:1px solid #fdde92da;">
 
-                                        <option value="">Seleccione</option>
+                                        <option value=""disabled selected>Seleccione</option>
                                         <option value="medico">Médico</option>
                                         <option value="asistente">Asistente</option>
 
@@ -63,7 +63,7 @@
                                             required
                                             style="border:1px solid #fdde92da;">
 
-                                        <option value="">Seleccione</option>
+                                        <option value=""disabled selected>Seleccione</option>
 
                                     </select>
 
@@ -110,7 +110,7 @@
                                             required
                                             style="border:1px solid #fdde92da;">
 
-                                        <option value="">Ninguno</option>
+                                        <option value="" disabled selected>Seleccione</option>
                                         <option value="lunes">Lunes</option>
                                         <option value="martes">Martes</option>
                                         <option value="miercoles">Miércoles</option>

@@ -149,7 +149,7 @@
                     <label style="color: #4a5568" >Médico Responsable:</label>
 
                     <select name="medico_id" id="medicoSelect" class="form-control" required style=" border:1px solid #fdde92da;" >
-                        <option value="">Seleccione médico</option>
+                        <option value="" disabled selected>Seleccione médico</option>
 
                         @foreach(App\Models\User::role('medico')->get() as $medico)
                             <option value="{{ $medico->id }}"

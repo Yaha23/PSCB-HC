@@ -42,7 +42,7 @@
                                         <div class="form ground">
                                         <label for=""  style="color: #4a5568" >Paciente:</label>
                                           <select name="paciente_id"  class="form-control" style=" border:1px solid #fdde92da;" >
-                                            <option value="">Seleccione Paciente</option>
+                                            <option value="" disabled selected>Seleccione Paciente</option>
 
                                               @foreach($pacientes as $paciente)
                                                     <option value="{{ $paciente->id }}"
@@ -69,7 +69,7 @@
                                                     style="border:1px solid #fdde92da;"
                                                     required>
 
-                                                <option value="" disabled>Seleccione</option>
+                                                <option value="" disabled>Seleccione Médico</option>
 
                                                 @foreach($medicos as $medico)
                                                     <option

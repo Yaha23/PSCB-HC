@@ -213,7 +213,7 @@
                 style="border:1px solid #fdde92da;">
 
 
-                <option value="">
+                <option value="" disabled>
                     Seleccione
                 </option>
 
@@ -258,7 +258,7 @@
                 style="border:1px solid #fdde92da;">
 
 
-                <option value="">Seleccione</option>
+                <option value="" disabled selected  >Seleccione</option>
 
                 <option value="Dr.">Dr.</option>
                 <option value="Dra.">Dra.</option>

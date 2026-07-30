@@ -374,6 +374,7 @@
                     <input type="text"
                         name="motivo_consulta"
                         class="form-control"
+                        placeholder="Consulta"
                         value="{{ old('motivo_consulta',$consulta->motivo_consulta) }}"
                         {{ $isAsistente ? 'readonly' : '' }}
                         style="{{ $isAsistente ? $readonlyStyle : 'border:1px solid #f4d279;' }}">
@@ -385,6 +386,7 @@
                 <input type="text"
                             name="tiempo_enfermedad"
                             class="form-control"
+                            placeholder="Tiempo de Enfermedad"
                             value="{{ old('tiempo_enfermedad',$consulta->tiempo_enfermedad) }}"
                             {{ $isAsistente ? 'readonly' : '' }}
                             style="{{ $isAsistente ? $readonlyStyle : 'border:1px solid #f4d279;' }}">
@@ -397,6 +399,7 @@
                     <input type="text"
                         name="apetito"
                         class="form-control"
+                        placeholder="Apetito"
                         value="{{ old('apetito', $consulta->apetito) }}"
                         required
                         style="border:1px solid #fdde92da;">
@@ -410,6 +413,7 @@
                     <input type="text"
                         name="sed"
                         class="form-control"
+                        placeholder="Sed"
                         value="{{ old('sed', $consulta->sed) }}"
                         required
                         style="border:1px solid #fdde92da;">
@@ -429,6 +433,7 @@
                     <input type="text"
                         name="sueno"
                         class="form-control"
+                         placeholder="Sueño"
                         value="{{ old('sueno', $consulta->sueno) }}"
                         required
                         style="border:1px solid #fdde92da;">
@@ -442,6 +447,7 @@
                     <input type="text"
                         name="estado_animo"
                         class="form-control"
+                         placeholder="Estado de Ánimo"
                         value="{{ old('estado_animo',$consulta->estado_animo) }}"
                         {{ $isAsistente ? 'readonly' : '' }}
                         style="{{ $isAsistente ? $readonlyStyle : 'border:1px solid #f4d279;' }}">
@@ -455,6 +461,7 @@
                     <input type="text"
                         name="orina"
                         class="form-control"
+                         placeholder="Orina"
                         value="{{ old('orina',$consulta->orina) }}"
                         {{ $isAsistente ? 'readonly' : '' }}
                         style="{{ $isAsistente ? $readonlyStyle : 'border:1px solid #f4d279;' }}">
@@ -468,6 +475,7 @@
                 <input type="text"
                     name="deposiciones"
                     class="form-control"
+                     placeholder="Deposiciones"
                     value="{{ old('deposiciones',$consulta->deposiciones) }}"
                     {{ $isAsistente ? 'readonly' : '' }}
                     style="{{ $isAsistente ? $readonlyStyle : 'border:1px solid #f4d279;' }}">
@@ -495,6 +503,7 @@
 
                         <textarea name="diagnostico_principal"
                                 class="form-control"
+                                placeholder="Diagnóstico"
                                 rows="4"
                                 required  style="border:1px solid #f4d279;">{{ old('diagnostico_principal', $consulta->diagnostico_principal) }}</textarea>
 
@@ -506,6 +515,7 @@
 
                         <textarea name="tratamiento"
                                 class="form-control"
+                                placeholder="Tratamiento"
                                 rows="4"
                                 required  style="border:1px solid #f4d279;">{{ old('tratamiento', $consulta->tratamiento) }}</textarea>
 
@@ -524,6 +534,7 @@
 
                         <textarea name="acuerdos_compromisos"
                                 class="form-control"
+                                 placeholder="Acuerdos y Compromisos"
                                 rows="4"
                                 required  style="border:1px solid #f4d279;">{{ old('acuerdos_compromisos', $consulta->acuerdos_compromisos) }}</textarea>
 
@@ -534,6 +545,7 @@
 
                         <textarea name="examenes_auxiliares"
                                 class="form-control"
+                                placeholder="Examenes Auxiliares"
                                 rows="4"
                                 required  style="border:1px solid #f4d279;">{{ old('examenes_auxiliares', $consulta->examenes_auxiliares) }}</textarea>
 
@@ -550,6 +562,7 @@
 
                         <textarea name="referencia"
                                 class="form-control"
+                                  placeholder="Referencia"
                                 rows="4"
                                 required  style="border:1px solid #f4d279;">{{ old('referencia', $consulta->referencia) }}</textarea>
 
@@ -560,6 +573,7 @@
 
                         <textarea name="observaciones"
                                 class="form-control"
+                                 placeholder="Observaciones"
                                 rows="4"
                                 required  style="border:1px solid #f4d279;">{{ old('observaciones', $consulta->observaciones) }}</textarea>
 

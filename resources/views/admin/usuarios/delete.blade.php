@@ -85,7 +85,7 @@
                                         <!--Campo correo electronico-->
                                         <div class="col-md-6">
                                             <div class="form ground">
-                                            <label for=""  style="color: #4a5568">Email:</label>
+                                            <label for=""  style="color: #4a5568">Correo Electrónico:</label>
                                                 <input type="email" value="{{$usuario->email }}" name="email" class="form-control" id="" placeholder="Correo electronico" disabled     style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
                                                     @error('email')
                                                     <small style="color:red">{{ $message }}</small>                                               

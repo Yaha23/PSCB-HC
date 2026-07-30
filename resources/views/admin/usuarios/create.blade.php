@@ -45,7 +45,7 @@
                                                 type="text"
                                                 name="username"
                                                 class="form-control"
-                                                placeholder="usuario"
+                                                placeholder="Usuario"
                                                 value="{{ old('username') }}"
                                                 style="border:1px solid #fdde92da;"
                                                 required>
@@ -81,7 +81,7 @@
                                         <!--Campo correo electronico-->
                                         <div class="col-md-3">
                                             <div class="form ground">
-                                            <label for=""  style="color: #4a5568">Email:</label>
+                                            <label for=""  style="color: #4a5568">Correo Electronico:</label>
                                                 <input type="email" value="{{old('email') }}" name="email" class="form-control" id="" placeholder="Correo electronico" required  style=" border:1px solid #fdde92da;" >
                                                     @error('email')
                                                     <small style="color:red">{{ $message }}</small>                                               
@@ -317,7 +317,7 @@
                 type="text"
                 name="colegio_profesional"
                 class="form-control"
-                placeholder="Ejemplo: CMP 12345"
+                placeholder="Colegio Profesional"
                 value="{{ old('colegio_profesional') }}"
                 style="border:1px solid #fdde92da;">
 
@@ -341,7 +341,7 @@
                                                             Cancelar
                                                     </a>
                                                         <button type="submit" class="btn" style="background-color: #f4d279; width: 200px;font-size: 16px;font-weight: 400;font-family: 'Segoe UI', Tahoma, sans-serif;letter-spacing: 0.5px;border-radius: 6px;padding: 5px;color:  #4a5568";">
-                                                            <b>Registrar usuario</b>
+                                                            <b>Registrar Usuario</b>
                                                         </button>
                                             </div>
                                         </div>

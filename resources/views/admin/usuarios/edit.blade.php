@@ -72,7 +72,7 @@
                                     <!--Campo correo electronico-->
                                       <div class="col-md-3">
                                         <div class="form ground">
-                                        <label for=""  style="color: #4a5568">Email:</label>
+                                        <label for=""  style="color: #4a5568">Correo Electrónico:</label>
                                             <input type="email" value="{{$usuario->email }}" name="email" class="form-control" id="" placeholder="Correo electronico" required  style=" border:1px solid #fdde92da;" >
                                                 @error('email')
                                                 <small style="color:red">{{ $message }}</small>                                               
@@ -373,7 +373,7 @@
                                             name="colegio_profesional"
                                             class="form-control"
                                             value="{{ old('colegio_profesional',$usuario->colegio_profesional) }}"
-                                            placeholder="Ejemplo: CMP 12345"
+                                            placeholder=""
                                             style="border:1px solid #fdde92da;">
 
                                     </div>

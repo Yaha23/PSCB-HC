@@ -282,7 +282,7 @@
                         name="motivo_consulta"
                         required
                         class="form-control"
-                        placeholder="consulta..."
+                        placeholder="Consulta"
                         style="border:1px solid #fdde92da;">
                     
                 </div>
@@ -296,7 +296,7 @@
                         name="tiempo_enfermedad"
                         class="form-control"
                         required
-                        placeholder="Ej. 3 días"
+                        placeholder="Tiempo de Enfermedad"
                         style="border:1px solid #fdde92da;">
                 </div>
 
@@ -308,7 +308,7 @@
                         name="apetito"
                         class="form-control"
                         value="{{ old('apetito') }}"
-                        placeholder="Ej.: Conservado"
+                        placeholder="Apetito"
                         required
                         style="border:1px solid #fdde92da;">
                 </div>
@@ -321,7 +321,7 @@
                         name="sed"
                         class="form-control"
                         value="{{ old('sed') }}"
-                        placeholder="Ej.: Conservada"
+                        placeholder="Sed"
                         required
                         style="border:1px solid #fdde92da;">
 
@@ -347,7 +347,7 @@
                         name="sueno"
                         class="form-control"
                         value="{{ old('sueno') }}"
-                        placeholder="Ej.: Conservado"
+                        placeholder="Sueño"
                         required
                         style="border:1px solid #fdde92da;">
 
@@ -360,6 +360,7 @@
                     <input type="text"
                         name="estado_animo"
                         class="form-control"
+                         placeholder="Estado de Ánimo"
                         required
                         style="border:1px solid #fdde92da;">
 
@@ -372,6 +373,7 @@
                     <input type="text"
                         name="orina"
                         class="form-control"
+                         placeholder="Orina"
                         required
                         style="border:1px solid #fdde92da;">
 
@@ -384,6 +386,7 @@
                     <input type="text"
                         name="deposiciones"
                         class="form-control"
+                         placeholder="Deposiciones"
                         required
                         style="border:1px solid #fdde92da;">
 
@@ -412,6 +415,7 @@
                     name="diagnostico_principal"
                     rows="3"
                     class="form-control"
+                     placeholder="Diagnóstico"
                     required
                     style="border:1px solid #fdde92da;"></textarea>
 
@@ -427,6 +431,7 @@
                     name="tratamiento"
                     rows="3"
                     class="form-control"
+                    placeholder="Tratamiento"
                     required
                     style="border:1px solid #fdde92da;"></textarea>
 
@@ -449,6 +454,7 @@
                     name="acuerdos_compromisos"
                     rows="3"
                     class="form-control"
+                    placeholder="Acuerdos y Compromisos"
                     required
                     style="border:1px solid #fdde92da;"></textarea>
 
@@ -465,6 +471,7 @@
                     name="examenes_auxiliares"
                     rows="3"
                     class="form-control"
+                    placeholder="Examenes Auxiliares"
                     required
                     style="border:1px solid #fdde92da;"></textarea>
 
@@ -479,6 +486,7 @@
                     name="referencia"
                     rows="3"
                     class="form-control"
+                    placeholder="Referencia"
                     required
                     style="border:1px solid #fdde92da;"></textarea>
 
@@ -494,6 +502,7 @@
                     name="observaciones"
                     rows="3"
                     class="form-control"
+                    placeholder="Observaciones"
                     required
                     style="border:1px solid #fdde92da;"></textarea>
 
@@ -501,15 +510,6 @@
 
         </div>
 
-        <br>
-
-
-        {{-- ================= REFERENCIA ================= --}}
-
-        <div class="row">
-
-
-        </div>
 
 
         <br>

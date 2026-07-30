@@ -201,7 +201,7 @@
     <div class="tab-pane fade" id="fisico">
         {{-- ================= SIGNOS VITALES ================= --}}
         <h5 style="font-size:12px; color:#6c757d; font-weight:500;">
-        Ingrese los Signos Vitales
+        Examen Físico
 
         <i class="bi bi-activity" style="margin-left:10px; color:#9aa0a6;"></i>
         </h5>

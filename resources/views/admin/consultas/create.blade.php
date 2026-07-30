@@ -103,12 +103,11 @@
 
     <div class="tab-pane fade show active" id="paciente">
 
-            {{-- ================= PACIENTE ================= --}}
-        <h5 style="font-size:12px; color:#6c757d; font-weight:500;">
-            Ingrese los datos requeridos 
-
-            <i class="bi bi-pen-fill" style="margin-left:10px; color:#9aa0a6;"></i>
-        </h5>
+        
+         {{-- ================= DATOS PACIENTE ================= --}}
+            <h5 style="font-size:12px; color:#6c757d; font-weight:500;">Datos del Paciente
+                <i class="bi bi-person-vcard-fill" style="margin-left:10px; color:#9aa0a6;"></i>
+            </h5>
 
             <div class="row">
 

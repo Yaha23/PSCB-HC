@@ -102,8 +102,10 @@
             @method('DELETE')
     <div class="tab-content">
         <div class="tab-pane fade show active" id="paciente">
-            {{-- ================= PACIENTE ================= --}}
-            <h5 style="color:#4a5568;">Datos del Paciente</h5>
+             {{-- ================= DATOS PACIENTE ================= --}}
+            <h5 style="font-size:12px; color:#6c757d; font-weight:500;">Datos del Paciente
+                <i class="bi bi-person-vcard-fill" style="margin-left:10px; color:#9aa0a6;"></i>
+            </h5>
 
             <div class="row">
 
@@ -175,7 +177,7 @@
         <div class="tab-pane fade" id="fisico">
             {{-- ================= SIGNOS VITALES ================= --}}
             <h5 style="font-size:12px; color:#6c757d; font-weight:500;">
-                Signos Vitales
+                Examen Físico
 
                 <i class="bi bi-activity" style="margin-left:10px; color:#9aa0a6;"></i>
             </h5>
@@ -314,6 +316,7 @@
                 <div class="col-md-3">
                     <label style="color:#4a5568;">Motivo de Consulta:</label>
                     <input class="form-control"
+                    placeholder="Pendiente registro"
                         readonly
                         value="{{ $consulta->motivo_consulta }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
                 </div>
@@ -321,12 +324,14 @@
                 <div class="col-md-3">
                     <label style="color:#4a5568;">Tiempo de Enfermedad:</label>
                     <input class="form-control"
+                    placeholder="Pendiente registro"
                         readonly
                         value="{{ $consulta->tiempo_enfermedad }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
                 </div>
                 <div class="col-md-3">
                     <label style="color:#4a5568;">Apetito:</label>
                     <input class="form-control"
+                    placeholder="Pendiente registro"
                         readonly
                         value="{{ $consulta->apetito }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
                 </div>
@@ -334,6 +339,7 @@
                 <div class="col-md-3">
                     <label style="color:#4a5568;">Sed:</label>
                     <input class="form-control"
+                    placeholder="Pendiente registro"
                         readonly
                         value="{{ $consulta->sed }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
                 </div>
@@ -355,18 +361,21 @@
                 <div class="col-md-3">
                     <label style="color:#4a5568;">Estado de Ánimo:</label>
                     <input class="form-control"
+                    placeholder="Pendiente registro"
                         readonly
                         value="{{ $consulta->estado_animo }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
                 </div>
                 <div class="col-md-3">
                     <label style="color:#4a5568;">Orina:</label>
                     <input class="form-control"
+                    placeholder="Pendiente registro"
                         readonly
                         value="{{ $consulta->orina }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
                 </div>
                 <div class="col-md-3">
                     <label style="color:#4a5568;">Deposiciones:</label>
                     <input class="form-control"
+                    placeholder="Pendiente registro"
                         readonly
                         value="{{ $consulta->deposiciones }}"  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
                 </div>
@@ -391,12 +400,12 @@
 
                 <textarea class="form-control"
                 rows="4"
+                placeholder="Pendiente registro"
                 readonly
                 style="background-color:#f6e48bb1;
-                        color:{{ empty($consulta->diagnostico_principal) ? 'red' : '#000' }};
-                        font-size:13px;
+                     
                         border:1px solid #fdde92da;
-                        cursor:not-allowed;">{{ $consulta->diagnostico_principal ?? 'Pendiente registro' }}</textarea>
+                        cursor:not-allowed;">{{ $consulta->diagnostico_principal  }}</textarea>
         </div>
     </div>
 
@@ -408,12 +417,13 @@
 
                 <textarea class="form-control"
                 rows="4"
+                placeholder="Pendiente registro"
                 readonly
                 style="background-color:#f6e48bb1;
-                        color:{{ empty($consulta->tratamiento) ? 'red' : '#000' }};
-                        font-size:13px;
+                        
+                        
                         border:1px solid #fdde92da;
-                        cursor:not-allowed;">{{ $consulta->tratamiento?? 'Pendiente registro' }}</textarea>
+                        cursor:not-allowed;">{{ $consulta->tratamiento }}</textarea>
         </div>
     </div>
 
@@ -429,12 +439,13 @@
 
                 <textarea class="form-control"
                 rows="4"
+                placeholder="Pendiente registro"
                 readonly
                 style="background-color:#f6e48bb1;
-                        color:{{ empty($consulta->acuerdos_compromisos) ? 'red' : '#000' }};
-                        font-size:13px;
+                        
+                        
                         border:1px solid #fdde92da;
-                        cursor:not-allowed;">{{ $consulta->acuerdos_compromisos ?? 'Pendiente registro' }}</textarea>
+                        cursor:not-allowed;">{{ $consulta->acuerdos_compromisos  }}</textarea>
         </div>
     </div>
 
@@ -446,12 +457,13 @@
 
                 <textarea class="form-control"
                 rows="4"
+                placeholder="Pendiente registro"
                 readonly
                 style="background-color:#f6e48bb1;
-                        color:{{ empty($consulta->examenes_auxiliares) ? 'red' : '#000' }};
-                        font-size:13px;
+                        
+                      
                         border:1px solid #fdde92da;
-                        cursor:not-allowed;">{{ $consulta->examenes_auxiliares?? 'Pendiente registro' }}</textarea>
+                        cursor:not-allowed;">{{ $consulta->examenes_auxiliares }}</textarea>
         </div>
     </div>
 
@@ -466,12 +478,13 @@
 
                 <textarea class="form-control"
                 rows="4"
+                placeholder="Pendiente registro"
                 readonly
                 style="background-color:#f6e48bb1;
-                        color:{{ empty($consulta->referencia) ? 'red' : '#000' }};
+                       
                         font-size:13px;
                         border:1px solid #fdde92da;
-                        cursor:not-allowed;">{{ $consulta->referencia ?? 'Pendiente registro' }}</textarea>
+                        cursor:not-allowed;">{{ $consulta->referencia  }}</textarea>
         </div>
     </div>
 
@@ -483,12 +496,13 @@
 
                 <textarea class="form-control"
                 rows="4"
+                placeholder="Pendiente registro"
                 readonly
                 style="background-color:#f6e48bb1;
-                        color:{{ empty($consulta->observaciones) ? 'red' : '#000' }};
-                        font-size:13px;
+                        
+                        
                         border:1px solid #fdde92da;
-                        cursor:not-allowed;">{{ $consulta->observaciones?? 'Pendiente registro' }}</textarea>
+                        cursor:not-allowed;">{{ $consulta->observaciones }}</textarea>
         </div>
     </div>
 

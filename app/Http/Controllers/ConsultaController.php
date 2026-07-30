@@ -14,24 +14,82 @@ class ConsultaController extends Controller
     /**
      * Display a listing of the resource.
      */
-   public function index($paciente_id)
-    {
-        $paciente = Paciente::findOrFail($paciente_id);
+   public function index(Request $request, $paciente_id)
+{
+    $paciente = Paciente::findOrFail($paciente_id);
 
-        $query = Consulta::with('medico','signosVitales')
+    $query = Consulta::with('medico','signosVitales')
             ->where('paciente_id', $paciente_id);
 
-        // 🔥 médico solo ve consultas asignadas o todas según regla
-        if (auth()->user()->hasRole('medico')) {
-            $query->where('medico_id', auth()->id());
-        }
-
-        $consultas = $query->orderBy('fecha_atencion','desc')->get();
-
-        $base = $this->getRouteBase();
-
-        return view('admin.consultas.index', compact('paciente','consultas','base'));
+    // Médico solo ve sus consultas
+    if(auth()->user()->hasRole('medico')){
+        $query->where('medico_id', auth()->id());
     }
+
+    //===========================
+    // FILTRO POR ESTADO
+    //===========================
+
+    if($request->estado == 'pendiente'){
+        $query->whereNull('diagnostico_principal');
+    }
+
+    if($request->estado == 'registrado'){
+        $query->whereNotNull('diagnostico_principal');
+    }
+
+    $consultas = $query
+        ->orderBy('fecha_atencion','desc')
+        ->get();
+
+    //===========================
+    // CONTADORES
+    //===========================
+
+    //===========================
+// CONTADORES
+//===========================
+
+$totalQuery = Consulta::where('paciente_id', $paciente_id);
+
+$pendientesQuery = Consulta::where('paciente_id', $paciente_id)
+                    ->whereNull('diagnostico_principal');
+
+$registradosQuery = Consulta::where('paciente_id', $paciente_id)
+                    ->whereNotNull('diagnostico_principal');
+
+
+// Si es médico, solo contar sus consultas
+if(auth()->user()->hasRole('medico')){
+
+    $totalQuery->where('medico_id', auth()->id());
+
+    $pendientesQuery->where('medico_id', auth()->id());
+
+    $registradosQuery->where('medico_id', auth()->id());
+
+}
+
+$total = $totalQuery->count();
+
+$pendientes = $pendientesQuery->count();
+
+$registrados = $registradosQuery->count();
+
+    $base = $this->getRouteBase();
+
+    return view(
+        'admin.consultas.index',
+        compact(
+            'paciente',
+            'consultas',
+            'base',
+            'total',
+            'pendientes',
+            'registrados'
+        )
+    );
+}
 
     /**
      * Show the form for creating a new resource.
@@ -467,59 +525,67 @@ public function update(Request $request, $id)
     */
 
 
-    if(auth()->user()->hasRole('medico')){
+   if(auth()->user()->hasRole('medico')){
 
+    $request->validate([
 
-$request->validate([
+        'motivo_consulta'=>'required',
+        'tiempo_enfermedad'=>'required',
+        'apetito'=>'required',
+        'sed'=>'required',
+        'sueno'=>'required',
+        'estado_animo'=>'required',
+        'orina'=>'required',
+        'deposiciones'=>'required',
 
-    'diagnostico_principal'=>'required',
-    'tratamiento'=>'required',
-    'acuerdos_compromisos'=>'required',
-    'examenes_auxiliares'=>'required',
-    'referencia'=>'required',
-    'observaciones'=>'required',
+        'diagnostico_principal'=>'required',
+        'tratamiento'=>'required',
+        'acuerdos_compromisos'=>'required',
+        'examenes_auxiliares'=>'required',
+        'referencia'=>'required',
+        'observaciones'=>'required',
 
-]);
+    ]);
 
+    // Guardamos el estado antes de actualizar
+    $estadoAnterior = $consulta->estado;
 
+    $consulta->update([
 
-$consulta->update([
+        'motivo_consulta'=>$request->motivo_consulta,
+        'tiempo_enfermedad'=>$request->tiempo_enfermedad,
+        'apetito'=>$request->apetito,
+        'sed'=>$request->sed,
+        'sueno'=>$request->sueno,
+        'estado_animo'=>$request->estado_animo,
+        'orina'=>$request->orina,
+        'deposiciones'=>$request->deposiciones,
 
+        'diagnostico_principal'=>$request->diagnostico_principal,
+        'tratamiento'=>$request->tratamiento,
+        'acuerdos_compromisos'=>$request->acuerdos_compromisos,
+        'examenes_auxiliares'=>$request->examenes_auxiliares,
+        'referencia'=>$request->referencia,
+        'observaciones'=>$request->observaciones,
 
-    'diagnostico_principal'=>$request->diagnostico_principal,
+        'estado'=>'finalizada'
 
-    'tratamiento'=>$request->tratamiento,
+    ]);
 
+    // Mensaje dependiendo si era la primera vez o una edición
+    $mensaje = $estadoAnterior == 'pendiente'
+        ? 'Historia clínica completada correctamente.'
+        : 'Historia clínica actualizada correctamente.';
 
-    'acuerdos_compromisos'=>$request->acuerdos_compromisos,
-
-
-    'examenes_auxiliares'=>$request->examenes_auxiliares,
-
-
-    'referencia'=>$request->referencia,
-
-
-    'observaciones'=>$request->observaciones,
-
-
-    'estado'=>'finalizada'
-
-
-]);
-
-
-
-return redirect()
-->route(
-    $this->getRouteBase().'.consultas.index',
-    $consulta->paciente_id
-)
-->with([
-    'mensaje'=>'Atención médica actualizada correctamente',
-    'icono'=>'success'
-]);
-
+    return redirect()
+        ->route(
+            $this->getRouteBase().'.consultas.index',
+            $consulta->paciente_id
+        )
+        ->with([
+            'mensaje' => $mensaje,
+            'icono' => 'success'
+        ]);
 }
 
 

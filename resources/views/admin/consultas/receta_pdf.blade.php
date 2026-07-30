@@ -459,6 +459,9 @@ Tratamiento
 
 
 </div>
+<div class="div">
+     Colegio Prof.: {{ $consulta->medico->colegio_profesional ?? '' }}
+</div>
 
 
 

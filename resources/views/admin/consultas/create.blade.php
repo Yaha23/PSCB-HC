@@ -57,7 +57,7 @@
 @csrf
 
 <input type="hidden" name="paciente_id" value="{{ $paciente->id }}">
-        <ul class="nav nav-tabs mb-4">
+<ul class="nav nav-tabs mb-4">
 
     <li class="nav-item">
         <a class="nav-link active"
@@ -79,23 +79,23 @@
 
     @if($isMedico || $isAdmin)
 
-<li class="nav-item">
-    <a class="nav-link"
-       data-toggle="tab"
-       href="#atencion">
-        Anamnesis y Evaluación Médica
-    </a>
-</li>
+    <li class="nav-item">
+        <a class="nav-link"
+        data-toggle="tab"
+        href="#atencion">
+            Anamnesis y Evaluación Médica
+        </a>
+    </li>
 
-<li class="nav-item">
-    <a class="nav-link"
-       data-toggle="tab"
-       href="#diagnostico">
-        Diagnóstico y Plan Terapéutico
-    </a>
-</li>
+    <li class="nav-item">
+        <a class="nav-link"
+        data-toggle="tab"
+        href="#diagnostico">
+            Diagnóstico y Plan Terapéutico
+        </a>
+    </li>
 
-@endif
+    @endif
 
 </ul>
 
@@ -301,36 +301,29 @@
                 </div>
 
                 <div class="col-md-3">
-                    <label style="color: #4a5568 ">Apetito:</label>
-                    
+                    <label style="color:#4a5568;">Apetito:</label>
 
-                    <select name="apetito"
-                            class="form-control"
-                            required
-                            style="border:1px solid #fdde92da;">
-
-                        <option value="">Seleccione</option>
-                        <option>Normal</option>
-                        <option>Disminuido</option>
-                        <option>Aumentado</option>
-
-                    </select>
+                    <input
+                        type="text"
+                        name="apetito"
+                        class="form-control"
+                        value="{{ old('apetito') }}"
+                        placeholder="Ej.: Conservado"
+                        required
+                        style="border:1px solid #fdde92da;">
                 </div>
                 <div class="col-md-3">
 
-                    <label style="color: #4a5568 "  >Sed:</label>
+                    <label style="color:#4a5568;">Sed:</label>
 
-                    <select name="sed"
-                            required
-                            class="form-control"
-                            style="border:1px solid #fdde92da;">
-
-                        <option value="">Seleccione</option>
-                        <option>Normal</option>
-                        <option>Aumentada</option>
-                        <option>Disminuida</option>
-
-                    </select>
+                    <input
+                        type="text"
+                        name="sed"
+                        class="form-control"
+                        value="{{ old('sed') }}"
+                        placeholder="Ej.: Conservada"
+                        required
+                        style="border:1px solid #fdde92da;">
 
                 </div>
 
@@ -347,18 +340,16 @@
                 
                 <div class="col-md-3">
 
-                    <label style="color: #4a5568 " >Sueño:</label>
+                    <label style="color:#4a5568;">Sueño:</label>
 
-                    <select name="sueno"
-                            class="form-control"
-                            required
-                            style="border:1px solid #fdde92da;">
-
-                        <option value="">Seleccione</option>
-                        <option>Normal</option>
-                        <option>Alterado</option>
-
-                    </select>
+                    <input
+                        type="text"
+                        name="sueno"
+                        class="form-control"
+                        value="{{ old('sueno') }}"
+                        placeholder="Ej.: Conservado"
+                        required
+                        style="border:1px solid #fdde92da;">
 
                 </div>
 

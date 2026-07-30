@@ -211,7 +211,7 @@
             @endphp
 
             <div class="col-md-2">
-            <label>Peso:</label>
+            <label style="color:#4a5568;">Peso:</label>
 
             <div class="input-group">
                 <input type="number"
@@ -229,7 +229,7 @@
             </div>
 
                 <div class="col-md-2">
-                <label>Talla:</label>
+                <label style="color:#4a5568;">Talla:</label>
 
                 <div class="input-group">
                     <input type="number"
@@ -247,7 +247,7 @@
             </div>
 
                 <div class="col-md-2">
-                <label>Presión:</label>
+                <label style="color:#4a5568;">Presión:</label>
 
                 <div class="input-group">
                     <input type="text"
@@ -264,7 +264,7 @@
             </div>
 
                 <div class="col-md-2">
-                <label>Temperatura:</label>
+                <label style="color:#4a5568;">Temperatura:</label>
 
                 <div class="input-group">
                     <input type="number"
@@ -282,7 +282,7 @@
             </div>
 
                 <div class="col-md-2">
-                <label>F.C:</label>
+                <label style="color:#4a5568;">F.C:</label>
 
                 <div class="input-group">
                         <input type="number"
@@ -300,7 +300,7 @@
                 </div>
 
                 <div class="col-md-2">
-                <label>F.R:</label>
+                <label style="color:#4a5568;">F.R:</label>
 
                 <div class="input-group">
                     <input type="number"
@@ -369,7 +369,7 @@
             <div class="row">
 
                 <div class="col-md-3">
-                    <label>Motivo de Consulta:</label>
+                    <label style="color:#4a5568;">Motivo de Consulta:</label>
 
                     <input type="text"
                         name="motivo_consulta"
@@ -380,7 +380,7 @@
                 </div>
 
                 <div class="col-md-3">
-                    <label>Tiempo de Enfermedad:</label>
+                    <label style="color:#4a5568;">Tiempo de Enfermedad:</label>
 
                 <input type="text"
                             name="tiempo_enfermedad"
@@ -391,60 +391,28 @@
                 </div>
 
                 <div class="col-md-3">
-                    <label>Apetito:</label>
 
-                <select name="apetito"
+                    <label style="color:#4a5568;">Apetito:</label>
+
+                    <input type="text"
+                        name="apetito"
                         class="form-control"
-                        {{ $isAsistente ? 'disabled' : '' }}
-                        style="{{ $isAsistente ? $readonlyStyle : 'border:1px solid #f4d279;' }}">
+                        value="{{ old('apetito', $consulta->apetito) }}"
+                        required
+                        style="border:1px solid #fdde92da;">
 
-                        <option value="">Seleccione</option>
-
-                        <option value="Normal"
-                            {{ old('apetito',$consulta->apetito)=='Normal'?'selected':'' }}>
-                            Normal
-                        </option>
-
-                        <option value="Disminuido"
-                            {{ old('apetito',$consulta->apetito)=='Disminuido'?'selected':'' }}>
-                            Disminuido
-                        </option>
-
-                        <option value="Aumentado"
-                            {{ old('apetito',$consulta->apetito)=='Aumentado'?'selected':'' }}>
-                            Aumentado
-                        </option>
-
-                    </select>
                 </div>
 
                 <div class="col-md-3">
 
-                    <label>Sed:</label>
+                    <label style="color:#4a5568;">Sed:</label>
 
-                    <select name="sed"
+                    <input type="text"
+                        name="sed"
                         class="form-control"
-                        {{ $isAsistente ? 'disabled' : '' }}
-                        style="{{ $isAsistente ? $readonlyStyle : 'border:1px solid #f4d279;' }}">
-
-                        <option value="">Seleccione</option>
-
-                        <option value="Normal"
-                            {{ old('sed',$consulta->sed)=='Normal'?'selected':'' }}>
-                            Normal
-                        </option>
-
-                        <option value="Aumentada"
-                            {{ old('sed',$consulta->sed)=='Aumentada'?'selected':'' }}>
-                            Aumentada
-                        </option>
-
-                        <option value="Disminuida"
-                            {{ old('sed',$consulta->sed)=='Disminuida'?'selected':'' }}>
-                            Disminuida
-                        </option>
-
-                    </select>
+                        value="{{ old('sed', $consulta->sed) }}"
+                        required
+                        style="border:1px solid #fdde92da;">
 
                 </div>
 
@@ -456,32 +424,20 @@
 
                 <div class="col-md-3">
 
-                    <label>Sueño:</label>
+                    <label style="color:#4a5568;">Sueño:</label>
 
-                    <select name="sueno"
+                    <input type="text"
+                        name="sueno"
                         class="form-control"
-                        {{ $isAsistente ? 'disabled' : '' }}
-                        style="{{ $isAsistente ? $readonlyStyle : 'border:1px solid #f4d279;' }}">
-
-                        <option value="">Seleccione</option>
-
-                        <option value="Normal"
-                            {{ old('sueno',$consulta->sueno)=='Normal'?'selected':'' }}>
-                            Normal
-                        </option>
-
-                        <option value="Alterado"
-                            {{ old('sueno',$consulta->sueno)=='Alterado'?'selected':'' }}>
-                            Alterado
-                        </option>
-
-                    </select>
+                        value="{{ old('sueno', $consulta->sueno) }}"
+                        required
+                        style="border:1px solid #fdde92da;">
 
                 </div>
 
                 <div class="col-md-3">
 
-                    <label>Estado de Ánimo:</label>
+                    <label style="color:#4a5568;">Estado de Ánimo:</label>
 
                     <input type="text"
                         name="estado_animo"
@@ -494,7 +450,7 @@
 
                 <div class="col-md-3">
 
-                    <label>Orina:</label>
+                    <label style="color:#4a5568;">Orina:</label>
 
                     <input type="text"
                         name="orina"
@@ -507,7 +463,7 @@
 
                 <div class="col-md-3">
 
-                    <label>Deposiciones:</label>
+                    <label style="color:#4a5568;">Deposiciones:</label>
 
                 <input type="text"
                     name="deposiciones"

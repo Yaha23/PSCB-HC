@@ -128,7 +128,20 @@ table td {
     
 }
 
+.nav-tabs .nav-link{
+    color:#4a5568 !important;
+    font-weight:600;
+}
 
+.nav-tabs .nav-link:hover{
+    color:#4a5568 !important;
+}
+
+.nav-tabs .nav-link.active{
+    color:#4a5568 !important;
+    background:#f4d279;
+    border-color:#f4d279 #f4d279 #fff;
+}
 </style>
 </head>
 
@@ -181,6 +194,48 @@ table td {
 <hr>
 
 <div class="card card-outline" style="border-top:3px solid #f4d279;">
+    <ul class="nav nav-tabs mb-4">
+
+    <li class="nav-item">
+
+        <a class="nav-link {{ request('estado') == null ? 'active' : '' }}"
+           href="{{ route($base.'.consultas.index',$paciente->id) }}">
+
+            Todos ({{ $total }})
+
+        </a>
+
+    </li>
+
+    <li class="nav-item">
+
+        <a class="nav-link {{ request('estado') == 'pendiente' ? 'active' : '' }}"
+           href="{{ route($base.'.consultas.index',[
+                $paciente->id,
+                'estado'=>'pendiente'
+           ]) }}">
+
+            Pendientes ({{ $pendientes }})
+
+        </a>
+
+    </li>
+
+    <li class="nav-item">
+
+        <a class="nav-link {{ request('estado') == 'registrado' ? 'active' : '' }}"
+           href="{{ route($base.'.consultas.index',[
+                $paciente->id,
+                'estado'=>'registrado'
+           ]) }}">
+
+            Registrados ({{ $registrados }})
+
+        </a>
+
+    </li>
+
+</ul>
 
     <div class="card-header">
 
@@ -193,6 +248,7 @@ table td {
     </div>
 
     <div class="card-body">
+        
 
         <table class="table table-bordered table-hover table-sm">
 
@@ -214,19 +270,18 @@ table td {
 
                 @php
 
-                    // ESTADO DEL DIAGNÓSTICO
-
-                    if(!$consulta->diagnostico_principal){
+                    if($consulta->estado == 'pendiente'){
 
                         $estadoClase = 'estado-pendiente';
                         $badgeClase = 'badge-pendiente';
                         $estadoTexto = 'Pendiente';
 
-                    } else {
+                    }elseif($consulta->estado == 'finalizada'){
 
                         $estadoClase = 'estado-completo';
                         $badgeClase = 'badge-completo';
                         $estadoTexto = 'Registrado';
+
                     }
 
                 @endphp
@@ -367,7 +422,7 @@ table td {
 
         <a href="{{ route($base.'.consultas.edit', $consulta->id) }}"
            class="btn"
-           title="Editar diagnóstico y tratamiento"
+           title="Editar Historia Clinica"
            style="background:#f4d279;color:#4a5568;border:none;transition:.3s;"
            onmouseover="this.style.backgroundColor='#ffe8a3';this.style.boxShadow='0 0 8px rgba(244,210,121,.7)'"
            onmouseout="this.style.backgroundColor='#f4d279';this.style.boxShadow='none'">

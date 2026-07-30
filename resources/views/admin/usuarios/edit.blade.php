@@ -316,7 +316,7 @@
                                     </div>
 
                                 </div>
-
+                               
 
 
                                 <!-- OTRO TITULO -->
@@ -359,6 +359,27 @@
 
 
                                 </div>
+
+                                 <div class="col-md-3">
+
+                                    <div class="form-group">
+
+                                        <label style="color:#4a5568">
+                                            Colegio Profesional:
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            name="colegio_profesional"
+                                            class="form-control"
+                                            value="{{ old('colegio_profesional',$usuario->colegio_profesional) }}"
+                                            placeholder="Ejemplo: CMP 12345"
+                                            style="border:1px solid #fdde92da;">
+
+                                    </div>
+
+                                </div>
+
 
 
                             </div>

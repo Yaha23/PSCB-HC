@@ -464,20 +464,36 @@ Firma y Sello
 
 <td style="height:70px;text-align:center;vertical-align:bottom;">
 
-<div style="border-top:1px solid #000;width:220px;margin:auto;"></div>
+<div style="margin-top:35px; text-align:center;">
 
+  
 
+    <!-- Espacio para firma y sello -->
+    <div style="height:35px;"></div>
 
-{{ $consulta->medico->titulo_profesional ?? '' }}
-{{ $consulta->medico->name ?? '' }}
-{{ $consulta->medico->surname ?? '' }}
+      <!-- Línea donde firma -->
+    <div style="border-top:1px solid #000; width:220px; margin:0 auto;"></div>
 
-<br>
-{{ strtoupper($consulta->medico->specialty) }}
+    <!-- Datos del médico -->
+    <div style="line-height:1.2;">
 
-<br>
+        <div>
+            {{ $consulta->medico->titulo_profesional ?? '' }}
+            {{ $consulta->medico->name ?? '' }}
+            {{ $consulta->medico->surname ?? '' }}
+        </div>
 
+        <div style="font-weight:bold;">
+            {{ strtoupper($consulta->medico->specialty ?? '') }}
+        </div>
 
+        <div>
+            Colegio Prof.: {{ $consulta->medico->colegio_profesional ?? '' }}
+        </div>
+
+    </div>
+
+</div>
 </td>
 
 </tr>

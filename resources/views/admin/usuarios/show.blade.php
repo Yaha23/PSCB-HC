@@ -112,90 +112,169 @@
                                     <i class="bi bi-check-all" style="margin-left:10px; color:#9aa0a6;"></i>                
                                 </h3>
                             <br>
-                                <div class="row">
-                                    <!--Campo estado de la cuenta Activa o Inactiva--> 
-                                    <div class="col-md-3">
-                                    <div class="form-group">
-                                            <label  style="color: #4a5568">Estado:</label>
-                                    <input type="text" value="{{$usuario->status }}" name="status" class="form-control" id="" placeholder="Telefono" disabled     style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;text-transform:uppercase;">
- 
-                                                @error('status')
-                                                <small style="color:red">{{ $message }}</small>                                               
-                                                @enderror    
-                                        </div>
-                                    </div>
-                                    <!--Campo Rol medico,administrador o asistente--> 
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label  style="color: #4a5568">Rol:</label>
-                                                @php
-                                                    $rol = $usuario->getRoleNames()->first();
-                                                @endphp
+                               @php
+    $rol = $usuario->getRoleNames()->first();
+@endphp
 
-                                                <input type="text" value="{{$usuario->role }}" name="role" class="form-control" id="" placeholder="Telefono" disabled     style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;text-transform:uppercase;">
+@if($rol == 'medico')
 
-                                            
-                                                @error('role')
-                                                <small style="color:red">{{ $message }}</small>                                               
-                                                @enderror    
-                                        </div>
-                                    </div>
-                                    <!--campo especialidad-->
-                                   
-                                    @php
-                                        $rol = $usuario->getRoleNames()->first();
-                                    @endphp
+    {{-- =========================
+         MÉDICO
+         Primera fila:
+         Estado | Rol | Especialidad | Título Profesional
+    ========================== --}}
+    <div class="row">
+
+        <!-- Estado -->
+        <div class="col-md-3">
+            <div class="form-group">
+                <label style="color:#4a5568;">Estado:</label>
+
+                <input type="text"
+                    value="{{ strtoupper($usuario->status) }}"
+                    class="form-control"
+                    readonly
+                    style="background-color:#f6e48bb1;border:1px solid #fdde92da;cursor:not-allowed;">
+            </div>
+        </div>
+
+        <!-- Rol -->
+        <div class="col-md-3">
+            <div class="form-group">
+                <label style="color:#4a5568;">Rol:</label>
+
+                <input type="text"
+                    value="{{ strtoupper($rol) }}"
+                    class="form-control"
+                    readonly
+                    style="background-color:#f6e48bb1;border:1px solid #fdde92da;cursor:not-allowed;">
+            </div>
+        </div>
+
+        <!-- Especialidad -->
+        <div class="col-md-3">
+            <div class="form-group">
+                <label style="color:#4a5568;">Especialidad:</label>
+
+                <input type="text"
+                    value="{{ strtoupper($usuario->specialty) }}"
+                    class="form-control"
+                    readonly
+                    style="background-color:#f6e48bb1;border:1px solid #fdde92da;cursor:not-allowed;">
+            </div>
+        </div>
+
+        <!-- Título -->
+        <div class="col-md-3">
+            <div class="form-group">
+                <label style="color:#4a5568;">Título profesional:</label>
+
+                <input type="text"
+                    value="{{ $usuario->titulo_profesional }}"
+                    class="form-control"
+                    readonly
+                    style="background-color:#f6e48bb1;border:1px solid #fdde92da;">
+            </div>
+        </div>
+
+    </div>
 
 
-                                    @if($rol == 'medico')
+    {{-- Segunda fila: Colegio Profesional --}}
+    <div class="row">
 
-                                    <div class="col-md-3" id="divEspecialidad">
+        <div class="col-md-3">
+            <div class="form-group">
 
-                                        <div class="form-group">
+                <label style="color:#4a5568;">
+                    Colegio Profesional:
+                </label>
 
-                                            <label style="color:#4a5568;">
-                                                Especialidad:
-                                            </label>
+                <input type="text"
+                    value="{{ $usuario->colegio_profesional }}"
+                    class="form-control"
+                    readonly
+                    style="background-color:#f6e48bb1;border:1px solid #fdde92da;">
 
+            </div>
+        </div>
 
-                                            <input
-                                                type="text"
-                                                class="form-control"
-                                                value="{{ $usuario->specialty }}"
-                                                disabled
-                                                style="
-                                                background-color:#f6e48bb1;
-                                                border:1px solid #fdde92da;
-                                                cursor:not-allowed;text-transform:uppercase;"
-                                            >
+    </div>
 
-                                        </div>
+@else
 
-                                    </div>
+    {{-- =========================
+         ADMINISTRADOR / ASISTENTE
+         Una sola fila
+         Estado | Rol | Título | Colegio
+    ========================== --}}
 
-                                    @endif
-                                   
-                                <div class="col-md-3">
+    <div class="row">
 
-                                        <div class="form-group">
+        <!-- Estado -->
+        <div class="col-md-3">
+            <div class="form-group">
 
-                                            <label style="color:#4a5568;">
-                                                 Título profesional:
-                                            </label>
+                <label style="color:#4a5568;">Estado:</label>
 
-                                            <input type="text"
-                                                value="{{ $usuario->titulo_profesional }}"
-                                                class="form-control"
-                                                readonly
-                                                style="background-color:#f6e48bb1;
-                                                        border:1px solid #fdde92da;">
+                <input type="text"
+                    value="{{ strtoupper($usuario->status) }}"
+                    class="form-control"
+                    readonly
+                    style="background-color:#f6e48bb1;border:1px solid #fdde92da;cursor:not-allowed;">
 
-                                        </div>
+            </div>
+        </div>
 
-                                    </div>
-                                </div>
+        <!-- Rol -->
+        <div class="col-md-3">
+            <div class="form-group">
 
-                          
+                <label style="color:#4a5568;">Rol:</label>
+
+                <input type="text"
+                    value="{{ strtoupper($rol) }}"
+                    class="form-control"
+                    readonly
+                    style="background-color:#f6e48bb1;border:1px solid #fdde92da;cursor:not-allowed;">
+
+            </div>
+        </div>
+
+        <!-- Título -->
+        <div class="col-md-3">
+            <div class="form-group">
+
+                <label style="color:#4a5568;">Título profesional:</label>
+
+                <input type="text"
+                    value="{{ $usuario->titulo_profesional }}"
+                    class="form-control"
+                    readonly
+                    style="background-color:#f6e48bb1;border:1px solid #fdde92da;">
+
+            </div>
+        </div>
+
+        <!-- Colegio -->
+        <div class="col-md-3">
+            <div class="form-group">
+
+                <label style="color:#4a5568;">Colegio Profesional:</label>
+
+                <input type="text"
+                    value="{{ $usuario->colegio_profesional }}"
+                    class="form-control"
+                    readonly
+                    style="background-color:#f6e48bb1;border:1px solid #fdde92da;">
+
+            </div>
+        </div>
+
+    </div>
+
+@endif
+  
                                 <hr>
                                
                                 

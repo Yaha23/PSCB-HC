@@ -40,6 +40,7 @@ class UsuarioController extends Controller
             'role'=>'required',     // Rol
             'specialty'=>'required_if:role,medico', // Especialidad solo si rol = medico
             'titulo_profesional'=>'nullable|string|max:50',
+            'colegio_profesional' => 'nullable|string|max:100',
 
         ]);
 
@@ -58,6 +59,7 @@ class UsuarioController extends Controller
         } else {
             $usuario->titulo_profesional = $request->titulo_profesional;
         }
+        $usuario->colegio_profesional = $request->colegio_profesional;
         // Guardar en la base de datos
         $usuario->save();
     // 🔥 ASIGNAR ROL CORRECTAMENTE
@@ -117,6 +119,7 @@ class UsuarioController extends Controller
             'specialty'=>'required_if:role,medico',
 
             'titulo_profesional'=>'nullable|string|max:50',
+            'colegio_profesional' => 'nullable|string|max:100',
 
         ]);
 
@@ -143,6 +146,7 @@ class UsuarioController extends Controller
         } else {
             $usuario->titulo_profesional = $request->titulo_profesional;
         }
+        $usuario->colegio_profesional = $request->colegio_profesional;
 
         // Guardar en la base de datos modificada
         $usuario->save();

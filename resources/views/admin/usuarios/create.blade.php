@@ -274,6 +274,7 @@
         </div>
 
     </div>
+ 
 
 
 
@@ -303,6 +304,30 @@
 
     </div>
 
+       <!-- Colegio Profesional -->
+    <div class="col-md-3">
+
+        <div class="form-group">
+
+            <label style="color:#4a5568">
+                Colegio Profesional:
+            </label>
+
+            <input
+                type="text"
+                name="colegio_profesional"
+                class="form-control"
+                placeholder="Ejemplo: CMP 12345"
+                value="{{ old('colegio_profesional') }}"
+                style="border:1px solid #fdde92da;">
+
+            @error('colegio_profesional')
+                <small style="color:red">{{ $message }}</small>
+            @enderror
+
+        </div>
+
+    </div>
 
 
 </div>

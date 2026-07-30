@@ -49,7 +49,7 @@
 
         <h1 style="margin:0; font-size:26px; color:#4a5568;">
     @if($isAsistente)
-        Datos Clínicos y Signos Vitales
+        Asignación médica y Datos clínicos
     @else
         Historia Clínica
     @endif

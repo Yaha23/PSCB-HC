@@ -225,7 +225,7 @@ public function store(Request $request)
     
 
         $mensaje = auth()->user()->hasRole('asistente')
-    ? 'Atención registrada y enviada al médico correctamente'
+    ? 'Datos Clínicos registrados y enviados al médico correctamente'
     : 'Historia clínica registrada correctamente';
 
         return redirect()->route(
@@ -413,7 +413,7 @@ public function update(Request $request, $id)
             $consulta->paciente_id
         )
         ->with([
-            'mensaje'=>'Datos clínicos actualizados correctamente',
+            'mensaje'=>'Asignación médica y Datos clínicos actualizados correctamente',
             'icono'=>'success'
         ]);
 
@@ -651,7 +651,7 @@ public function update(Request $request, $id)
 
         return redirect()
             ->route($this->getRouteBase().'.consultas.index', $paciente_id)
-            ->with('mensaje', 'Signos y Datos Clinicos eliminados correctamente')
+            ->with('mensaje', 'Asignación médica y Datos clínicos eliminados correctamente')
             ->with('icono', 'success');
     }
 

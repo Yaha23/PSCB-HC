@@ -38,7 +38,7 @@
 
         <h1 style="margin:0; font-size:26px; color:#4a5568;">
             @if($isAsistente)
-                Eliminación de Datos Clínicos
+                Eliminación de Asignación médica y Datos clínicos
             @else
                 Eliminación de Historia Clínica
             @endif

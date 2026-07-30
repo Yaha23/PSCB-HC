@@ -30,7 +30,7 @@
         <h1 style="margin:0; font-size:26px; color:#4a5568;">
 
             @if($isAsistente)
-                Actualizar asignación médica y Datos clínicos
+                Actualizar Asignación médica y Datos clínicos
             @else
                 Actualizar Historia Clinica
             @endif

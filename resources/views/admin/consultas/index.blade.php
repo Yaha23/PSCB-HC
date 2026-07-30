@@ -252,14 +252,14 @@ table td {
 
         <table class="table table-bordered table-hover table-sm">
 
-            <thead style="background:#4a5568; color:white;text-align:center;">
+            <thead style="background:#4a5568; color:white; text-align:center;">
                 <tr>
                     <th>Nro</th>
                     <th>Fecha</th>
                     <th>Médico</th>
                     <th>Especialidad</th>
-                    <th>Diagnóstico</th>
-                    <th>Estado</th>
+                    <th>Hora</th>
+                    <th>Edad</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -288,38 +288,37 @@ table td {
 
                 <tr class="{{ $estadoClase }}">
 
-                    <td>{{ $loop->iteration }}</td>
+                
 
-                    <td>{{ \Carbon\Carbon::parse($consulta->fecha_atencion)->format('d/m/Y') }}</td>
+                    <tr class="{{ $estadoClase }}">
 
-                    <td>{{$consulta->medico->titulo_profesional ?? ''}} {{$consulta->medico->name ?? ''}} {{$consulta->medico->surname ?? ''}}</td>
+    <td>{{ $loop->iteration }}</td>
 
-                    <td style="text-transform:uppercase;">{{ $consulta->especialidad }}</td>
+    <td>
+        {{ \Carbon\Carbon::parse($consulta->fecha_atencion)->format('d/m/Y') }}
+    </td>
 
-                 <td class="text-center">
+    <td>
+        {{ $consulta->medico->titulo_profesional ?? '' }}
+        {{ $consulta->medico->name ?? '' }}
+        {{ $consulta->medico->surname ?? '' }}
+    </td>
 
-    @if($consulta->diagnostico_principal)
+    <td style="text-transform:uppercase;">
+        {{ $consulta->especialidad }}
+    </td>
 
-        {{ \Illuminate\Support\Str::limit($consulta->diagnostico_principal, 60, '...') }}
+    <td>
+        {{ \Carbon\Carbon::createFromFormat('H:i:s', $consulta->hora_atencion)->format('h:i A') }}
+    </td>
 
-    @else
+    <td>
+        {{ \Carbon\Carbon::parse($consulta->paciente->fecha_nacimiento)->age }} años
+    </td>
 
-        <span class="estado-diagnostico">
-            Pendiente
-        </span>
+  
 
-    @endif
 
-</td>
-
-                    {{-- ESTADO --}}
-                    <td>
-
-                        <span class="badge-estado {{ $badgeClase }}">
-                            {{ $estadoTexto }}
-                        </span>
-
-                    </td>
 
                     <td>
 

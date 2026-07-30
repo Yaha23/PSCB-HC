@@ -116,7 +116,7 @@ Route::prefix('admin')
     Route::get('pacientes/reporte-pdf', [PacienteController::class, 'reportePdf'])
     ->name('pacientes.reportePdf');
     // ✅ NUEVA RUTA
-    Route::get('consultas/{id}/pdf', [ConsultaController::class, 'historiaPdf'])
+    Route::get('consultas/{id}/Historia_Clinica', [ConsultaController::class, 'historiaPdf'])
     ->name('consultas.pdf');
     Route::resource('pacientes', PacienteController::class);
     Route::get('pacientes/{id}/confirm-delete', [PacienteController::class, 'confirmDelete'])
@@ -212,7 +212,7 @@ Route::prefix('asistente')
     Route::get('pacientes/reporte-pdf', [PacienteController::class, 'reportePdf'])
     ->name('pacientes.reportePdf');
     // ✅ NUEVA RUTA
-    Route::get('consultas/{id}/pdf', [ConsultaController::class, 'historiaPdf'])
+    Route::get('consultas/{id}/Historia_Clinica', [ConsultaController::class, 'historiaPdf'])
     ->name('consultas.pdf');
     Route::resource('pacientes', PacienteController::class);
     
@@ -300,7 +300,7 @@ Route::prefix('medico')
     Route::get('pacientes/reporte-pdf', [PacienteController::class, 'reportePdf'])
         ->name('pacientes.reportePdf');
     // ✅ NUEVA RUTA
-    Route::get('consultas/{id}/pdf', [ConsultaController::class, 'historiaPdf'])
+    Route::get('consultas/{id}/Historia_Clinica', [ConsultaController::class, 'historiaPdf'])
     ->name('consultas.pdf');
     Route::resource('pacientes', PacienteController::class);
    

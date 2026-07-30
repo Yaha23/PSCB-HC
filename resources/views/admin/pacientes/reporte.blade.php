@@ -204,7 +204,7 @@ $fechaReporte=\Carbon\Carbon::now('America/Lima');
 
 <h2>PUESTO DE SALUD CRUZ BLANCA</h2>
 
-<h3>RReporte General de Pacientes Atendidos</h3>
+<h3>Reporte General de Pacientes Atendidos</h3>
 
 </td>
 
@@ -244,19 +244,19 @@ $fechaReporte=\Carbon\Carbon::now('America/Lima');
 
 <th width="5%">N°</th>
 
-<th width="22%">Paciente</th>
+<th width="25%">Paciente</th>
 
-<th width="11%">DNI</th>
+<th width="12%">DNI</th>
 
-<th width="9%">Género</th>
+<th width="9%">Edad</th>
 
-<th width="18%">Médico</th>
+<th width="10%">Género</th>
 
-<th width="14%">Especialidad</th>
+<th width="20%">Médico</th>
 
-<th width="10%">Fecha</th>
+<th width="11%">Especialidad</th>
 
-<th width="21%">Diagnóstico</th>
+<th width="8%">Fecha</th>
 
 </tr>
 
@@ -265,90 +265,73 @@ $fechaReporte=\Carbon\Carbon::now('America/Lima');
 <tbody>
 
 @php
-$i=1;
+$i = 1;
 @endphp
 
 @forelse($pacientes as $paciente)
 
 @php
-$consulta=$paciente->consultas->first();
+    $consulta = $paciente->consultas->first();
 @endphp
 
 <tr>
 
-<td class="numero">
+    <td class="numero">
+        {{ $i++ }}
+    </td>
 
-{{ $i++ }}
+    <td class="izquierda">
+      
+            {{ $paciente->nombres }}
+            {{ $paciente->apellidos }}
+     
+    </td>
 
-</td>
+    <td class="centro">
+        {{ $paciente->DNI }}
+    </td>
 
-<td class="izquierda">
+    <td class="centro">
+        {{ \Carbon\Carbon::parse($paciente->fecha_nacimiento)->age }} años
+    </td>
 
-<strong>
+    <td class="centro">
+        {{ ucfirst($paciente->genero) }}
+    </td>
 
-{{ $paciente->nombres }}
+    <td class="izquierda">
 
-{{ $paciente->apellidos }}
+        @if($consulta && $consulta->medico)
 
-</strong>
+            {{ $consulta->medico->titulo_profesional ?? '' }}
+            {{ $consulta->medico->name }}
+            {{ $consulta->medico->surname }}
 
-</td>
+        @else
 
-<td class="centro">
+            ---
 
-{{ $paciente->DNI }}
+        @endif
 
-</td>
+    </td>
 
-<td class="centro">
+    <td class="centro">
+        {{ $consulta->especialidad ?? '---' }}
+    </td>
 
-{{ ucfirst($paciente->genero) }}
+    <td class="centro">
 
-</td>
+        @if($consulta && $consulta->fecha_atencion)
 
-<td class="izquierda">
+            {{ \Carbon\Carbon::parse($consulta->fecha_atencion)->format('d/m/Y') }}
 
-@if($consulta && $consulta->medico)
+        @else
 
-{{ $consulta->medico->titulo_profesional ?? '' }}
+            ---
 
-{{ $consulta->medico->name }}
+        @endif
 
-{{ $consulta->medico->surname }}
-
-@else
-
----
-
-@endif
-
-</td>
-
-<td class="centro">
-
-{{ $consulta->especialidad ?? '---' }}
-
-</td>
-
-<td class="centro">
-
-@if($consulta && $consulta->fecha_atencion)
-
-{{ \Carbon\Carbon::parse($consulta->fecha_atencion)->format('d/m/Y') }}
-
-@else
-
----
-
-@endif
-
-</td>
-
-<td class="izquierda">
-
-{{ $consulta->diagnostico_principal ?? '---' }}
-
-</td>
+    </td>
 
 </tr>
 
@@ -356,11 +339,9 @@ $consulta=$paciente->consultas->first();
 
 <tr>
 
-<td colspan="8" class="centro">
-
-No existen pacientes registrados.
-
-</td>
+    <td colspan="8" class="centro">
+        No existen pacientes registrados.
+    </td>
 
 </tr>
 

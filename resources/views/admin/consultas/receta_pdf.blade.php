@@ -262,7 +262,7 @@ Puesto de Salud Cruz Blanca
 
 <div class="subtitulo">
 
-Dirección: C. Alva Maurtua 245 | Teléfono: 970 883 057
+Dirección: C. Alva Maurtua 245 | Teléfono: 956 562 272
 
 </div>
 

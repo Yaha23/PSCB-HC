@@ -328,7 +328,7 @@ table td {
     {{-- VER --}}
 <a href="{{ route($base.'.consultas.show', $consulta->id) }}"
    class="btn"
-   title="{{ auth()->user()->hasRole('asistente') ? 'Ver Datos Clinicos' : 'Ver historia clínica' }}"
+   title="{{ auth()->user()->hasRole('asistente') ? 'Ver Datos Clinicos' : 'Ver Historia Clínica' }}"
    style="background:#f4d279;color:#4a5568;border:none;transition:.3s;"
    onmouseover="this.style.backgroundColor='#ffe8a3';this.style.boxShadow='0 0 8px rgba(244,210,121,.7)'"
    onmouseout="this.style.backgroundColor='#f4d279';this.style.boxShadow='none'">
@@ -346,7 +346,7 @@ table td {
         {{-- Edita TODA la historia clínica --}}
         <a href="{{ route($base.'.consultas.edit', $consulta->id) }}"
            class="btn"
-           title="Editar historia clínica"
+           title="Editar Historia Clínica"
            style="background:#f4d279;color:#4a5568;border:none;transition:.3s;"
            onmouseover="this.style.backgroundColor='#ffe8a3';this.style.boxShadow='0 0 8px rgba(244,210,121,.7)'"
            onmouseout="this.style.backgroundColor='#f4d279';this.style.boxShadow='none'">
@@ -356,7 +356,7 @@ table td {
         {{-- Elimina TODA la historia --}}
         <a href="{{ route($base.'.consultas.delete', $consulta->id) }}"
            class="btn"
-           title="Eliminar historia clínica"
+           title="Eliminar Historia Clínica"
            style="background:#f4d279;color:#4a5568;border:none;transition:.3s;"
            onmouseover="this.style.backgroundColor='#ffe8a3';this.style.boxShadow='0 0 8px rgba(244,210,121,.7)'"
            onmouseout="this.style.backgroundColor='#f4d279';this.style.boxShadow='none'">
@@ -375,7 +375,7 @@ table td {
         {{-- Edita únicamente signos vitales --}}
         <a href="{{ route($base.'.consultas.edit', $consulta->id) }}"
            class="btn"
-           title="Actualizar Datos Clinicos"
+           title="Editar Datos Clinicos"
            style="background:#f4d279;color:#4a5568;border:none;transition:.3s;"
            onmouseover="this.style.backgroundColor='#ffe8a3';this.style.boxShadow='0 0 8px rgba(244,210,121,.7)'"
            onmouseout="this.style.backgroundColor='#f4d279';this.style.boxShadow='none'">
@@ -387,7 +387,7 @@ table td {
 
             <a href="{{ route($base.'.consultas.delete', $consulta->id) }}"
                class="btn"
-               title="Eliminar Signos y Datos Clinicos"
+               title="Eliminar Datos Clinicos"
                style="background:#f4d279;color:#4a5568;border:none;transition:.3s;"
                onmouseover="this.style.backgroundColor='#ffe8a3';this.style.boxShadow='0 0 8px rgba(244,210,121,.7)'"
                onmouseout="this.style.backgroundColor='#f4d279';this.style.boxShadow='none'">
@@ -407,7 +407,7 @@ table td {
 
         <a href="{{ route($base.'.consultas.edit', $consulta->id) }}"
            class="btn"
-           title="Completar historia clínica"
+           title="Completar Historia Clínica"
            style="background:#f4d279;color:#4a5568;border:none;transition:.3s;"
            onmouseover="this.style.backgroundColor='#ffe8a3';this.style.boxShadow='0 0 8px rgba(244,210,121,.7)'"
            onmouseout="this.style.backgroundColor='#f4d279';this.style.boxShadow='none'">
@@ -437,7 +437,7 @@ table td {
         <a href="{{ route($base.'.consultas.pdf', $consulta->id) }}"
            target="_blank"
            class="btn"
-           title="Imprimir historia clínica"
+           title="Imprimir Historia Clínica"
            style="background:#f4d279;color:#4a5568;border:none;transition:.3s;"
            onmouseover="this.style.backgroundColor='#ffe8a3';this.style.boxShadow='0 0 8px rgba(244,210,121,.7)'"
            onmouseout="this.style.backgroundColor='#f4d279';this.style.boxShadow='none'">
@@ -453,7 +453,7 @@ table td {
         <a href="{{ route($base.'.consultas.recetaPdf', $consulta->id) }}"
            target="_blank"
            class="btn"
-           title="Imprimir receta"
+           title="Imprimir Receta"
            style="background:#f4d279;color:#4a5568;border:none;transition:.3s;"
            onmouseover="this.style.backgroundColor='#ffe8a3';this.style.boxShadow='0 0 8px rgba(244,210,121,.7)'"
            onmouseout="this.style.backgroundColor='#f4d279';this.style.boxShadow='none'">

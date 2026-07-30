@@ -135,6 +135,7 @@
                             @can('admin.usuarios.edit')
                                 <a href="{{ url($base.'/usuarios/'.$usuario->id.'/edit') }}" 
                                 class="btn"
+                                title="Editar Usuario"
                                 style="background-color: #f4d279; color: #4a5568; border: none; transition:0.3s;"
                                 onmouseover="this.style.backgroundColor='#ffe8a3'; this.style.boxShadow='0 0 8px rgba(244,210,121,0.7)'"
                                 onmouseout="this.style.backgroundColor='#f4d279'; this.style.boxShadow='none'">
@@ -146,6 +147,7 @@
 
                                 <a href="{{ url($base.'/usuarios/'.$usuario->id.'/confirm-delete') }}" 
                                 class="btn"
+                                title="Eliminar Usuario"
                                 style="background-color: #f4d279; color: #4a5568; border: none; transition:0.3s;"
                                 onmouseover="this.style.backgroundColor='#ffe8a3'; this.style.boxShadow='0 0 8px rgba(244,210,121,0.7)'"
                                 onmouseout="this.style.backgroundColor='#f4d279'; this.style.boxShadow='none'">

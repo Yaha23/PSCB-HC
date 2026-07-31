@@ -230,6 +230,28 @@ font-size:17px;
 font-size:14px;
 }
 }
+.password-container{
+    position:relative;
+}
+
+.password-container .input{
+    padding-right:45px;
+}
+
+.toggle-password{
+    position:absolute;
+    right:12px;
+    top:50%;
+    transform:translateY(-50%);
+    cursor:pointer;
+    color:#94a3b8;
+    font-size:18px;
+    transition:.3s;
+}
+
+.toggle-password:hover{
+    color:#2c3e50;
+}
 
 </style>
 
@@ -252,10 +274,7 @@ font-size:14px;
 Restablecer contraseña
 </div>
 
-<div class="subtitle">
-Crea una nueva contraseña segura
-para recuperar tu acceso.
-</div>
+
 
 
 <form method="POST" action="{{ route('password.store') }}">
@@ -285,36 +304,60 @@ autocomplete="username">
 
 
 <div class="group">
-<input
-type="password"
-name="password"
-class="input"
-placeholder="Nueva contraseña"
-required
-autocomplete="new-password">
 
-@error('password')
-<div class="error">
-{{ $message }}
-</div>
-@enderror
+    <div class="password-container">
+
+        <input
+        type="password"
+        id="password"
+        name="password"
+        class="input"
+        placeholder="Nueva contraseña"
+        required
+        autocomplete="new-password">
+
+        <span class="toggle-password"
+              onclick="togglePassword('password', this)">
+            <i class="bi bi-eye-slash"></i>
+        </span>
+
+    </div>
+
+    @error('password')
+        <div class="error">
+            {{ $message }}
+        </div>
+    @enderror
+
 </div>
 
 
 <div class="group">
-<input
-type="password"
-name="password_confirmation"
-class="input"
-placeholder="Confirmar contraseña"
-required
-autocomplete="new-password">
 
-@error('password_confirmation')
-<div class="error">
-{{ $message }}
-</div>
-@enderror
+    <div class="password-container">
+
+        <input
+        type="password"
+        id="password_confirmation"
+        name="password_confirmation"
+        class="input"
+        placeholder="Confirmar contraseña"
+        required
+        autocomplete="new-password">
+
+        <span class="toggle-password"
+              onclick="togglePassword('password_confirmation', this)">
+            <i class="bi bi-eye-slash"></i>
+        </span>
+
+    </div>
+
+    @error('password_confirmation')
+        <div class="error">
+            {{ $message }}
+        </div>
+    @enderror
+
 </div>
 
 
@@ -329,5 +372,30 @@ Restablecer
 </div>
 
 </div>
+
+<script>
+
+function togglePassword(inputId, elemento){
+
+    const input = document.getElementById(inputId);
+    const icono = elemento.querySelector("i");
+
+    if(input.type === "password"){
+
+        input.type = "text";
+        icono.classList.remove("bi-eye-slash");
+        icono.classList.add("bi-eye");
+
+    }else{
+
+        input.type = "password";
+        icono.classList.remove("bi-eye");
+        icono.classList.add("bi-eye-slash");
+
+    }
+
+}
+
+</script>
 
 </x-guest-layout>

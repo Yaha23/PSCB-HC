@@ -326,6 +326,15 @@ body::after{
 
 }
 
+.status-message{
+    color:#dc2626;          /* rojo */
+    font-size:11px;         /* pequeño */
+    text-align:center;
+    margin-bottom:15px;
+    font-weight:500;
+    line-height:1.5;
+}
+
 
 </style>
 
@@ -342,7 +351,11 @@ body::after{
 
         <div class="title">Iniciar sesión</div>
 
-        <x-auth-session-status class="mb-3" :status="session('status')" />
+        @if(session('status'))
+            <div class="status-message">
+                {{ session('status') }}
+            </div>
+        @endif
 
         <form method="POST" action="{{ route('login') }}">
             @csrf

@@ -551,8 +551,8 @@
 
                                                             @else
 
-                                                            <button type="submit" class="btn ..."style="background-color: #f4d279; width: 200px;font-size: 16px;font-weight: 400;font-family: 'Segoe UI', Tahoma, sans-serif;letter-spacing: 0.5px;border-radius: 6px;padding: 5px;color:  #4a5568";">
-                                                                <b>Eliminar Registro</b>
+                                                            <button type="submit" class="btn ..."style="background-color: #f4d279; width: 250px;font-size: 16px;font-weight: 400;font-family: 'Segoe UI', Tahoma, sans-serif;letter-spacing: 0.5px;border-radius: 6px;padding: 5px;color:  #4a5568";">
+                                                                <b>Eliminar Historia Clinica</b>
                                                             </button>
 
                                                             @endif

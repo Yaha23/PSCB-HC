@@ -6,7 +6,7 @@
 
         <i class="bi bi-person-fill-check" style="font-size:28px; color:#5f6b7a;"></i>
         <h1 style="margin:0; font-size:26px; font-weight:500; color:#4a5568; font-family: Geneva, Tahoma, sans-serif;">
-                Modificar:{{ $usuario->name }} {{ $usuario->surname }}
+                Actualizar Informacion del Usuario:{{ $usuario->name }} {{ $usuario->surname }}
         </h1>
     </div>
 

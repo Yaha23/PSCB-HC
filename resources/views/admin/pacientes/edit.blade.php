@@ -421,7 +421,7 @@
                                     id="otro_grupo_sanguineo"
                                     class="form-control"
                                     value="{{ $esOtroGrupo ? $paciente->grupo_sanguineo : '' }}"
-                                    placeholder="Ejemplo: Bombay (hh)"
+                                    placeholder="Grupo Sanguineo"
                                     style="border:1px solid #fdde92da;">
 
                             </div>

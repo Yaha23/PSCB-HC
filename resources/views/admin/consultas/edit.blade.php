@@ -29,13 +29,20 @@
 
         <h1 style="margin:0; font-size:26px; color:#4a5568;">
 
-            @if($isAsistente)
-                Actualizar Asignación médica y Datos clínicos
-            @else
-                Actualizar Historia Clinica
-            @endif
+    @if($isAsistente)
 
-        </h1>
+        Actualizar Asignación Médica y Datos Clínicos
+
+    @elseif($isMedico && empty($consulta->diagnostico_principal))
+        Atención Médica del Paciente
+
+    @else
+
+        Actualizar Historia Clínica
+
+    @endif
+
+</h1>
     </div>
 
    
@@ -622,7 +629,7 @@
         }
 
         elseif($isMedico && !$consulta->diagnostico_principal){
-            $textoBoton = 'Completar Atención Médica';
+            $textoBoton = 'Completar Historia Clinica';
             $icono = 'bi-journal-medical';
         }
 
@@ -632,7 +639,7 @@
         }
 
         elseif($isAdmin){
-            $textoBoton = 'Guardar Cambios Clínicos';
+            $textoBoton = 'Actualizar Historia Clinica';
             $icono = 'bi-shield-check';
         }
 

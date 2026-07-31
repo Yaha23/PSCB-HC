@@ -35,7 +35,7 @@
     <h1 style="margin:0; font-size:26px; color:#4a5568;">
 
             @if($isAsistente)
-                Registro de Datos Iniciales de Atención
+                Registro de Asignación médica y Datos clínicos
             @else
                 Registro de Historia Clínica
             @endif

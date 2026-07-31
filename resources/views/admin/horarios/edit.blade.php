@@ -26,7 +26,7 @@
                 <h3 class="card-title d-flex align-items-center"
                     style="font-size:12px;color:#6c757d;font-weight:500;">
 
-                    Modifique la información del horario.
+                    Actualizar Información del Horario.
 
                     <i class="bi bi-pencil-fill"
                        style="margin-left:10px;color:#9aa0a6;"></i>

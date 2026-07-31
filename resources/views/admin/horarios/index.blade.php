@@ -31,7 +31,17 @@
         <i class="nav-icon bi bi-people-fill" style="font-size:28px; color:#5f6b7a;"></i>
 
         <h1 style="margin:0; font-size:26px; font-weight:500; color:#4a5568; font-family: Geneva, Tahoma, sans-serif;">
-            Horarios del Personal
+
+            @if(auth()->user()->hasRole('medico'))
+
+                Horario Médico
+
+            @else
+
+                Horarios del Personal
+
+            @endif
+
         </h1>
 
     </div>

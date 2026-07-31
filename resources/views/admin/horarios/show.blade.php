@@ -14,10 +14,7 @@
         font-family:'Segoe UI', Tahoma, sans-serif;
     ">
 
-        Información de Horario:
-        {{ $horario->user->titulo_profesional ?? '' }}
-        {{ $horario->user->name ?? '' }}
-        {{ $horario->user->surname ?? '' }}
+        Información del Horario
 
     </h1>
 

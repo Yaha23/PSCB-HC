@@ -154,7 +154,7 @@ class UsuarioController extends Controller
         $usuario->syncRoles([$request->role]);
 
         return redirect()->route($this->getRouteBase().'.usuarios.index')
-        ->with('mensaje', 'Datos del usuario actualizados correctamente.')
+        ->with('mensaje', 'Usuario actualizado correctamente.')
         ->with('icono', 'success');
 
 
@@ -169,7 +169,7 @@ class UsuarioController extends Controller
         User::destroy($id);
 
          return redirect()->route($this->getRouteBase().'.usuarios.index')
-        ->with('mensaje', 'Datos del usuario eliminados correctamente.')
+        ->with('mensaje', 'Usuario eliminado correctamente.')
         ->with('icono', 'success');
 
     }

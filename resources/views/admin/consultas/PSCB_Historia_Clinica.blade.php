@@ -49,7 +49,7 @@ td{
 
 .celda{
     font-weight:bold;
-    background:#f5f5f5;
+    background:#f4d17975;
 }
 
 .campo{
@@ -79,6 +79,7 @@ td{
 </style>
 
 </head>
+
 
 <body>
 
@@ -416,26 +417,26 @@ Acuerdos y compromisos
 <tr>
 
 <td class="celda">
-Próxima cita
+Referencia
 </td>
 
 <td class="celda">
-Referencia (Lugar y motivo)
+Observaciones
 </td>
 
 </tr>
 
 <tr>
 
-<td>
+<td class="area">
 
-{{ $consulta->proxima_cita ?? 'No programada' }}
+{!! nl2br(e($consulta->referencia ?? '-')) !!}
 
 </td>
 
-<td>
+<td class="area">
 
-{!! nl2br(e($consulta->referencia ?? '-')) !!}
+{!! nl2br(e($consulta->observaciones ?? '-')) !!}
 
 </td>
 
@@ -498,23 +499,9 @@ Firma y Sello
 
 </tr>
 
-<tr>
 
-<td class="celda" colspan="2">
-Observaciones
-</td>
 
-</tr>
 
-<tr>
-
-<td colspan="2" style="height:70px;">
-
-{!! nl2br(e($consulta->observaciones ?? '-')) !!}
-
-</td>
-
-</tr>
 
 </table>
 

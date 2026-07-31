@@ -115,12 +115,10 @@
 
  <div class="tab-content">
     <div class="tab-pane fade show active" id="paciente">
-        {{-- ================= PACIENTE ================= --}}
-        <h5 style="font-size:12px; color:#6c757d; font-weight:500;">
-            Asignacion Medica
-
-            <i class="bi bi-hospital-fill" style="margin-left:10px; color:#9aa0a6;"></i>
-        </h5>
+        <h5 style="font-size:12px; color:#6c757d; font-weight:500;">Datos del Paciente
+                <i class="bi bi-person-vcard-fill" style="margin-left:10px; color:#9aa0a6;"></i>
+            </h5>
+       
 
         <div class="row">
 
@@ -159,10 +157,17 @@
         </div>
 
         <hr>
+              {{-- ================= PACIENTE ================= --}}
+        <h5 style="font-size:12px; color:#6c757d; font-weight:500;">
+            Asignacion Medica
+
+            <i class="bi bi-hospital-fill" style="margin-left:10px; color:#9aa0a6;"></i>
+        </h5>
 
 
 
         <div class="row">
+       
             
             <div class="col-md-6">
                 <label style="color: #4a5568" >Médico:</label>

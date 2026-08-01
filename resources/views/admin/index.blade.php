@@ -171,21 +171,605 @@
     }
 }
 
+/*======================================
+BANNER PRINCIPAL
+======================================*/
+
+.dashboard-banner{
+
+    background:linear-gradient(135deg,#34495e,#4b6b88);
+
+    border-radius:20px;
+
+    padding:30px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:30px;
+
+    color:white;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+
+    overflow:hidden;
+
+}
+
+.banner-info{
+
+    width:65%;
+
+}
+
+.banner-saludo{
+
+    display:inline-block;
+
+    background:rgba(255,255,255,.18);
+
+  
+
+    border-radius:30px;
+
+    font-size:17px;
+
+padding:10px 22px;
+
+font-weight:600;
+
+}
+
+.banner-info h2{
+
+    font-size:48px;
+
+    font-weight:800;
+
+    line-height:1.2;
+
+    margin-bottom:18px;
+
+}
+
+.banner-info p{
+
+    font-size:24px;
+
+    font-weight:600;
+
+    color:#f4d279;
+
+    margin-bottom:0;
+
+}
+
+
+
+.banner-resumen div{
+
+    background:rgba(255,255,255,.12);
+
+    padding:15px 22px;
+
+    border-radius:14px;
+
+    font-size:15px;
+
+}
+
+.banner-resumen strong{
+
+    display:block;
+
+    font-size:26px;
+
+    color:#f4d279;
+
+}
+
+.banner-resumen i{
+
+    font-size:22px;
+
+    margin-bottom:8px;
+
+}
+
+.banner-image img{
+
+    width:300px;
+
+    max-width:100%;
+
+}
+.banner-status{
+
+    width:360px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.status-card{
+    width:100%;
+    background:rgba(255,255,255,.10);
+    backdrop-filter:blur(6px);
+    border-radius:18px;
+
+    padding:18px 22px;   /* Antes: 28px */
+
+    border:1px solid rgba(255,255,255,.18);
+}
+
+.status-header{
+    display:flex;
+    align-items:center;
+    margin-bottom:10px;   /* Antes: 15px */
+}
+
+.status-text{
+    color:#ecf0f1;
+    font-size:14px;
+    margin-bottom:10px;   /* Antes: 18px */
+}
+
+.status-item{
+    display:flex;
+    align-items:center;
+    margin:8px 0;         /* Antes: 15px */
+    font-size:16px;
+}
+.status-title{
+
+    font-size:25px;
+
+    font-weight:700;
+
+}
+
+.status-dot{
+
+    width:14px;
+
+    height:14px;
+
+    background:#FFD54F;
+
+    border-radius:50%;
+
+    margin-right:12px;
+
+    animation:pulse 1s infinite;
+
+}
+
+
+
+.status-item i{
+
+    font-size:22px;
+
+    color:#f4d279;
+
+    width:35px;
+
+}
+
+.status-item strong{
+
+    color:#FFD54F;
+
+    margin-right:6px;
+
+}
+
+@keyframes pulse{
+
+0%{
+
+opacity:1;
+transform:scale(1);
+
+}
+
+50%{
+
+opacity:.4;
+transform:scale(1.25);
+
+}
+
+100%{
+
+opacity:1;
+transform:scale(1);
+
+}
+
+}
+
+/*========================
+RESPONSIVE
+========================*/
+
+@media(max-width:991px){
+
+.dashboard-banner{
+
+flex-direction:column;
+
+text-align:center;
+
+}
+
+.banner-info{
+
+    width:65%;
+
+}
+
+.banner-image{
+
+margin-top:25px;
+
+}
+
+.banner-image img{
+
+width:220px;
+
+}
+
+.banner-resumen{
+
+justify-content:center;
+
+}
+
+}
+
+.alerta-dashboard{
+    position: fixed;
+    top: 30px;
+    right: 20px;
+
+    width: 450px;          /* Más ancho */
+    max-width: 95%;
+
+    background: #fff;
+    border-left: 6px solid #f4d279;
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0,0,0,.15);
+
+    display: flex;
+    align-items: flex-start;
+
+    padding: 10px 10px;
+
+    z-index: 9999;
+    animation: aparecer .35s;
+}
+
+.alerta-icono{
+    font-size: 38px;
+    color: #f4d279;
+    margin-right: 18px;
+    flex-shrink: 0;
+}
+
+.alerta-contenido{
+    flex: 1;
+    width: 100%;
+    padding-right: 10px;
+}
+
+.alerta-contenido h5{
+    margin: 0;
+    color: #34495e;
+
+    font-size: 60px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.alerta-contenido p{
+    margin-top: 10px;
+    margin-bottom: 0;
+
+    color: #6c757d;
+
+    font-size: 20px;
+    line-height: 1.6;
+}
+
+.cerrar-alerta{
+    position: absolute;
+    top: 12px;
+    right: 12px;
+
+    background: transparent;
+    border: none;
+
+    font-size: 18px;
+    color: #777;
+    cursor: pointer;
+}
+
+.alerta-icono{
+
+font-size:38px;
+
+color:#f4d279;
+
+margin-right:18px;
+
+}
+.alerta-contenido{
+
+    flex:1;
+    padding-right:25px;
+
+}
+
+.alerta-contenido h5{
+
+    margin:0;
+    font-size:18px;
+    color:#34495e;
+    line-height:1.4;
+
+}
+
+.alerta-contenido p{
+
+    margin-top:8px;
+    margin-bottom:0;
+    color:#6c757d;
+    font-size:14px;
+    line-height:1.5;
+
+}
+
+.alerta-contenido h5{
+
+margin:0;
+
+font-size:18px;
+
+color:#34495e;
+
+}
+
+.alerta-contenido p{
+
+margin:8px 0 15px;
+
+color:#777;
+
+font-size:14px;
+
+}
+
+.btn-alerta{
+
+display:inline-block;
+
+background:#34495e;
+
+color:#f4d279;
+
+padding:8px 18px;
+
+border-radius:8px;
+
+text-decoration:none;
+
+font-weight:600;
+
+}
+
+.btn-alerta:hover{
+
+background:#2d3e50;
+
+color:white;
+
+}
+
+.cerrar-alerta{
+
+position:absolute;
+
+top:12px;
+
+right:12px;
+
+background:none;
+
+border:none;
+
+font-size:18px;
+
+color:#777;
+
+cursor:pointer;
+
+}
+
+@keyframes aparecer{
+
+from{
+
+opacity:0;
+
+transform:translateY(-20px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
 </style>
 
 <!-- ========================= -->
 <!-- TITULO -->
 <!-- ========================= -->
-<div class="row">
-    <div class="col-12">
-        <h1 class="dashboard-title">
-            Bienvenido:
-            {{ Auth::user()->titulo_profesional ? Auth::user()->titulo_profesional : '' }}
+@php
+    $hora = now()->format('H');
+
+    if($hora >= 6 && $hora < 12){
+        $saludo = "☀ Buenos días";
+    }elseif($hora >= 12 && $hora < 18){
+        $saludo = "🌤 Buenas tardes";
+    }else{
+        $saludo = "🌙 Buenas noches";
+    }
+@endphp
+
+@if($pendientes > 0)
+
+<div class="alerta-dashboard" id="alertaPendientes">
+
+    <button
+        class="cerrar-alerta"
+        onclick="document.getElementById('alertaPendientes').style.display='none'">
+
+        <i class="bi bi-x-lg"></i>
+
+    </button>
+
+    <div class="alerta-icono">
+
+        <i class="bi bi-bell-fill"></i>
+
+    </div>
+
+    <div class="alerta-contenido">
+
+        <h5>
+
+            Tiene {{ $pendientes }}
+
+            historias clínicas pendientes
+
+        </h5>
+
+        <p>
+
+            Existen registros que todavía necesitan ser completados.
+
+        </p>
+
+    </div>
+
+</div>
+
+@endif
+
+
+<div class="dashboard-banner">
+
+    <div class="banner-info">
+
+        <span class="banner-saludo">
+            {{ $saludo }},
+            {{ Auth::user()->titulo_profesional }}
             {{ Auth::user()->name }}
             {{ Auth::user()->surname }}
-        </h1>
-        <hr>
+        </span>
+
+        <h2>
+            Bienvenido nuevamente al Sistema Web de Gestión
+            de Historias Clínicas.
+        </h2>
+
+        <p>
+            Puesto de Salud Cruz Blanca
+        </p>
+
+       
+
     </div>
+
+<div class="banner-status">
+
+    <div class="status-card">
+
+        <div class="status-header">
+
+            <span class="status-dot"></span>
+
+            <span class="status-title">
+                Sistema Activo
+            </span>
+
+        </div>
+
+        <p class="status-text">
+            El sistema se encuentra funcionando correctamente.
+        </p>
+
+        <hr>
+
+        <div class="status-item">
+            <i class="bi bi-clock-history"></i>
+
+            <span id="relojActual">
+
+            </span>
+        </div>
+
+        <div class="status-item">
+            <i class="bi bi-calendar-event"></i>
+
+            <span>
+                {{ now()->translatedFormat('d \\d\\e F \\d\\e Y') }}
+            </span>
+
+        </div>
+
+        <div class="status-item">
+            <i class="bi bi-person-badge"></i>
+
+            <span>
+
+                @if(auth()->user()->hasRole('admin'))
+
+                    Administrador
+
+                @elseif(auth()->user()->hasRole('asistente'))
+
+                    Asistente
+
+                @else
+
+                    Médico
+
+                @endif
+
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
 </div>
 
 <!-- ========================= -->
@@ -479,6 +1063,18 @@ if (datos.length > 0) {
 }
 
     });
+
+    function actualizarReloj(){
+
+    const ahora = new Date();
+
+    document.getElementById("relojActual").innerHTML =
+        ahora.toLocaleTimeString("es-PE");
+}
+
+setInterval(actualizarReloj,1000);
+
+actualizarReloj();
 
   
 </script>

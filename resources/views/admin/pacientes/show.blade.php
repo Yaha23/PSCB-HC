@@ -37,7 +37,7 @@
               border-radius:6px;
               padding:8px 14px;">
 
-        <i class="bi bi-arrow-left"></i>
+        
         Volver
 
     </a>

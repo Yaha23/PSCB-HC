@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Paciente; 
 use App\Models\Horario; 
 use App\Models\Cita; 
+use App\Models\Consulta;
 
 
 
@@ -81,6 +82,21 @@ class AdminController extends Controller
             'start' => $cita->fecha,
         ];
     });
+    // =========================
+        // HISTORIAS PENDIENTES
+        // =========================
+
+        if($user->hasRole('admin') || $user->hasRole('asistente')){
+
+            $pendientes = \App\Models\Consulta::where('estado','pendiente')->count();
+
+        }else{
+
+            $pendientes = \App\Models\Consulta::where('estado','pendiente')
+                            ->where('medico_id',$user->id)
+                            ->count();
+
+        }
 
     return view(
         'admin.index',
@@ -89,7 +105,8 @@ class AdminController extends Controller
             'total_pacientes',
             'total_horarios',
             'total_citas',
-            'citas_calendario'
+            'citas_calendario',
+            'pendientes'
         )
     );
 

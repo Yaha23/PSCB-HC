@@ -5,113 +5,195 @@
 
 <style>
 
+
 @page{
-    margin:20px 24px;
+
+    size: A4 landscape;
+
+    margin:15px 18px;
+
 }
+
 
 body{
+
     font-family: DejaVu Sans, sans-serif;
-    font-size:10px;
+
+    font-size:9px;
+
     color:#333;
-    line-height:1.5;
+
+    line-height:1.4;
+
 }
 
 
-/* ====================================
-   CONTENEDOR
-==================================== */
 
 .container{
+
     width:100%;
+
 }
 
 
+
 /* ====================================
-   HEADER
+        CONTENEDOR RECETA DOBLE
 ==================================== */
+
+
+.recetas{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+
+
+.receta-columna{
+
+    width:50%;
+
+    vertical-align:top;
+
+    padding:10px 15px;
+
+}
+
+
+
+.separador{
+
+    border-left:1px dashed #777;
+
+}
+
+
+
+/* ====================================
+             HEADER
+==================================== */
+
 
 .header{
 
     width:100%;
-    border-bottom:1.5px solid #555;
-    padding-bottom:12px;
-    margin-bottom:22px;
+
+    border-bottom:1px solid #555;
+
+    padding-bottom:8px;
+
+    margin-bottom:12px;
 
 }
+
 
 
 .logo{
 
-    width:80px;
+    width:60px;
 
 }
+
+
+
+.institucion{
+
+    font-size:8px;
+
+    font-weight:bold;
+
+    color:#555;
+
+}
+
 
 
 .nombre-centro{
 
-    font-size:20px;
+    font-size:14px;
+
     font-weight:bold;
-    color:#333;
+
     text-transform:uppercase;
-    margin-bottom:5px;
 
 }
+
 
 
 .subtitulo{
 
-    font-size:10px;
-    color:#555;
-    margin-bottom:10px;
-    padding-left:30px;
+    font-size:8px;
 
 }
 
 
+
 .titulo-receta{
 
-    margin-top:10px;
-    font-size:14px;
+    margin-top:8px;
+
+    font-size:12px;
+
     font-weight:bold;
-    letter-spacing:1px;
-    color:#333;
+
+    text-align:center;
+
     text-transform:uppercase;
+
+}
+
+
+
+
+
+.numero-receta{
+
+    text-align:right;
+
+    font-size:8px;
+
     margin-bottom:10px;
-    padding-left:90px;
 
 }
 
 
 
 /* ====================================
-   DATOS PACIENTE
+        DATOS PACIENTE
 ==================================== */
 
 
 .tabla-datos{
 
     width:100%;
+
     border-collapse:collapse;
-    margin-bottom:35px;
+
+    margin-bottom:12px;
 
 }
+
 
 
 .tabla-datos td{
 
-    padding:7px 3px;
-    vertical-align:top;
+    padding:3px;
 
 }
+
 
 
 .label{
 
-    width:75px;
+    width:55px;
+
     font-weight:bold;
-    color:#333;
 
 }
+
 
 
 .valor{
@@ -123,97 +205,103 @@ body{
 
 
 /* ====================================
-   SECCIONES
+        SECCIONES
 ==================================== */
 
 
 .seccion{
 
-    margin-top:10px;
-    margin-bottom:15px;
+    margin-bottom:10px;
 
 }
+
+
 
 .titulo-seccion{
 
-    font-size:11px;
+    font-size:9px;
+
     font-weight:bold;
+
     text-transform:uppercase;
 
-    border-bottom:1px solid #888;
+    border-bottom:1px solid #777;
 
-    padding-bottom:4px;
-    margin-bottom:3px;
+    padding-bottom:2px;
 
 }
+
 
 
 .texto{
 
-    font-size:10px;
-    line-height:1.3;
+    margin-top:5px;
 
-    text-align:left;
+    font-size:9px;
 
     white-space:pre-wrap;
 
-    word-wrap:break-word;
-
-    overflow-wrap:break-word;
+    min-height:35px;
 
 }
 
 
 
 /* ====================================
-   FIRMA
+              RP
+==================================== */
+
+
+.rp{
+
+    font-size:16px;
+
+    font-weight:bold;
+
+}
+
+
+
+/* ====================================
+             FIRMA
 ==================================== */
 
 
 .firma-section{
 
-    width:100%;
-    margin-top:80px;
+    margin-top:35px;
+
     text-align:center;
 
 }
 
 
+
 .linea-firma{
 
-    width:220px;
+    width:170px;
+
     margin:auto;
 
     border-top:1px solid #444;
 
-    padding-top:8px;
+    padding-top:5px;
 
-    font-size:10px;
+    font-size:9px;
+
     font-weight:bold;
+
     text-transform:uppercase;
 
 }
 
 
+
 .cargo{
 
-    margin-top:5px;
-    font-size:10px;
+    font-size:9px;
 
-}
-
-
-
-/* ====================================
-   EVITAR CORTES
-==================================== */
-
-
-.header,
-.seccion,
-.firma-section{
-
-    page-break-inside:avoid;
+    margin-top:3px;
 
 }
 
@@ -230,9 +318,19 @@ body{
 
 
 
-<!-- ===================================
-            HEADER
-==================================== -->
+<table class="recetas">
+
+
+<tr>
+
+
+<!-- =================================================
+                RECETA ORIGINAL
+================================================= -->
+
+
+<td class="receta-columna">
+
 
 
 <table class="header">
@@ -240,17 +338,26 @@ body{
 <tr>
 
 
-<td width="90px">
+<td width="70px">
 
 
 <img src="{{ public_path('image/PSCB.png') }}"
-     class="logo">
+class="logo">
 
 
 </td>
 
 
+
 <td>
+
+
+<div class="institucion">
+
+MINISTERIO DE SALUD - DIRESA ICA
+
+</div>
+
 
 
 <div class="nombre-centro">
@@ -260,20 +367,13 @@ Puesto de Salud Cruz Blanca
 </div>
 
 
+
 <div class="subtitulo">
 
-Dirección: C. Alva Maurtua 245 | Teléfono: 956 562 272
+Dirección: C. Alva Maurtua 245 |
+Teléfono: 956 562 272
 
 </div>
-
-
-
-<div class="titulo-receta">
-
-RECETA MÉDICA
-
-</div>
-
 
 
 </td>
@@ -288,10 +388,29 @@ RECETA MÉDICA
 
 
 
+<div class="titulo-receta">
 
-<!-- ===================================
-          DATOS PACIENTE
-==================================== -->
+RECETA MÉDICA - ORIGINAL
+
+</div>
+
+
+
+
+<div class="numero-receta">
+
+N° RECETA:
+RX-{{ str_pad($consulta->id,6,'0',STR_PAD_LEFT) }}
+
+</div>
+
+
+
+
+
+
+
+<!-- DATOS PACIENTE -->
 
 
 <table class="tabla-datos">
@@ -301,7 +420,9 @@ RECETA MÉDICA
 
 
 <td class="label">
+
 Paciente:
+
 </td>
 
 
@@ -312,14 +433,305 @@ Paciente:
 </td>
 
 
+</tr>
+
+
+
+
+<tr>
+
+
 <td class="label">
+
+DNI:
+
+</td>
+
+
+<td class="valor">
+
+{{ $consulta->paciente->DNI }}
+
+</td>
+
+
+</tr>
+
+
+
+
+
+<tr>
+
+
+<td class="label">
+
+Edad:
+
+</td>
+
+
+<td class="valor">
+
+{{ \Carbon\Carbon::parse($consulta->paciente->fecha_nacimiento)->age }} años
+
+</td>
+
+
+</tr>
+
+
+
+
+<tr>
+
+
+<td class="label">
+
 Fecha:
+
 </td>
 
 
 <td class="valor">
 
 {{ \Carbon\Carbon::parse($consulta->fecha_atencion)->format('d/m/Y') }}
+
+</td>
+
+
+</tr>
+
+
+
+
+</table>
+
+
+
+
+
+
+
+<!-- DIAGNOSTICO -->
+
+
+<div class="seccion">
+
+
+<div class="titulo-seccion">
+
+Diagnóstico
+
+</div>
+
+
+
+<div class="texto">
+
+{{ $consulta->diagnostico_principal }}
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- TRATAMIENTO -->
+
+
+<div class="seccion">
+
+
+<div class="titulo-seccion">
+
+Prescripción Médica
+
+</div>
+
+
+
+<div class="rp">
+
+Rp/
+
+</div>
+
+
+
+<div class="texto">
+
+{{ $consulta->tratamiento }}
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- FIRMA ORIGINAL -->
+
+
+<div class="firma-section">
+
+
+<div class="linea-firma">
+
+
+{{$consulta->medico->titulo_profesional ?? ''}}
+
+{{ strtoupper($consulta->medico->name . ' ' . $consulta->medico->surname) }}
+
+
+</div>
+
+
+
+
+<div class="cargo">
+
+{{ strtoupper($consulta->medico->specialty) }}
+
+</div>
+
+
+
+<div>
+
+Colegio Prof.:
+
+{{ $consulta->medico->colegio_profesional ?? '' }}
+
+</div>
+
+
+
+</div>
+
+
+
+</td>
+
+
+
+
+
+<!-- =================================================
+                COPIA ARCHIVO
+================================================= -->
+
+
+<td class="receta-columna separador">
+
+
+
+
+
+<table class="header">
+
+<tr>
+
+
+<td width="70px">
+
+
+<img src="{{ public_path('image/PSCB.png') }}"
+class="logo">
+
+
+</td>
+
+
+
+<td>
+
+
+<div class="institucion">
+
+MINISTERIO DE SALUD - DIRESA ICA
+
+</div>
+
+
+
+<div class="nombre-centro">
+
+Puesto de Salud Cruz Blanca
+
+</div>
+
+
+
+<div class="subtitulo">
+
+Dirección: C. Alva Maurtua 245 |
+Teléfono: 956 562 272
+
+</div>
+
+
+</td>
+
+
+</tr>
+
+
+</table>
+
+
+
+
+
+<div class="titulo-receta">
+
+RECETA MÉDICA - COPIA ARCHIVO
+
+</div>
+
+
+
+
+
+<div class="numero-receta">
+
+N° RECETA:
+RX-{{ str_pad($consulta->id,6,'0',STR_PAD_LEFT) }}
+
+</div>
+
+
+
+
+
+<!-- DATOS PACIENTE COPIA -->
+
+
+<table class="tabla-datos">
+
+
+<tr>
+
+
+<td class="label">
+
+Paciente:
+
+</td>
+
+
+<td class="valor">
+
+{{ strtoupper($consulta->paciente->nombres . ' ' . $consulta->paciente->apellidos) }}
 
 </td>
 
@@ -345,17 +757,46 @@ DNI:
 </td>
 
 
+</tr>
+
+
+
+
+<tr>
+
 
 <td class="label">
 
-Sexo:
+Edad:
 
 </td>
 
 
 <td class="valor">
 
-{{ strtoupper(substr($consulta->paciente->genero,0,1)) }}
+{{ \Carbon\Carbon::parse($consulta->paciente->fecha_nacimiento)->age }} años
+
+</td>
+
+
+</tr>
+
+
+
+
+<tr>
+
+
+<td class="label">
+
+Fecha:
+
+</td>
+
+
+<td class="valor">
+
+{{ \Carbon\Carbon::parse($consulta->fecha_atencion)->format('d/m/Y') }}
 
 </td>
 
@@ -369,10 +810,8 @@ Sexo:
 
 
 
-
-
 <!-- ===================================
-          DIAGNOSTICO
+          DIAGNOSTICO COPIA
 ==================================== -->
 
 
@@ -388,12 +827,14 @@ Diagnóstico
 
 
 <div class="texto">
+
 {{ $consulta->diagnostico_principal }}
-</div>
-
-
 
 </div>
+
+
+</div>
+
 
 
 
@@ -401,7 +842,7 @@ Diagnóstico
 
 
 <!-- ===================================
-          TRATAMIENTO
+          PRESCRIPCIÓN COPIA
 ==================================== -->
 
 
@@ -410,23 +851,30 @@ Diagnóstico
 
 <div class="titulo-seccion">
 
-Tratamiento
+Prescripción Médica
+
+</div>
+
+
+
+<div class="rp">
+
+Rp/
 
 </div>
 
 
 
 <div class="texto">
+
 {{ $consulta->tratamiento }}
-</div>
-
-
 
 </div>
 
-<br>
-<br>
-<br>
+
+
+</div>
+
 
 
 
@@ -435,7 +883,7 @@ Tratamiento
 
 
 <!-- ===================================
-             FIRMA
+          FIRMA COPIA
 ==================================== -->
 
 
@@ -445,7 +893,9 @@ Tratamiento
 <div class="linea-firma">
 
 
-{{$consulta->medico->titulo_profesional ?? ''}} {{ strtoupper($consulta->medico->name . ' ' . $consulta->medico->surname) }}
+{{$consulta->medico->titulo_profesional ?? ''}}
+
+{{ strtoupper($consulta->medico->name . ' ' . $consulta->medico->surname) }}
 
 
 </div>
@@ -454,25 +904,44 @@ Tratamiento
 
 <div class="cargo">
 
-
 {{ strtoupper($consulta->medico->specialty) }}
 
-
-</div>
-<div class="div">
-     Colegio Prof.: {{ $consulta->medico->colegio_profesional ?? '' }}
 </div>
 
 
 
+<div>
+
+Colegio Prof.:
+
+{{ $consulta->medico->colegio_profesional ?? '' }}
+
+</div>
+
+
+
 </div>
 
 
 
 
+
+
+</td>
+
+
+</tr>
+
+
+</table>
+
+
+
 </div>
+
 
 
 </body>
+
 
 </html>

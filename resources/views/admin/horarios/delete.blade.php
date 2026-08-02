@@ -84,215 +84,209 @@ data-card-widget="collapse">
 
 
 @php
-
-$esMedico = $horario->user->hasRole('medico');
-
+    $esMedico = $horario->user->hasRole('medico');
 @endphp
 
+<form action="{{ url($base.'/horarios/'.$horario->id) }}" method="POST">
 
+    @csrf
+    @method('DELETE')
 
+    @if($esMedico)
 
+    {{-- ================= MÉDICO ================= --}}
 
-<form action="{{ url($base.'/horarios/'.$horario->id) }}"
-method="POST">
+    <div class="row">
 
-@csrf
-@method('DELETE')
+        {{-- PERSONAL --}}
+        <div class="col-md-4">
 
+            <label style="color:#4a5568;">
+                Personal:
+            </label>
 
+            <input type="text"
+                   disabled
+                   value="{{ $horario->user->titulo_profesional ?? '' }} {{ $horario->user->name ?? '' }} {{ $horario->user->surname ?? '' }}"
+                   class="form-control"
+                   style="background:#f6e48bb1;border:1px solid #fdde92da;">
 
-<div class="row">
+        </div>
 
+        {{-- ROL --}}
+        <div class="col-md-4">
 
+            <label style="color:#4a5568;">
+                Rol:
+            </label>
 
-{{-- PERSONAL --}}
+            <input type="text"
+                   disabled
+                   value="Médico"
+                   class="form-control"
+                   style="background:#f6e48bb1;border:1px solid #fdde92da;">
 
-<div class="col-md-4">
+        </div>
 
-<label style="color:#4a5568;">
-Personal:
-</label>
+        {{-- ESPECIALIDAD --}}
+        <div class="col-md-4">
 
+            <label style="color:#4a5568;">
+                Especialidad:
+            </label>
 
-<input type="text"
-disabled
+            <input type="text"
+                   disabled
+                   value="{{ strtoupper($horario->especialidad ?? '---') }}"
+                   class="form-control"
+                   style="background:#f6e48bb1;border:1px solid #fdde92da;text-transform:uppercase;">
 
-value="{{ $horario->user->titulo_profesional ?? '' }}
-{{ $horario->user->name ?? '' }}
-{{ $horario->user->surname ?? '' }}"
+        </div>
 
-class="form-control"
+    </div>
 
-style="
-background:#f6e48bb1;
-border:1px solid #fdde92da;
-">
+    <br>
 
+    <div class="row">
 
-</div>
+        {{-- DÍA --}}
+        <div class="col-md-4">
 
+            <label style="color:#4a5568;">
+                Día:
+            </label>
 
+            <input type="text"
+                   disabled
+                   value="{{ ucfirst($horario->dia_semana) }}"
+                   class="form-control"
+                   style="background:#f6e48bb1;border:1px solid #fdde92da;">
 
+        </div>
 
+        {{-- HORA INICIO --}}
+        <div class="col-md-4">
 
+            <label style="color:#4a5568;">
+                Hora_Inicio:
+            </label>
 
-{{-- ROL --}}
+            <input type="text"
+                   disabled
+                   value="{{ \Carbon\Carbon::parse($horario->hora_inicio)->format('h:i A') }}"
+                   class="form-control"
+                   style="background:#f6e48bb1;border:1px solid #fdde92da;">
 
-<div class="col-md-4">
+        </div>
 
-<label style="color:#4a5568;">
-Rol:
-</label>
+        {{-- HORA FIN --}}
+        <div class="col-md-4">
 
+            <label style="color:#4a5568;">
+                Hora_Fin:
+            </label>
 
-<input type="text"
-disabled
+            <input type="text"
+                   disabled
+                   value="{{ \Carbon\Carbon::parse($horario->hora_fin)->format('h:i A') }}"
+                   class="form-control"
+                   style="background:#f6e48bb1;border:1px solid #fdde92da;">
 
-value="{{ $esMedico ? 'Médico' : 'Asistente' }}"
+        </div>
 
-class="form-control"
+    </div>
 
-style="
-background:#f6e48bb1;
-border:1px solid #fdde92da;
-">
+    @else
 
+    {{-- ================= ASISTENTE ================= --}}
 
-</div>
+    <div class="row">
 
+        {{-- PERSONAL --}}
+        <div class="col-md-4">
 
+            <label style="color:#4a5568;">
+                Personal:
+            </label>
 
+            <input type="text"
+                   disabled
+                   value="{{ $horario->user->titulo_profesional ?? '' }} {{ $horario->user->name ?? '' }} {{ $horario->user->user->surname ?? '' }}"
+                   class="form-control"
+                   style="background:#f6e48bb1;border:1px solid #fdde92da;">
 
+        </div>
 
+        {{-- ROL --}}
+        <div class="col-md-4">
 
-{{-- ESPECIALIDAD SOLO MEDICO --}}
+            <label style="color:#4a5568;">
+                Rol:
+            </label>
 
-@if($esMedico)
+            <input type="text"
+                   disabled
+                   value="Asistente"
+                   class="form-control"
+                   style="background:#f6e48bb1;border:1px solid #fdde92da;">
 
-<div class="col-md-4">
+        </div>
 
-<label style="color:#4a5568;">
-Especialidad:
-</label>
+        {{-- DÍA --}}
+        <div class="col-md-4">
 
+            <label style="color:#4a5568;">
+                Día:
+            </label>
 
-<input type="text"
-disabled
+            <input type="text"
+                   disabled
+                   value="{{ ucfirst($horario->dia_semana) }}"
+                   class="form-control"
+                   style="background:#f6e48bb1;border:1px solid #fdde92da;">
 
-value="{{ $horario->especialidad ?? '---' }}"
+        </div>
 
-class="form-control"
+    </div>
 
-style="
-background:#f6e48bb1;
-border:1px solid #fdde92da;
-text-transform:uppercase;
-">
+    <br>
 
+    <div class="row">
 
-</div>
+        {{-- HORA INICIO --}}
+        <div class="col-md-4">
 
-@endif
+            <label style="color:#4a5568;">
+                Hora_Inicio:
+            </label>
 
-</div>
+            <input type="text"
+                   disabled
+                   value="{{ \Carbon\Carbon::parse($horario->hora_inicio)->format('h:i A') }}"
+                   class="form-control"
+                   style="background:#f6e48bb1;border:1px solid #fdde92da;">
 
+        </div>
 
+        {{-- HORA FIN --}}
+        <div class="col-md-4">
 
+            <label style="color:#4a5568;">
+                Hora_Fin:
+            </label>
 
+            <input type="text"
+                   disabled
+                   value="{{ \Carbon\Carbon::parse($horario->hora_fin)->format('h:i A') }}"
+                   class="form-control"
+                   style="background:#f6e48bb1;border:1px solid #fdde92da;">
 
+        </div>
 
+    </div>
 
+    @endif
 
-<br>
-<div class="row">
-    {{-- DIA --}}
-
-<div class="col-md-4">
-
-<label style="color:#4a5568;">
-Día:
-</label>
-
-
-<input type="text"
-disabled
-
-value="{{ ucfirst($horario->dia_semana) }}"
-
-class="form-control"
-
-style="
-background:#f6e48bb1;
-border:1px solid #fdde92da;
-">
-
-
-</div>
-
-
-
-
-
-
-{{-- HORA INICIO --}}
-
-<div class="col-md-4">
-
-<label style="color:#4a5568;">
-Hora_Inicio:
-</label>
-
-
-<input type="text"
-disabled
-
-value="
-{{ \Carbon\Carbon::parse($horario->hora_inicio)->format('h:i A') }}
-"
-
-class="form-control"
-
-style="
-background:#f6e48bb1;
-border:1px solid #fdde92da;
-">
-
-
-</div>
-
-
-
-
-
-
-
-{{-- HORA FIN --}}
-
-<div class="col-md-4">
-
-<label style="color:#4a5568;">
-Hora_Fin:
-</label>
-
-
-<input type="text"
-disabled
-
-value="
-{{ \Carbon\Carbon::parse($horario->hora_fin)->format('h:i A') }}
-"
-
-class="form-control"
-
-style="
-background:#f6e48bb1;
-border:1px solid #fdde92da;
-">
-
-
-</div>
-
-</div>
 
 <br>
 

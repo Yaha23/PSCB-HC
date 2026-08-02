@@ -59,10 +59,10 @@
             }
 
 
-            .separador{
-
+            .linea-separador{
+                width:1px;
                 border-left:1px dashed #777;
-
+                height:745px;
             }
 
 
@@ -72,50 +72,39 @@
 
 
             .header{
+    width:100%;
+    border-bottom:1px solid #555;
+    padding-bottom:8px;
+    margin-bottom:12px;
+}
 
-                width:100%;
+.header td{
+    vertical-align:middle;
+}
 
-                border-bottom:1px solid #555;
+.logo{
+    width:69px;
+}
 
-                padding-bottom:8px;
+.header-info{
+    text-align:center;
+}
 
-                margin-bottom:12px;
+.nombre-centro{
 
-            }
+    font-size:14px;
+    font-weight:bold;
+    text-transform:uppercase;
 
-            .logo{
-
-                width:60px;
-
-            }
-
-            .institucion{
-
-                font-size:8px;
-
-                font-weight:bold;
-
-                color:#555;
-
-            }
-
-
-            .nombre-centro{
-
-                font-size:14px;
-
-                font-weight:bold;
-
-                text-transform:uppercase;
-
-            }
+}
 
 
-            .subtitulo{
+.subtitulo{
 
-                font-size:8px;
+    font-size:8px;
+    line-height:1.4;
 
-            }
+}
 
 
             .titulo-receta{
@@ -167,11 +156,9 @@
 
 
             .label{
-
-                width:55px;
-
+                width:45px;
                 font-weight:bold;
-
+                white-space:nowrap;
             }
 
 
@@ -218,11 +205,11 @@
 
 
             .firma-section{
-
-                margin-top:180px;
-
+                position:absolute;
+                top:580px;
+                left:0;
+                width:100%;
                 text-align:center;
-
             }
 
 
@@ -254,6 +241,10 @@
                 margin-top:3px;
 
             }
+            .receta-box{
+                position:relative;
+                height:520px;
+            }
 
 
         </style>
@@ -274,354 +265,133 @@
                     <tr>
 
 
-                        <!-- =================================================
-                                        RECETA ORIGINAL
-                        ================================================= -->
-
-
+                                <!-- =================================================
+                                                RECETA ORIGINAL
+                                ================================================= -->
                         <td class="receta-columna">
 
+                            <div class="receta-box">
+
+                                <!-- header -->
+
+                                <!-- datos -->
+
+                                <!-- diagnóstico -->
+
+                                <!-- tratamiento -->
+
+                                <!-- firma -->
+                                <table class="header">
+
+                                            <tr>
 
 
-                            <table class="header">
-
-                                <tr>
+                                                <td width="70px">
 
 
-                                    <td width="70px">
+                                                    <img src="{{ public_path('image/PSCB.png') }}"
+                                                    class="logo">
 
 
-                                        <img src="{{ public_path('image/PSCB.png') }}"
-                                        class="logo">
+                                                </td>
+
+                                                <td class="header-info">
 
 
-                                    </td>
+                                                    <div class="nombre-centro">
 
-                                    <td>
+                                                    PUESTO DE SALUD CRUZ BLANCA
+
+                                                    </div>
 
 
-                                        <div class="institucion">
+                                                    <div class="subtitulo">
 
-                                        MINISTERIO DE SALUD - DIRESA ICA
+                                                    Dirección: Avenida Av. Alva Maurtua Mz. 1 Lt. 6
+                                                    Chincha Alta - Chincha - Ica.
+
+                                                    </div>
+
+                                                    
+                                                    <div class="subtitulo">
+
+                                                    Hora de Atención:
+                                                    8:00 am – 2:00 pm / 2:00 pm - 8:00 pm
+
+                                                    </div>
+
+
+                                                    <div class="subtitulo">
+
+                                                    Teléfono: 956562272  |  Gobierno Regional de Ica | RUC:20171178585
+
+                                                    </div>
+
+
+
+
+                                                
+
+
+                                                    </td>
+
+
+                                            </tr>
+
+
+                                </table>
+
+
+
+
+
+                                        <div class="titulo-receta">
+
+                                            RECETA MÉDICA
 
                                         </div>
+                                        
+                                        <br>
 
+                                        <!-- DATOS PACIENTE -->
 
 
-                                        <div class="nombre-centro">
+                                        <table class="tabla-datos">
 
-                                        Puesto de Salud Cruz Blanca
 
-                                        </div>
+                                            <tr>
 
+                                            <td class="label">
+                                            Paciente:
+                                            </td>
 
+                                            <td class="valor">
 
-                                        <div class="subtitulo">
+                                            {{ strtoupper($consulta->paciente->nombres . ' ' . $consulta->paciente->apellidos) }}
 
-                                        Dirección: C. Alva Maurtua 245 |
-                                        Teléfono: 956 562 272
+                                            </td>
 
-                                        </div>
 
+                                            <td class="label">
+                                            DNI:
+                                            </td>
 
-                                    </td>
+                                            <td class="valor">
 
+                                            {{ $consulta->paciente->DNI }}
 
-                                </tr>
+                                            </td>
 
 
-                            </table>
+                                            </tr>
 
 
 
+                                            <tr>
 
-
-                            <div class="titulo-receta">
-
-                                RECETA MÉDICA - ORIGINAL
-
-                            </div>
-                            
-                            <br>
-
-                            <!-- DATOS PACIENTE -->
-
-
-                            <table class="tabla-datos">
-
-
-                                <tr>
-
-
-                                        <td class="label">
-
-                                        Paciente:
-
-                                        </td>
-
-
-                                        <td class="valor">
-
-                                        {{ strtoupper($consulta->paciente->nombres . ' ' . $consulta->paciente->apellidos) }}
-
-                                        </td>
-
-
-                                </tr>
-
-                                <tr>
-
-
-                                    <td class="label">
-
-                                    DNI:
-
-                                    </td>
-
-
-                                    <td class="valor">
-
-                                    {{ $consulta->paciente->DNI }}
-
-                                    </td>
-
-
-                                </tr>
-
-                                <tr>
-
-
-                                    <td class="label">
-
-                                    Edad:
-
-                                    </td>
-
-
-                                    <td class="valor">
-
-                                    {{ \Carbon\Carbon::parse($consulta->paciente->fecha_nacimiento)->age }} años
-
-                                    </td>
-
-
-                                </tr>
-
-                                <tr>
-
-
-                                    <td class="label">
-
-                                    Fecha:
-
-                                    </td>
-
-
-                                    <td class="valor">
-
-                                    {{ \Carbon\Carbon::parse($consulta->fecha_atencion)->format('d/m/Y') }}
-
-                                    </td>
-
-
-                                </tr>
-
-                            </table>
-
-
-                            <!-- DIAGNOSTICO -->
-
-
-                            <div class="seccion">
-
-
-                                <div class="titulo-seccion">
-
-                                Diagnóstico
-
-                                </div>
-
-                                <div class="texto">{{ $consulta->diagnostico_principal }}</div>
-
-                            </div>
-
-                            <!-- TRATAMIENTO -->
-
-
-                            <div class="seccion">
-
-
-                                <div class="titulo-seccion">
-
-                                Prescripción Médica
-
-                                </div>
-
-
-                                <div class="texto">{{ $consulta->tratamiento }}</div>
-
-
-                            </div>
-
-
-                            <!-- FIRMA ORIGINAL -->
-
-
-                            <div class="firma-section">
-
-
-                                <div class="linea-firma">
-
-
-                                    {{$consulta->medico->titulo_profesional ?? ''}}
-
-                                    {{ strtoupper($consulta->medico->name . ' ' . $consulta->medico->surname) }}
-
-
-                                </div>
-
-
-
-
-                                <div class="cargo">
-
-                                {{ strtoupper($consulta->medico->specialty) }}
-
-                                </div>
-
-
-
-                                <div>
-
-                                Colegio Prof.:
-
-                                {{ $consulta->medico->colegio_profesional ?? '' }}
-
-                                
-
-
-
-                            </div>
-
-
-
-                        </td>
-
-
-                        <!-- =================================================
-                                        COPIA ARCHIVO
-                        ================================================= -->
-
-
-                        <td class="receta-columna separador">
-
-                            <table class="header">
-
-                                <tr>
-
-
-                                        <td width="70px">
-
-
-                                            <img src="{{ public_path('image/PSCB.png') }}"
-                                            class="logo">
-
-
-                                        </td>
-
-
-
-                                        <td>
-
-
-                                            <div class="institucion">
-
-                                                MINISTERIO DE SALUD - DIRESA ICA
-
-                                            </div>
-
-
-
-                                            <div class="nombre-centro">
-
-                                                Puesto de Salud Cruz Blanca
-
-                                            </div>
-
-
-
-                                            <div class="subtitulo">
-
-                                                Dirección: C. Alva Maurtua 245 |
-                                                Teléfono: 956 562 272
-
-                                            </div>
-
-
-                                        </td>
-
-
-                                </tr>
-
-
-                            </table>
-
-                            <div class="titulo-receta">
-
-                                RECETA MÉDICA - COPIA ARCHIVO
-
-                            </div>
-
-                                <!-- DATOS PACIENTE COPIA -->
-                            <br>
-
-                            <table class="tabla-datos">
-
-
-                                <tr>
-
-
-                                    <td class="label">
-
-                                    Paciente:
-
-                                    </td>
-
-
-                                    <td class="valor">
-
-                                    {{ strtoupper($consulta->paciente->nombres . ' ' . $consulta->paciente->apellidos) }}
-
-                                    </td>
-
-
-                                </tr>
-
-
-
-                                <tr>
-
-
-                                        <td class="label">DNI:</td>
-
-
-                                        <td class="valor">{{ $consulta->paciente->DNI }}</td>
-
-
-                                </tr>
-
-
-
-
-                                <tr>
-
-
-                                        <td class="label">
-
-                                        Edad:
-
-                                        </td>
-
+                                            <td class="label">
+                                            Edad:
+                                            </td>
 
                                             <td class="valor">
 
@@ -630,117 +400,349 @@
                                             </td>
 
 
-                                </tr>
+                                            <td class="label">
+                                            Fecha:
+                                            </td>
 
-                    
-                                <tr>
+                                            <td class="valor">
 
+                                            {{ \Carbon\Carbon::parse($consulta->fecha_atencion)->format('d/m/Y') }}
 
-                                    <td class="label">
-
-                                    Fecha:
-
-                                    </td>
+                                            </td>
 
 
-                                    <td class="valor">
-
-                                    {{ \Carbon\Carbon::parse($consulta->fecha_atencion)->format('d/m/Y') }}
-
-                                    </td>
+                                            </tr>
 
 
-                                </tr>
+                                        </table>
+                                        <br>
 
 
-
-                            </table>
-
-                                <!-- ===================================
-                                        DIAGNOSTICO COPIA
-                                ==================================== -->
+                                        <!-- DIAGNOSTICO -->
 
 
-                                <div class="seccion">
+                                        <div class="seccion">
 
 
-                                    <div class="titulo-seccion">
+                                            <div class="titulo-seccion">
 
-                                    Diagnóstico
+                                            Diagnóstico
 
-                                    </div>
+                                            </div>
 
+                                            <div class="texto">{{ $consulta->diagnostico_principal }}</div>
 
+                                        </div>
 
-                                    <div class="texto">{{ $consulta->diagnostico_principal }} </div>
-
-
-                                </div>
-
-                                <!-- ===================================
-                                        PRESCRIPCIÓN COPIA
-                                ==================================== -->
+                                        <!-- TRATAMIENTO -->
 
 
-                                <div class="seccion">
+                                        <div class="seccion">
 
 
-                                    <div class="titulo-seccion">
+                                            <div class="titulo-seccion">
 
-                                        Prescripción Médica
+                                            Prescripción Médica
 
-                                    </div>
-
-
-                                    <div class="texto">{{ $consulta->tratamiento }}</div>
+                                            </div>
 
 
-
-                                </div>
-
-                                <!-- ===================================
-                                        FIRMA COPIA
-                                ==================================== -->
+                                            <div class="texto">{{ $consulta->tratamiento }}</div>
 
 
-                                <div class="firma-section">
+                                        </div>
 
 
-                                    <div class="linea-firma">
+                                        <!-- FIRMA ORIGINAL -->
 
 
-                                        {{$consulta->medico->titulo_profesional ?? ''}}
-
-                                        {{ strtoupper($consulta->medico->name . ' ' . $consulta->medico->surname) }}
+                                        <div class="firma-section">
 
 
-                                    </div>
+                                            <div class="linea-firma">
+
+
+                                                {{$consulta->medico->titulo_profesional ?? ''}}
+
+                                                {{ strtoupper($consulta->medico->name . ' ' . $consulta->medico->surname) }}
+
+
+                                            </div>
 
 
 
-                                    <div class="cargo">
 
-                                        {{ strtoupper($consulta->medico->specialty) }}
+                                            <div class="cargo">
 
-                                    </div>
+                                                {{ strtoupper($consulta->medico->specialty) }}
 
-
-
-                                
-                                    <div>
-
-                                        Colegio Prof.:
-
-                                        {{ $consulta->medico->colegio_profesional ?? '' }}
-
-                                    </div>
+                                            </div>
 
 
 
-                                </div>
+                                            <div>
 
+                                                Colegio Prof.:
+
+                                                {{ $consulta->medico->colegio_profesional ?? '' }}
+
+                                            </div>
+
+                                            
+
+
+
+                                        </div>
+
+
+                            </div>
 
                         </td>
+
+                        <td class="linea-separador"></td>
+
+
+
+                        
+                                <!-- =================================================
+                                                COPIA ARCHIVO
+                                ================================================= -->
+
+                        <td class="receta-columna ">
+
+                            <div class="receta-box">
+
+                                <!-- header -->
+
+                                <!-- datos -->
+
+                                <!-- diagnóstico -->
+
+                                <!-- tratamiento -->
+
+                                <!-- firma -->
+                                <table class="header">
+
+                                        <tr>
+
+
+                                                <td width="70px">
+
+
+                                                    <img src="{{ public_path('image/PSCB.png') }}"
+                                                    class="logo">
+
+
+                                                </td>
+
+
+
+                                                <td class="header-info">
+
+
+                                                    <div class="nombre-centro">
+
+                                                    PUESTO DE SALUD CRUZ BLANCA
+
+                                                    </div>
+
+
+                                                    <div class="subtitulo">
+
+                                                    Dirección: Avenida Av. Alva Maurtua Mz. 1 Lt. 6
+                                                  
+                                                    Chincha Alta - Chincha - Ica.
+
+                                                    </div>
+                                                     <div class="subtitulo">
+
+                                                    Hora de Atención:
+                                                    8:00 am – 2:00 pm / 2:00 pm - 8:00 pm
+
+                                                    </div>
+
+
+                                                    <div class="subtitulo">
+
+                                                     Teléfono: 956562272  |  Gobierno Regional de Ica | RUC:20171178585
+
+                                                    </div>
+
+
+                                                   
+
+
+                                    
+
+                                                    </td>
+
+
+                                        </tr>
+
+
+                                </table>
+
+                                    <div class="titulo-receta">
+
+                                        RECETA MÉDICA
+
+                                    </div>
+
+                                        <!-- DATOS PACIENTE COPIA -->
+                                    <br>
+
+                                    <table class="tabla-datos">
+
+
+                                            <tr>
+
+                                            <td class="label">
+                                            Paciente:
+                                            </td>
+
+                                            <td class="valor">
+
+                                            {{ strtoupper($consulta->paciente->nombres . ' ' . $consulta->paciente->apellidos) }}
+
+                                            </td>
+
+
+                                            <td class="label">
+                                            DNI:
+                                            </td>
+
+                                            <td class="valor">
+
+                                            {{ $consulta->paciente->DNI }}
+
+                                            </td>
+
+
+                                            </tr>
+
+
+
+                                            <tr>
+
+                                            <td class="label">
+                                            Edad:
+                                            </td>
+
+                                            <td class="valor">
+
+                                            {{ \Carbon\Carbon::parse($consulta->paciente->fecha_nacimiento)->age }} años
+
+                                            </td>
+
+
+                                            <td class="label">
+                                            Fecha:
+                                            </td>
+
+                                            <td class="valor">
+
+                                            {{ \Carbon\Carbon::parse($consulta->fecha_atencion)->format('d/m/Y') }}
+
+                                            </td>
+
+
+                                            </tr>
+
+
+                                    </table>
+
+                                        <!-- ===================================
+                                                DIAGNOSTICO COPIA
+                                        ==================================== -->
+
+
+                                        <div class="seccion">
+
+
+                                            <div class="titulo-seccion">
+
+                                            Diagnóstico
+
+                                            </div>
+
+
+
+                                            <div class="texto">{{ $consulta->diagnostico_principal }} </div>
+
+
+                                        </div>
+
+                                        <!-- ===================================
+                                                PRESCRIPCIÓN COPIA
+                                        ==================================== -->
+
+
+                                        <div class="seccion">
+
+
+                                            <div class="titulo-seccion">
+
+                                                Prescripción Médica
+
+                                            </div>
+
+
+                                            <div class="texto">{{ $consulta->tratamiento }}</div>
+
+
+
+                                        </div>
+
+                                        <!-- ===================================
+                                                FIRMA COPIA
+                                        ==================================== -->
+
+
+                                        <div class="firma-section">
+
+
+                                            <div class="linea-firma">
+
+
+                                                {{$consulta->medico->titulo_profesional ?? ''}}
+
+                                                {{ strtoupper($consulta->medico->name . ' ' . $consulta->medico->surname) }}
+
+
+                                            </div>
+
+
+
+                                            <div class="cargo">
+
+                                                {{ strtoupper($consulta->medico->specialty) }}
+
+                                            </div>
+
+
+
+                                        
+                                            <div>
+
+                                                Colegio Prof.:
+
+                                                {{ $consulta->medico->colegio_profesional ?? '' }}
+
+                                            </div>
+
+
+
+                                        </div>
+
+                            </div>
+
+                        </td>
+
+
+                    
+
+
+
 
 
                     </tr>

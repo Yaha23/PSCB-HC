@@ -321,7 +321,8 @@ table.dataTable{
 
 <!-- FOOTER -->
 <footer class="main-footer">
-  <strong> C. Alva Maurtua 245, 11702</strong>
+   <i class="bi bi-clock-history"></i>
+  <strong> Horario de atención: 08:00 a.m. - 02:00 p.m. | 02:00 p.m. - 08:00 p.m.</strong>
 </footer>
 
 </div>

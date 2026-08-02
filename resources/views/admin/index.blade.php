@@ -225,7 +225,7 @@ font-weight:600;
 
 .banner-info h2{
 
-    font-size:48px;
+    font-size:58px;
 
     font-weight:800;
 
@@ -694,7 +694,7 @@ transform:translateY(0);
         </span>
 
         <h2>
-            Bienvenido nuevamente al Sistema Web de Gestión
+            Bienvenido al Sistema Web de Gestión
             de Historias Clínicas.
         </h2>
 

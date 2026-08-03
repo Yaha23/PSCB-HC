@@ -213,7 +213,7 @@
                 style="border:1px solid #fdde92da;">
 
 
-                <option value="" disabled>
+                <option value="" disabled selected>
                     Seleccione
                 </option>
 

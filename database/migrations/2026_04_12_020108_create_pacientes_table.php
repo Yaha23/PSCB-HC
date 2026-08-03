@@ -16,21 +16,13 @@ return new class extends Migration
 
             $table->string('nombres');
             $table->string('apellidos');
-            
-          
-             
-
             $table->string('DNI')->unique();
             $table->date('fecha_nacimiento');
-
-            $table->string('genero');
-           
+            $table->string('genero');           
             $table->string('estado_civil')->nullable();
-
             $table->string('celular');
             $table->string('email')->unique();
             $table->string('direccion');
-
             $table->string('grupo_sanguineo');
 
             $table->timestamps();

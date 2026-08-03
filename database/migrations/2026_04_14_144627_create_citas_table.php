@@ -13,27 +13,17 @@ return new class extends Migration
     {
         Schema::create('citas', function (Blueprint $table) {
             $table->id();
-             // paciente
+
             $table->foreignId('paciente_id')
                 ->constrained('pacientes')
                 ->onDelete('cascade');
 
-            // medico
             $table->foreignId('medico_id')->constrained('users')->onDelete('cascade');
-            // fecha y hora de la cita
+
             $table->date('fecha');
             $table->time('hora');
-
-            // duración (opcional pero útil)
             $table->integer('duracion_minutos')->default(30);
-
-            // estado de la cita
-            $table->enum('estado', [
-                'pendiente',
-                'confirmada',
-                'atendida',
-                'cancelada'
-            ])->default('pendiente');
+            $table->enum('estado', ['pendiente','confirmada','atendida','cancelada'])->default('pendiente');
 
             $table->string('motivo')->nullable();
             $table->text('observaciones')->nullable();

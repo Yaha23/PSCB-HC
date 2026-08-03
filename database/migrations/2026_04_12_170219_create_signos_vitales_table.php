@@ -22,7 +22,6 @@ return new class extends Migration
             $table->integer('frecuencia_cardiaca');
             $table->decimal('temperatura', 4, 1);
             $table->integer('frecuencia_respiratoria');
-
             $table->timestamps();
         });
     }

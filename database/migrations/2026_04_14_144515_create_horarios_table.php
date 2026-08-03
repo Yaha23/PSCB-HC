@@ -14,19 +14,11 @@ return new class extends Migration
     {
         Schema::create('horarios', function (Blueprint $table) {
              $table->id();
-
-            $table->foreignId('user_id')
-                ->constrained()
-                ->onDelete('cascade');
-
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('especialidad')->nullable();
-
             $table->string('dia_semana');
-
             $table->time('hora_inicio');
-
             $table->time('hora_fin');
-
             $table->timestamps();
             
         });

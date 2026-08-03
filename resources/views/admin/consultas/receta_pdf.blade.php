@@ -351,7 +351,7 @@
 
                                         </div>
                                         
-                                        <br>
+   
 
                                         <!-- DATOS PACIENTE -->
 

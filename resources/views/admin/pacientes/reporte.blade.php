@@ -193,39 +193,35 @@ $fechaReporte=\Carbon\Carbon::now('America/Lima');
 
 <tr>
 
-<td width="15%">
+    <td width="15%" style="text-align:left; vertical-align:middle;">
 
-{{-- Logo --}}
-{{-- <img src="{{ public_path('img/logo.png') }}" class="logo"> --}}
+        <img src="{{ public_path('image/PSCB.png') }}" class="logo">
 
-</td>
+    </td>
 
-<td width="60%" class="titulo">
+    <td width="70%" class="titulo">
 
-<h2>PUESTO DE SALUD CRUZ BLANCA</h2>
+        <h2>PUESTO DE SALUD CRUZ BLANCA</h2>
 
-<h3>Reporte General de Pacientes Atendidos</h3>
+        <h3>Reporte General de Pacientes Atendidos</h3>
 
-</td>
+    </td>
 
-<td width="25%" class="fecha">
+    <td width="15%" class="fecha">
 
-<strong>Fecha:</strong>
+        <strong>Fecha:</strong>
+        {{ $fechaReporte->format('d/m/Y') }}
 
-{{ $fechaReporte->format('d/m/Y') }}
+        <br>
 
-<br>
+        <strong>Hora:</strong>
+        {{ $fechaReporte->format('h:i A') }}
 
-<strong>Hora:</strong>
-
-{{ $fechaReporte->format('h:i A') }}
-
-</td>
+    </td>
 
 </tr>
 
 </table>
-
 <div class="linea"></div>
 
 <div class="resumen">

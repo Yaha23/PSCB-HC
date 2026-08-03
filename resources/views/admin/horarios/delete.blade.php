@@ -287,8 +287,8 @@ data-card-widget="collapse">
 
     @endif
 
+<hr>
 
-<br>
 
 
 
@@ -309,9 +309,7 @@ font-size:16px;
 font-family:'Segoe UI';
 border-radius:6px;
 padding:5px;
-">
-
-Cancelar
+">Cancelar
 
 </a>
 

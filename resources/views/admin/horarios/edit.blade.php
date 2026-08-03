@@ -197,8 +197,9 @@
                         </div>
 
                     </div>
+                    <hr>
 
-                    <br>
+  
 
                     <div class="text-center">
 

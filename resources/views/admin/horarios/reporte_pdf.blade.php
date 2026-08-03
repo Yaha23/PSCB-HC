@@ -158,38 +158,40 @@ PIE DE PÁGINA
 
 <tr>
 
-<td width="15%">
+    <td width="15%">
+        
+        {{-- Si tienes logo --}}
+        <img src="{{ public_path('image/PSCB.png') }}" class="logo">
+    </td>
 
-{{-- Si tienes logo --}}
-{{-- <img src="{{ public_path('img/logo.png') }}" class="logo"> --}}
+    <td width="70%" style="text-align:center;">
 
-</td>
+        <h2 style="margin:0;font-size:16px;font-weight:bold;">
+            PUESTO DE SALUD CRUZ BLANCA
+        </h2>
 
-<td width="60%" class="titulo">
+        <h3 style="margin-top:3px;font-size:12px;font-weight:normal;color:#6c757d;">
+            Reporte de Horarios del Personal
+        </h3>
 
-<h2>PUESTO DE SALUD CRUZ BLANCA</h2>
+    </td>
 
-<h3>Reporte de Horarios del Personal</h3>
+    <td width="15%" class="fecha">
 
-</td>
+        <strong>Fecha:</strong>
+        {{ $fechaReporte->format('d/m/Y') }}
+        <br>
 
-<td width="25%" class="fecha">
+        <strong>Hora:</strong>
+        {{ $fechaReporte->format('h:i A') }}
 
-<strong>Fecha:</strong>
-
-{{ $fechaReporte->format('d/m/Y') }}
-
-<br>
-
-<strong>Hora:</strong>
-
-{{ $fechaReporte->format('h:i A') }}
-
-</td>
+    </td>
 
 </tr>
 
 </table>
+
+
 
 <div class="linea"></div>
 

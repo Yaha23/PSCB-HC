@@ -265,7 +265,6 @@
                 <option value="Obst.">Obst.</option>
                 <option value="Lic. Enf.">Lic. Enf.</option>
                 <option value="Téc. Enf.">Téc. Enf.</option>
-                <option value="Enf.">Enfermero(a)</option>
                 <option value="otros">Otros</option>
 
 

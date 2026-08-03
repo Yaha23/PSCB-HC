@@ -57,7 +57,7 @@ class HorarioController extends Controller
 
 
     $horarios = $query
-        ->orderBy('dia_semana')
+        ->orderBy('id', 'asc')
         ->paginate(10)
         ->withQueryString();
 

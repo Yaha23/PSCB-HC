@@ -268,29 +268,28 @@ table td {
 
             @forelse($consultas as $consulta)
 
-                @php
+            @php
 
-                    if($consulta->estado == 'pendiente'){
+if(
+    $consulta->estado == 'finalizada'
+    && !empty($consulta->diagnostico_principal)
+){
 
-                        $estadoClase = 'estado-pendiente';
-                        $badgeClase = 'badge-pendiente';
-                        $estadoTexto = 'Pendiente';
+    $estadoClase = 'estado-completo';
 
-                    }elseif($consulta->estado == 'finalizada'){
+}else{
 
-                        $estadoClase = 'estado-completo';
-                        $badgeClase = 'badge-completo';
-                        $estadoTexto = 'Registrado';
+    $estadoClase = 'estado-pendiente';
 
-                    }
+}
 
-                @endphp
+@endphp
+
+
+
+
 
                 <tr class="{{ $estadoClase }}">
-
-                
-
-                    <tr class="{{ $estadoClase }}">
 
     <td>{{ $loop->iteration }}</td>
 

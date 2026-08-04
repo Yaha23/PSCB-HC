@@ -338,11 +338,16 @@ input::placeholder{
                 <div class="row">
                     <div class="col-md-3">
                         <label style="color:#4a5568;">Motivo de Consulta:</label>
+
                         <input class="form-control"
-                        placeholder="Pendiente registro"
                             readonly
-                            
-                            value="{{ $consulta->motivo_consulta  }} "  style="background-color: #f6e48bb1; border:1px solid #fdde92da; cursor:not-allowed;">
+                            placeholder="Pendiente registro"
+                            value="{{ !empty(trim($consulta->motivo_consulta ?? '')) ? $consulta->motivo_consulta : '' }}"
+                            style="background-color:#f6e48bb1;
+                                border:1px solid #fdde92da;
+                                cursor:not-allowed;">
+                    
+                    
                     </div>
 
                     <div class="col-md-3">

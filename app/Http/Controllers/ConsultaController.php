@@ -31,12 +31,12 @@ class ConsultaController extends Controller
     //===========================
 
     if($request->estado == 'pendiente'){
-        $query->whereNull('diagnostico_principal');
-    }
+        $query->where('estado', 'pendiente');
+        }
 
     if($request->estado == 'registrado'){
-        $query->whereNotNull('diagnostico_principal');
-    }
+            $query->where('estado', 'finalizada');
+        }
 
     $consultas = $query
         ->orderBy('fecha_atencion','desc')
@@ -53,10 +53,10 @@ class ConsultaController extends Controller
 $totalQuery = Consulta::where('paciente_id', $paciente_id);
 
 $pendientesQuery = Consulta::where('paciente_id', $paciente_id)
-                    ->whereNull('diagnostico_principal');
+                    ->where('estado','pendiente');
 
 $registradosQuery = Consulta::where('paciente_id', $paciente_id)
-                    ->whereNotNull('diagnostico_principal');
+                    ->where('estado','finalizada');
 
 
 // Si es médico, solo contar sus consultas
@@ -354,41 +354,15 @@ public function update(Request $request, $id)
         // Actualizar asignación médica
 
         $consulta->update([
-            'medico_id'=>$request->medico_id,
-            'especialidad'=>$request->especialidad,
-            'fecha_atencion'=>$request->fecha_atencion,
 
-            'diagnostico_principal'=>$request->diagnostico_principal,
+            'medico_id'     => $request->medico_id,
+            'especialidad'  => $request->especialidad,
+            'fecha_atencion'=> $request->fecha_atencion,
+            'hora_atencion' => $request->hora_atencion,
 
-            'tratamiento'=>$request->tratamiento,
+            'estado' => 'pendiente'
 
-            'motivo_consulta'=>$request->motivo_consulta,
-
-            'tiempo_enfermedad'=>$request->tiempo_enfermedad,
-
-            'apetito'=>$request->apetito,
-
-            'sed'=>$request->sed,
-
-            'sueno'=>$request->sueno,
-
-            'estado_animo'=>$request->estado_animo,
-
-            'orina'=>$request->orina,
-
-            'deposiciones'=>$request->deposiciones,
-
-            'acuerdos_compromisos'=>$request->acuerdos_compromisos,
-
-            'examenes_auxiliares'=>$request->examenes_auxiliares,
-
-            'referencia'=>$request->referencia,
-
-            'observaciones'=>$request->observaciones,
-
-            'estado'=>'finalizada'
-
-            ]);
+        ]);
 
 
 
@@ -547,8 +521,8 @@ public function update(Request $request, $id)
 
     ]);
 
-    // Guardamos el estado antes de actualizar
-    $estadoAnterior = $consulta->estado;
+    
+    $primeraVez = empty($consulta->diagnostico_principal);
 
     $consulta->update([
 
@@ -560,7 +534,6 @@ public function update(Request $request, $id)
         'estado_animo'=>$request->estado_animo,
         'orina'=>$request->orina,
         'deposiciones'=>$request->deposiciones,
-
         'diagnostico_principal'=>$request->diagnostico_principal,
         'tratamiento'=>$request->tratamiento,
         'acuerdos_compromisos'=>$request->acuerdos_compromisos,
@@ -573,9 +546,9 @@ public function update(Request $request, $id)
     ]);
 
     // Mensaje dependiendo si era la primera vez o una edición
-    $mensaje = $estadoAnterior == 'pendiente'
-        ? 'Historia clínica completada correctamente.'
-        : 'Historia clínica actualizada correctamente.';
+    $mensaje = $primeraVez
+    ? 'Historia clínica completada correctamente.'
+    : 'Historia clínica actualizada correctamente.';
 
     return redirect()
         ->route(

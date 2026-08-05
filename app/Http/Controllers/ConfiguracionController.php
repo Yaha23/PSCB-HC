@@ -21,8 +21,8 @@ class ConfiguracionController extends Controller
 
             $configuracion = Configuracion::create([
                 'nombre_puestosalud' => 'PUESTO DE SALUD CRUZ BLANCA',
-                'direccion' => 'C. Alva Maurtua 245',
-                'telefono' => ' 970 883 057',
+                'direccion' => ' Avenida Av. Alva Maurtua Mz. 1 Lt. 6 Chincha Alta - Chincha - Ica',
+                'telefono' => '  956562272',
                 'facebook' => 'Puesto SALUD CRUZ Blanca',
                 'logo' => 'image/PSCB.png'
             ]);

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash; // ← Esto es importante
+use Illuminate\Support\Facades\Hash; 
 use Spatie\Permission\Models\Role;
 use Illuminate\Validation\Rule;
 class UsuarioController extends Controller
@@ -16,29 +16,24 @@ class UsuarioController extends Controller
     }
 
     public function create(){
-        //retornar la vista
+      
         return view('admin.usuarios.create');
     }
 
-    //almacenar los datos que registramos
+    
 
     public function store(Request $request){
-        
-        //$datos = $request->all();
-        //return response()->json($datos);
 
-        
-
-        $request->validate([ //permite que cada campo llenado no sea modificado y este protegido ya que se requiere asi.
+        $request->validate([ 
             'username'=>'required|unique:users,username',
             'name'=>'required|max:250',
-            'surname'=>'required|max:250',//apellidos
-            'email'=>'required|max:250|unique:users',//correo electronico
-            'phone'=>'required|max:9',//celular
-            'password'=>'required|max:250|confirmed',//contraseña y en confirmed ,estoy diciendo que necesita ser confirmada.
-            'status'=>'required',   // Estado
-            'role'=>'required',     // Rol
-            'specialty'=>'required_if:role,medico', // Especialidad solo si rol = medico
+            'surname'=>'required|max:250',
+            'email'=>'required|max:250|unique:users',
+            'phone'=>'required|max:9',
+            'password'=>'required|max:250|confirmed',
+            'status'=>'required',  
+            'role'=>'required',   
+            'specialty'=>'required_if:role,medico',
             'titulo_profesional'=>'nullable|string|max:50',
             'colegio_profesional' => 'nullable|string|max:100',
 
@@ -50,9 +45,9 @@ class UsuarioController extends Controller
         $usuario->surname = $request->surname;
         $usuario->email = $request->email;
         $usuario->phone = $request->phone;
-        $usuario->password = Hash::make($request['password']); // encriptar contraseña
+        $usuario->password = Hash::make($request['password']); 
         $usuario->status = $request->status;
-        $usuario->specialty = $request->specialty ?? null; // si no es médico, queda null
+        $usuario->specialty = $request->specialty ?? null; 
 
           if ($request->titulo_profesional == 'otros') {
             $usuario->titulo_profesional = $request->otro_titulo;
@@ -60,17 +55,10 @@ class UsuarioController extends Controller
             $usuario->titulo_profesional = $request->titulo_profesional;
         }
         $usuario->colegio_profesional = $request->colegio_profesional;
-        // Guardar en la base de datos
+    
         $usuario->save();
-    // 🔥 ASIGNAR ROL CORRECTAMENTE
         $usuario->assignRole($request->role);
 
-        
-
-
-        
-
-        
         return redirect()->route($this->getRouteBase().'.usuarios.index')
         ->with('mensaje', 'Usuario creado correctamente')
         ->with('icono', 'success');
@@ -84,11 +72,10 @@ class UsuarioController extends Controller
 
     }
 
-    //funciones que nos ayudaran a editar(edit) y a modificar(uptade) nuestros datos en el sistema
+    
 
     public function edit($id){
         $usuario = User::findOrFail($id);
-       
         return view('admin.usuarios.edit',compact('usuario'));
 
     }
@@ -97,27 +84,16 @@ class UsuarioController extends Controller
 
          $request->validate([
 
-            'username'=>[
-                'required',
-                Rule::unique('users','username')->ignore($id)
-            ],
+            'username'=>['required',Rule::unique('users','username')->ignore($id)],
 
             'name'=>'required|max:250',
-
             'surname'=>'required|max:250',
-
             'email'=>'required|max:250|unique:users,email,'.$id,
-
             'phone'=>'required|max:9',
-
             'password'=>'nullable|max:250|confirmed',
-
             'status'=>'required',
-
             'role'=>'required',
-
             'specialty'=>'required_if:role,medico',
-
             'titulo_profesional'=>'nullable|string|max:50',
             'colegio_profesional' => 'nullable|string|max:100',
 
@@ -134,23 +110,17 @@ class UsuarioController extends Controller
                 $usuario->password = Hash::make($request['password']);
             }
         
-
-
-
         $usuario->status = $request->status;
-       
-        $usuario->specialty = $request->specialty ?? null; // si no es médico, queda null
+        $usuario->specialty = $request->specialty ?? null; 
 
-        if ($request->titulo_profesional == 'otros') {
-            $usuario->titulo_profesional = $request->otro_titulo;
-        } else {
-            $usuario->titulo_profesional = $request->titulo_profesional;
-        }
-        $usuario->colegio_profesional = $request->colegio_profesional;
-
-        // Guardar en la base de datos modificada
+            if ($request->titulo_profesional == 'otros') {
+                $usuario->titulo_profesional = $request->otro_titulo;
+            } else {
+                $usuario->titulo_profesional = $request->titulo_profesional;
+            }
+            $usuario->colegio_profesional = $request->colegio_profesional;
+            
         $usuario->save();
-        // 🔥 ACTUALIZAR ROL
         $usuario->syncRoles([$request->role]);
 
         return redirect()->route($this->getRouteBase().'.usuarios.index')

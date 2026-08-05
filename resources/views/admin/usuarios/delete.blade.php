@@ -31,14 +31,13 @@
                                 <i class="fas fa-minus"></i>
                             </button>
                         </div>
-                        <!-- /.card-tools -->
+                
                     </div>
-                    <!-- /.card-header -->
-                        <!-- /.card-header -->
+          
                         <div class="card-body">
                             <form action="{{ url($base.'/usuarios',$usuario->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
+                                    @csrf
+                                    @method('DELETE')
                                 
                                     <div class="row">
                                          <div class="col-md-4">
@@ -52,7 +51,7 @@
                                             @enderror
                                         </div>
 
-                                        <!--Campo usuario-->
+                                   
                                         <div class="col-md-4">
                                             <div class="form ground">
                                             <label for="" style="color: #4a5568" >Nombres Completos:</label>
@@ -62,7 +61,7 @@
                                                     @enderror        
                                             </div>
                                         </div>
-                                        <!--Campo -Apellidos-->
+                                      
 
                                         <div class="col-md-4">
                                             <div class="form ground">
@@ -82,7 +81,7 @@
                                     <br>
                                     
                                     <div class="row">
-                                        <!--Campo correo electronico-->
+                                        
                                         <div class="col-md-6">
                                             <div class="form ground">
                                             <label for=""  style="color: #4a5568">Correo Electrónico:</label>
@@ -92,7 +91,7 @@
                                                     @enderror    
                                             </div>
                                         </div>
-                                        <!--Campo telefono-->
+                                        
                                         <div class="col-md-6">
                                             <div class="form ground">
                                             <label for=""  style="color: #4a5568">Telefono:</label>
@@ -101,191 +100,167 @@
                                                     <small style="color:red">{{ $message }}</small>                                               
                                                     @enderror    
                                             </div>
-                                        </div>
-
-
-                                        
-                                        
+                                        </div>    
 
                                     </div>
 
                                     <hr>
-                                    <!--Separador para eleccion-->
+                                    
                                     <h3 class="card-title d-flex align-items-center" style="font-size:15px; color:#6c757d; font-weight:500;">
                                         Indica el tipo y estado de la cuenta
                                         <i class="bi bi-check-all" style="margin-left:10px; color:#9aa0a6;"></i>                
                                     </h3>
-                                <br>
-                                    @php
-    $rol = $usuario->getRoleNames()->first();
-@endphp
+                                    <br>
+                                        @php
+                                            $rol = $usuario->getRoleNames()->first();
+                                        @endphp
 
-@if($rol == 'medico')
+                                        @if($rol == 'medico')
 
-    {{-- =========================
-         MÉDICO
-         Primera fila:
-         Estado | Rol | Especialidad | Título Profesional
-    ========================== --}}
-    <div class="row">
+                                            <div class="row">
 
-        <!-- Estado -->
-        <div class="col-md-3">
-            <div class="form-group">
-                <label style="color:#4a5568;">Estado:</label>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label style="color:#4a5568;">Estado:</label>
 
-                <input type="text"
-                    value="{{ strtoupper($usuario->status) }}"
-                    class="form-control"
-                    readonly
-                    style="background-color:#f6e48bb1;border:1px solid #fdde92da;cursor:not-allowed;">
-            </div>
-        </div>
+                                                        <input type="text"
+                                                            value="{{ strtoupper($usuario->status) }}"
+                                                            class="form-control"
+                                                            readonly
+                                                            style="background-color:#f6e48bb1;border:1px solid #fdde92da;cursor:not-allowed;">
+                                                    </div>
+                                                </div>
 
-        <!-- Rol -->
-        <div class="col-md-3">
-            <div class="form-group">
-                <label style="color:#4a5568;">Rol:</label>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label style="color:#4a5568;">Rol:</label>
 
-                <input type="text"
-                    value="{{ strtoupper($rol) }}"
-                    class="form-control"
-                    readonly
-                    style="background-color:#f6e48bb1;border:1px solid #fdde92da;cursor:not-allowed;">
-            </div>
-        </div>
+                                                        <input type="text"
+                                                            value="{{ strtoupper($rol) }}"
+                                                            class="form-control"
+                                                            readonly
+                                                            style="background-color:#f6e48bb1;border:1px solid #fdde92da;cursor:not-allowed;">
+                                                    </div>
+                                                </div>
 
-        <!-- Especialidad -->
-        <div class="col-md-3">
-            <div class="form-group">
-                <label style="color:#4a5568;">Especialidad:</label>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label style="color:#4a5568;">Especialidad:</label>
 
-                <input type="text"
-                    value="{{ strtoupper($usuario->specialty) }}"
-                    class="form-control"
-                    readonly
-                    style="background-color:#f6e48bb1;border:1px solid #fdde92da;cursor:not-allowed;">
-            </div>
-        </div>
+                                                        <input type="text"
+                                                            value="{{ strtoupper($usuario->specialty) }}"
+                                                            class="form-control"
+                                                            readonly
+                                                            style="background-color:#f6e48bb1;border:1px solid #fdde92da;cursor:not-allowed;">
+                                                    </div>
+                                                </div>
 
-        <!-- Título -->
-        <div class="col-md-3">
-            <div class="form-group">
-                <label style="color:#4a5568;">Título profesional:</label>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label style="color:#4a5568;">Título profesional:</label>
 
-                <input type="text"
-                    value="{{ $usuario->titulo_profesional }}"
-                    class="form-control"
-                    readonly
-                    style="background-color:#f6e48bb1;border:1px solid #fdde92da;">
-            </div>
-        </div>
+                                                        <input type="text"
+                                                            value="{{ $usuario->titulo_profesional }}"
+                                                            class="form-control"
+                                                            readonly
+                                                            style="background-color:#f6e48bb1;border:1px solid #fdde92da;">
+                                                    </div>
+                                                </div>
 
-    </div>
+                                            </div>
 
-    <br>
+                                            <br>
 
-    {{-- Segunda fila: Colegio Profesional --}}
-    <div class="row">
+                                            <div class="row">
 
-        <div class="col-md-3">
-            <div class="form-group">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
 
-                <label style="color:#4a5568;">
-                    Colegio Profesional:
-                </label>
+                                                        <label style="color:#4a5568;">
+                                                            Colegio Profesional:
+                                                        </label>
 
-                <input type="text"
-                    value="{{ $usuario->colegio_profesional }}"
-                    class="form-control"
-                    readonly
-                    style="background-color:#f6e48bb1;border:1px solid #fdde92da;">
+                                                        <input type="text"
+                                                            value="{{ $usuario->colegio_profesional }}"
+                                                            class="form-control"
+                                                            readonly
+                                                            style="background-color:#f6e48bb1;border:1px solid #fdde92da;">
 
-            </div>
-        </div>
+                                                    </div>
+                                                </div>
 
-    </div>
+                                            </div>
 
-@else
+                                            @else
 
-    {{-- =========================
-         ADMINISTRADOR / ASISTENTE
-         Una sola fila
-         Estado | Rol | Título | Colegio
-    ========================== --}}
 
-    <div class="row">
+                                            <div class="row">
 
-        <!-- Estado -->
-        <div class="col-md-3">
-            <div class="form-group">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
 
-                <label style="color:#4a5568;">Estado:</label>
+                                                        <label style="color:#4a5568;">Estado:</label>
 
-                <input type="text"
-                    value="{{ strtoupper($usuario->status) }}"
-                    class="form-control"
-                    readonly
-                    style="background-color:#f6e48bb1;border:1px solid #fdde92da;cursor:not-allowed;">
+                                                        <input type="text"
+                                                            value="{{ strtoupper($usuario->status) }}"
+                                                            class="form-control"
+                                                            readonly
+                                                            style="background-color:#f6e48bb1;border:1px solid #fdde92da;cursor:not-allowed;">
 
-            </div>
-        </div>
+                                                    </div>
+                                                </div>
 
-        <!-- Rol -->
-        <div class="col-md-3">
-            <div class="form-group">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
 
-                <label style="color:#4a5568;">Rol:</label>
+                                                        <label style="color:#4a5568;">Rol:</label>
 
-                <input type="text"
-                    value="{{ strtoupper($rol) }}"
-                    class="form-control"
-                    readonly
-                    style="background-color:#f6e48bb1;border:1px solid #fdde92da;cursor:not-allowed;">
+                                                        <input type="text"
+                                                            value="{{ strtoupper($rol) }}"
+                                                            class="form-control"
+                                                            readonly
+                                                            style="background-color:#f6e48bb1;border:1px solid #fdde92da;cursor:not-allowed;">
 
-            </div>
-        </div>
+                                                    </div>
+                                                </div>
 
-        <!-- Título -->
-        <div class="col-md-3">
-            <div class="form-group">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
 
-                <label style="color:#4a5568;">Título profesional:</label>
+                                                        <label style="color:#4a5568;">Título profesional:</label>
 
-                <input type="text"
-                    value="{{ $usuario->titulo_profesional }}"
-                    class="form-control"
-                    readonly
-                    style="background-color:#f6e48bb1;border:1px solid #fdde92da;">
+                                                        <input type="text"
+                                                            value="{{ $usuario->titulo_profesional }}"
+                                                            class="form-control"
+                                                            readonly
+                                                            style="background-color:#f6e48bb1;border:1px solid #fdde92da;">
 
-            </div>
-        </div>
+                                                    </div>
+                                                </div>
 
-        <!-- Colegio -->
-        <div class="col-md-3">
-            <div class="form-group">
 
-                <label style="color:#4a5568;">Colegio Profesional:</label>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
 
-                <input type="text"
-                    value="{{ $usuario->colegio_profesional }}"
-                    class="form-control"
-                    readonly
-                    style="background-color:#f6e48bb1;border:1px solid #fdde92da;">
+                                                        <label style="color:#4a5568;">Colegio Profesional:</label>
 
-            </div>
-        </div>
+                                                        <input type="text"
+                                                            value="{{ $usuario->colegio_profesional }}"
+                                                            class="form-control"
+                                                            readonly
+                                                            style="background-color:#f6e48bb1;border:1px solid #fdde92da;">
 
-    </div>
+                                                    </div>
+                                                </div>
 
-@endif
+                                            </div>
+
+                                        @endif
                                     
                                 </div>
 
                                 <hr>
-
-                                  <!--Boton cancelar y Guardar datos-->
-                                    <div class="row">
+                                <div class="row">
                                         <div class="col-md-12 text-center">
                                             <div class="form-ground">
                                                     <a href="{{url($base.'/usuarios')}}"  class="btn btn-secondary" style=" background-color: #4a5568;width: 200px;font-size: 16px;font-weight: 400;font-family: 'Segoe UI';letter-spacing: 0.5px;border-radius: 6px;padding: 5px;" >
@@ -296,10 +271,10 @@
                                                         </button>
                                             </div>
                                         </div>
-                                    </div>
-                                    <br>
+                                </div>
+                                <br>
 
-</div>
+                                </div>
 
 
                                     </div>
@@ -313,7 +288,7 @@
                         
                             
                                     
-                </div>
+                        </div>
                 
             </div>
             
@@ -321,7 +296,7 @@
 
         
     
-    @else
+        @else
         <div class="alert alert-danger m-3">
             No tienes permisos para eliminar usuarios.
         </div>

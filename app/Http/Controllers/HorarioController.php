@@ -11,136 +11,78 @@ class HorarioController extends Controller
 {
 
   public function index(Request $request)
-{
-    $user = auth()->user();
+    {
+        $user = auth()->user();
+        $buscar = $request->buscar;
+        $rol = $request->rol;
+        $query = Horario::with('user');
 
-    $buscar = $request->buscar;
-    $rol = $request->rol;
+        if($user->hasRole('medico')){
+            $query->where('user_id',$user->id);
+        }
 
+        if($buscar && !$user->hasRole('medico')){
 
-    $query = Horario::with('user');
+            $query->whereHas('user', function($q) use ($buscar){
 
+                $q->where('name','LIKE','%'.$buscar.'%')
+                ->orWhere('surname','LIKE','%'.$buscar.'%');
 
-    // Médico solamente ve su horario
-    if($user->hasRole('medico')){
+            });
 
-        $query->where('user_id',$user->id);
+        }
 
+        if($rol && !$user->hasRole('medico')){
+            $query->whereHas('user', function($q) use ($rol){
+                $q->role($rol);
+
+            });
+
+        }
+
+        $horarios = $query
+            ->orderBy('id', 'asc')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view( 'admin.horarios.index', compact( 'horarios','buscar', 'rol'));
     }
-
-
-    // Buscar personal
-    if($buscar && !$user->hasRole('medico')){
-
-        $query->whereHas('user', function($q) use ($buscar){
-
-            $q->where('name','LIKE','%'.$buscar.'%')
-              ->orWhere('surname','LIKE','%'.$buscar.'%');
-
-        });
-
-    }
-
-
-
-    // Filtrar rol solo para admin y asistente
-    if($rol && !$user->hasRole('medico')){
-
-        $query->whereHas('user', function($q) use ($rol){
-
-            $q->role($rol);
-
-        });
-
-    }
-
-
-
-    $horarios = $query
-        ->orderBy('id', 'asc')
-        ->paginate(10)
-        ->withQueryString();
-
-
-
-    return view(
-        'admin.horarios.index',
-        compact(
-            'horarios',
-            'buscar',
-            'rol'
-        )
-    );
-}
-
-
 
     public function create()
     {
 
         $medicos = User::role('medico')->get();
-
         $asistentes = User::role('asistente')->get();
 
-
-       return view(
-    'admin.horarios.create',
-    compact(
-        'medicos',
-        'asistentes'
-    )
-);
+       return view( 'admin.horarios.create', compact( 'medicos','asistentes'));
     }
-
-
 
     public function store(Request $request)
     {
 
-
         $request->validate([
 
             'user_id'=>'required',
-
             'rol'=>'required',
-
             'dia_semana'=>'required',
-
             'hora_inicio'=>'required',
-
             'hora_fin'=>'required',
 
         ]);
-
-
-
         $usuario = User::findOrFail($request->user_id);
 
-
-
-        // Validación solamente para médicos
         if($request->rol == 'medico'){
 
 
             $conflicto = Horario::whereHas('user', function($query) use ($usuario){
-
                     $query->where('specialty',$usuario->specialty);
-
                 })
 
                 ->where('dia_semana',$request->dia_semana)
 
                 ->where(function($query) use ($request){
 
-
-                    $query->whereBetween(
-                        'hora_inicio',
-                        [
-                            $request->hora_inicio,
-                            $request->hora_fin
-                        ]
-                    )
-
+                    $query->whereBetween('hora_inicio',[$request->hora_inicio,$request->hora_fin])
                     ->orWhereBetween(
                         'hora_fin',
                         [
@@ -150,7 +92,6 @@ class HorarioController extends Controller
                     )
 
                     ->orWhere(function($q) use ($request){
-
                         $q->where(
                             'hora_inicio',
                             '<=',
@@ -166,22 +107,11 @@ class HorarioController extends Controller
                     });
 
 
-                })
-
-                ->exists();
-
-
+                })->exists();
 
             if($conflicto){
 
-
-                return back()
-
-                ->withInput()
-
-                ->with('mensaje',
-                'Ya existe un horario para esa especialidad')
-
+                return back()->withInput()->with('mensaje','Ya existe un horario para esa especialidad')
                 ->with('icono','error');
 
 
@@ -190,273 +120,180 @@ class HorarioController extends Controller
         }
 
 
-
-
         Horario::create([
 
-
             'user_id'=>$request->user_id,
-
-
             'especialidad'=>$request->especialidad,
-
-
             'dia_semana'=>$request->dia_semana,
-
-
             'hora_inicio'=>$request->hora_inicio,
-
-
             'hora_fin'=>$request->hora_fin,
-
-
         ]);
 
-
-
-
-        return redirect()
-
-        ->route($this->getRouteBase().'.horarios.index')
-
-        ->with('mensaje',
-        'Horario registrado correctamente')
-
+        return redirect()->route($this->getRouteBase().'.horarios.index')
+        ->with('mensaje','Horario registrado correctamente')
         ->with('icono','success');
 
-
     }
-
-
-
 
 
     public function show($id)
     {
 
-        $horario = Horario::with('user')
-        ->findOrFail($id);
-
-
-        return view(
-            'admin.horarios.show',
-            compact('horario')
-            );
-
+        $horario = Horario::with('user')->findOrFail($id);
+        return view('admin.horarios.show',compact('horario'));
     }
-
-
-
-
 
     public function edit($id)
 {
     $horario = Horario::with('user')->findOrFail($id);
-
     $user = auth()->user();
-
     if ($user->hasRole('medico') && $horario->user_id != $user->id) {
         abort(403);
     }
 
     $medicos = User::role('medico')->get();
-
     $asistentes = User::role('asistente')->get();
 
-    return view(
-    'admin.horarios.edit',
-        compact(
-            'horario',
-            'medicos',
-            'asistentes'
-        )
-    );
+    return view('admin.horarios.edit',compact('horario','medicos','asistentes'));
 }
 
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'user_id'      => 'required|exists:users,id',
+            'rol'          => 'required',
+            'dia_semana'   => 'required',
+            'hora_inicio'  => 'required',
+            'hora_fin'     => 'required',
+        ]);
 
+        $horario = Horario::findOrFail($id);
+        $usuario = User::findOrFail($request->user_id);
 
+        if ($request->rol == 'medico') {
+            $conflicto = Horario::whereHas('user', function ($query) use ($usuario) {
+                    $query->where('specialty', $usuario->specialty);
+                })
 
+                ->where('id', '!=', $id)
+                ->where('dia_semana', $request->dia_semana)
+                ->where(function ($query) use ($request) {
+                    $query->whereBetween('hora_inicio', [
+                        $request->hora_inicio,
+                        $request->hora_fin
+                    ])
+                    ->orWhereBetween('hora_fin', [
+                        $request->hora_inicio,
+                        $request->hora_fin
+                    ])
 
- public function update(Request $request, $id)
-{
-    $request->validate([
-        'user_id'      => 'required|exists:users,id',
-        'rol'          => 'required',
-        'dia_semana'   => 'required',
-        'hora_inicio'  => 'required',
-        'hora_fin'     => 'required',
-    ]);
+                    ->orWhere(function ($q) use ($request) {
 
-    $horario = Horario::findOrFail($id);
+                        $q->where('hora_inicio', '<=', $request->hora_inicio)
+                        ->where('hora_fin', '>=', $request->hora_fin);
 
-    $usuario = User::findOrFail($request->user_id);
+                    });
 
-    // Validación únicamente para médicos
-    if ($request->rol == 'medico') {
+                })->exists();
 
-        $conflicto = Horario::whereHas('user', function ($query) use ($usuario) {
+            if ($conflicto) {
 
-                $query->where('specialty', $usuario->specialty);
+                return back()
+                    ->withInput()
+                    ->with('mensaje', 'Ya existe un horario para esa especialidad.')
+                    ->with('icono', 'error');
 
-            })
-
-            ->where('id', '!=', $id)
-
-            ->where('dia_semana', $request->dia_semana)
-
-            ->where(function ($query) use ($request) {
-
-                $query->whereBetween('hora_inicio', [
-                    $request->hora_inicio,
-                    $request->hora_fin
-                ])
-
-                ->orWhereBetween('hora_fin', [
-                    $request->hora_inicio,
-                    $request->hora_fin
-                ])
-
-                ->orWhere(function ($q) use ($request) {
-
-                    $q->where('hora_inicio', '<=', $request->hora_inicio)
-                      ->where('hora_fin', '>=', $request->hora_fin);
-
-                });
-
-            })
-
-            ->exists();
-
-        if ($conflicto) {
-
-            return back()
-                ->withInput()
-                ->with('mensaje', 'Ya existe un horario para esa especialidad.')
-                ->with('icono', 'error');
+            }
 
         }
 
+        $horario->update([
+
+            'user_id' => $request->user_id,
+
+            'especialidad' => $request->rol == 'medico'
+                ? $usuario->specialty
+                : null,
+
+            'dia_semana' => $request->dia_semana,
+
+            'hora_inicio' => $request->hora_inicio,
+
+            'hora_fin' => $request->hora_fin,
+
+        ]);
+
+        return redirect()
+            ->route($this->getRouteBase().'.horarios.index')
+            ->with('mensaje', 'Horario actualizado correctamente')
+            ->with('icono', 'success');
     }
-
-    $horario->update([
-
-        'user_id' => $request->user_id,
-
-        'especialidad' => $request->rol == 'medico'
-            ? $usuario->specialty
-            : null,
-
-        'dia_semana' => $request->dia_semana,
-
-        'hora_inicio' => $request->hora_inicio,
-
-        'hora_fin' => $request->hora_fin,
-
-    ]);
-
-    return redirect()
-        ->route($this->getRouteBase().'.horarios.index')
-        ->with('mensaje', 'Horario actualizado correctamente')
-        ->with('icono', 'success');
-}
-
-
-
 
 
     public function confirmDelete($id)
     {
 
         $horario = Horario::findOrFail($id);
-
-
-        return view(
-            $this->getRouteBase().'.horarios.delete',
-            compact('horario')
+        return view($this->getRouteBase().'.horarios.delete', compact('horario')
         );
 
     }
 
-
-
-
     public function destroy($id)
     {
-
         Horario::destroy($id);
-
-
-        return redirect()
-
-        ->route($this->getRouteBase().'.horarios.index')
-
+        return redirect()->route($this->getRouteBase().'.horarios.index')
         ->with('mensaje',
         'Horario eliminado correctamente')
-
         ->with('icono','success');
 
     }
-
-
-
-
 
     private function getRouteBase()
     {
 
         if(auth()->user()->hasRole('admin'))
             return 'admin';
-
-
         if(auth()->user()->hasRole('asistente'))
             return 'asistente';
-
-
         if(auth()->user()->hasRole('medico'))
             return 'medico';
-
-
         return '';
 
     }
 
- public function reportePdf(Request $request)
-{
-    $user = auth()->user();
+    public function reportePdf(Request $request)
+    {
+        $user = auth()->user();
+        $buscar = $request->buscar;
+        $rol = $request->rol;
+        $query = Horario::with('user');
+        
+        if($user->hasRole('medico')){
+            $query->where('user_id', $user->id);
+        }
 
-    $buscar = $request->buscar;
-    $rol = $request->rol;
+        if($buscar){
+            $query->whereHas('user', function($q) use ($buscar){
+                $q->where('name','LIKE',"%$buscar%")
+                ->orWhere('surname','LIKE',"%$buscar%");
+            });
+        }
 
-    $query = Horario::with('user');
+        if($rol){
+            $query->whereHas('user', function($q) use ($rol){
+                $q->role($rol);
+            });
+        }
 
-    // Médico solo ve su horario
-    if($user->hasRole('medico')){
-        $query->where('user_id', $user->id);
+        $horarios = $query
+            ->orderBy('dia_semana')
+            ->get();
+
+        $pdf = Pdf::loadView('admin.horarios.reporte_pdf', compact('horarios')
+        );
+
+        return $pdf->stream('horarios_personal.pdf');
     }
-
-    if($buscar){
-        $query->whereHas('user', function($q) use ($buscar){
-            $q->where('name','LIKE',"%$buscar%")
-              ->orWhere('surname','LIKE',"%$buscar%");
-        });
-    }
-
-    if($rol){
-        $query->whereHas('user', function($q) use ($rol){
-            $q->role($rol);
-        });
-    }
-
-    $horarios = $query
-        ->orderBy('dia_semana')
-        ->get();
-
-    $pdf = Pdf::loadView(
-    'admin.horarios.reporte_pdf',
-    compact('horarios')
-    );
-
-    return $pdf->stream('horarios_personal.pdf');
-}
 
 }

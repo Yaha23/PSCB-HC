@@ -87,7 +87,7 @@ class CitaController extends Controller
     public function edit($id)
     {
         $cita = Cita::findOrFail($id);
-        $medicos = User::role('medico')->get(); // ✅ CORRECTO
+        $medicos = User::role('medico')->get(); 
 
         $pacientes = Paciente::all();
 
@@ -153,23 +153,16 @@ class CitaController extends Controller
 
     $cita = Cita::findOrFail($id);
 
-    // VALIDACIÓN DE ESTADO
     $request->validate([
         'estado' => 'required|in:pendiente,atendida,cancelada'
     ]);
 
-    /*
-    ==================================================
-    🔐 CONTROL POR ROL
-    ==================================================
-    */
 
-    // 🟡 ADMIN: puede todo
     if ($user->hasRole('admin')) {
         $cita->estado = $request->estado;
     }
 
-    // 🟢 MEDICO: solo sus propias citas
+    
     elseif ($user->hasRole('medico')) {
 
         if ($cita->medico_id != $user->id) {
@@ -179,18 +172,13 @@ class CitaController extends Controller
         $cita->estado = $request->estado;
     }
 
-    // 🔴 ASISTENTE: NO puede cambiar estado
     else {
         abort(403, 'No tienes permisos para cambiar el estado');
     }
 
     $cita->save();
 
-    /*
-    ==================================================
-    MENSAJES
-    ==================================================
-    */
+
     switch ($request->estado) {
         case 'pendiente':
             $mensaje = 'Cita marcada como pendiente correctamente';

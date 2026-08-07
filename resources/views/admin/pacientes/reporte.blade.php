@@ -1,358 +1,276 @@
 <!DOCTYPE html>
 <html lang="es">
 
-<head>
-
-<meta charset="UTF-8">
+    <head>
+
+        <meta charset="UTF-8">
+
+        <style>
+
+            @page{
+                margin:20px 25px;
+            }
+            body{
+                font-family: DejaVu Sans;
+                font-size:10px;
+                color:#2c3e50;
+                margin:0;
+            }
+            .header{
+                width:100%;
+                border:none;
+                margin-bottom:8px;
+            }
+            .header td{
+                border:none;
+                vertical-align:middle;
+            }
+            .logo{
+                width:60px;
+            }
+            .titulo{
+                text-align:center;
+            }
+            .titulo h2{
+                margin:0;
+                font-size:16px;
+                font-weight:bold;
+                color:#2c3e50;
+                letter-spacing:.5px;
+            }
+            .titulo h3{
+                margin-top:3px;
+                margin-bottom:0;
+                font-size:12px;
+                font-weight:normal;
+                color:#6c757d;
+            }
+            .fecha{
+                text-align:right;
+                font-size:10px;
+                line-height:16px;
+            }
+            .linea{
+                border-bottom:2px solid #f4d279;
+                margin-top:8px;
+                margin-bottom:12px;
+            }
+            .resumen{
+
+                margin-bottom:12px;
+                padding:7px 10px;
+                background:#fffdf6;
+                border:1px solid #f4d279;
+                font-size:10px;
+
+            }
+            .tabla{
+                width:100%;
+                border-collapse:collapse;
+            }
+            .tabla thead{
+                background:#4a5568;
+                color:white;
+            }
+            .tabla th{
+
+                border:1px solid #bfc7ce;
+                padding:7px 5px;
+                font-size:9px;
+                font-weight:bold;
+                text-transform:uppercase;
+                text-align:center;
+
+            }
+            .tabla td{
+
+                border:1px solid #d9d9d9;
+                padding:6px 5px;
+                font-size:9px;
+                vertical-align:middle;
+            }
+            .tabla tbody tr:nth-child(even){
+                background:#fffdf6;
+            }
+            .numero{
+                text-align:center;
+            }
+            .izquierda{
+                text-align:left;
+            }
+            .centro{
+                text-align:center;
+            }
+            .footer{
+                position:fixed;
+                bottom:10px;
+                left:0;
+                right:0;
+                text-align:center;
+                font-size:9px;
+                color:#777;
+                border-top:1px solid #d8d8d8;
+                padding-top:5px;
 
-<style>
+            }
+        </style>
 
-@page{
-    margin:20px 25px;
-}
+    </head>
 
-body{
-    font-family: DejaVu Sans;
-    font-size:10px;
-    color:#2c3e50;
-    margin:0;
-}
+    <body>
 
-/*==================================
-ENCABEZADO
-==================================*/
+        @php
+        $fechaReporte=\Carbon\Carbon::now('America/Lima');
+        @endphp
 
-.header{
-    width:100%;
-    border:none;
-    margin-bottom:8px;
-}
+        <table class="header">
 
-.header td{
-    border:none;
-    vertical-align:middle;
-}
+            <tr>
 
-.logo{
-    width:60px;
-}
+                <td width="15%" style="text-align:left; vertical-align:middle;">
 
-.titulo{
-    text-align:center;
-}
+                    <img src="{{ public_path('image/PSCB.png') }}" class="logo">
 
-.titulo h2{
-    margin:0;
-    font-size:16px;
-    font-weight:bold;
-    color:#2c3e50;
-    letter-spacing:.5px;
-}
+                </td>
 
-.titulo h3{
-    margin-top:3px;
-    margin-bottom:0;
-    font-size:12px;
-    font-weight:normal;
-    color:#6c757d;
-}
+                <td width="70%" class="titulo">
+                    <h2>PUESTO DE SALUD CRUZ BLANCA</h2>
+                    <h3>Reporte General de Pacientes Atendidos</h3>
+                </td>
 
-.fecha{
-    text-align:right;
-    font-size:10px;
-    line-height:16px;
-}
+                <td width="15%" class="fecha">
+                    <strong>Fecha:</strong>
+                    {{ $fechaReporte->format('d/m/Y') }}
+                    <br>
+                    <strong>Hora:</strong>
+                    {{ $fechaReporte->format('h:i A') }}
+                </td>
 
-.linea{
-    border-bottom:2px solid #f4d279;
-    margin-top:8px;
-    margin-bottom:12px;
-}
+            </tr>
 
-/*==================================
-RESUMEN
-==================================*/
+        </table>
+        <div class="linea"></div>
 
-.resumen{
+        <div class="resumen">
 
-    margin-bottom:12px;
+            <strong>Total de pacientes registrados:</strong>
 
-    padding:7px 10px;
+            {{ count($pacientes) }}
 
-    background:#fffdf6;
+        </div>
 
-    border:1px solid #f4d279;
+        <table class="tabla">
 
-    font-size:10px;
+            <thead>
+                <tr>
 
-}
+                    <th width="5%">N°</th>
+                    <th width="25%">Paciente</th>
+                    <th width="12%">DNI</th>
+                    <th width="9%">Edad</th>
+                    <th width="10%">Género</th>
+                    <th width="20%">Médico</th>
+                    <th width="11%">Especialidad</th>
+                    <th width="8%">Fecha</th>
+                </tr>
 
-/*==================================
-TABLA
-==================================*/
+            </thead>
 
-.tabla{
-    width:100%;
-    border-collapse:collapse;
-}
+            <tbody>
 
-.tabla thead{
-    background:#4a5568;
-    color:white;
-}
+                @php
+                $i = 1;
+                @endphp
 
-.tabla th{
+                @forelse($pacientes as $paciente)
 
-    border:1px solid #bfc7ce;
+                    @php
+                        $consulta = $paciente->consultas->first();
+                    @endphp
 
-    padding:7px 5px;
+                    <tr>
 
-    font-size:9px;
+                        <td class="numero">
+                            {{ $i++ }}
+                        </td>
 
-    font-weight:bold;
+                        <td class="izquierda">
+                        
+                                {{ $paciente->nombres }}
+                                {{ $paciente->apellidos }}
+                        
+                        </td>
 
-    text-transform:uppercase;
+                        <td class="centro">
+                            {{ $paciente->DNI }}
+                        </td>
 
-    text-align:center;
+                        <td class="centro">
+                            {{ \Carbon\Carbon::parse($paciente->fecha_nacimiento)->age }} años
+                        </td>
 
-}
+                        <td class="centro">
+                            {{ ucfirst($paciente->genero) }}
+                        </td>
 
-.tabla td{
+                        <td class="izquierda">
 
-    border:1px solid #d9d9d9;
+                            @if($consulta && $consulta->medico)
 
-    padding:6px 5px;
+                                {{ $consulta->medico->titulo_profesional ?? '' }}
+                                {{ $consulta->medico->name }}
+                                {{ $consulta->medico->surname }}
 
-    font-size:9px;
+                            @else
 
-    vertical-align:middle;
+                                ---
 
-}
+                            @endif
 
-.tabla tbody tr:nth-child(even){
+                        </td>
 
-    background:#fffdf6;
+                        <td class="centro">
+                            {{ $consulta->especialidad ?? '---' }}
+                        </td>
 
-}
+                        <td class="centro">
 
-.numero{
+                            @if($consulta && $consulta->fecha_atencion)
 
-    text-align:center;
+                                {{ \Carbon\Carbon::parse($consulta->fecha_atencion)->format('d/m/Y') }}
 
-}
+                            @else
 
-.izquierda{
+                                ---
 
-    text-align:left;
+                            @endif
 
-}
+                        </td>
 
-.centro{
+                    </tr>
 
-    text-align:center;
+                @empty
 
-}
+                    <tr>
 
-/*==================================
-PIE DE PAGINA
-==================================*/
+                        <td colspan="8" class="centro">
+                            No existen pacientes registrados.
+                        </td>
 
-.footer{
+                    </tr>
 
-    position:fixed;
+                @endforelse
 
-    bottom:10px;
+            </tbody>
 
-    left:0;
+        </table>
 
-    right:0;
+        <div class="footer">
 
-    text-align:center;
+        Sistema Web de Gestión de Historias Clínicas &bull; Puesto de Salud Cruz Blanca
 
-    font-size:9px;
+        </div>
 
-    color:#777;
-
-    border-top:1px solid #d8d8d8;
-
-    padding-top:5px;
-
-}
-
-</style>
-
-</head>
-
-<body>
-
-@php
-$fechaReporte=\Carbon\Carbon::now('America/Lima');
-@endphp
-
-<table class="header">
-
-<tr>
-
-    <td width="15%" style="text-align:left; vertical-align:middle;">
-
-        <img src="{{ public_path('image/PSCB.png') }}" class="logo">
-
-    </td>
-
-    <td width="70%" class="titulo">
-
-        <h2>PUESTO DE SALUD CRUZ BLANCA</h2>
-
-        <h3>Reporte General de Pacientes Atendidos</h3>
-
-    </td>
-
-    <td width="15%" class="fecha">
-
-        <strong>Fecha:</strong>
-        {{ $fechaReporte->format('d/m/Y') }}
-
-        <br>
-
-        <strong>Hora:</strong>
-        {{ $fechaReporte->format('h:i A') }}
-
-    </td>
-
-</tr>
-
-</table>
-<div class="linea"></div>
-
-<div class="resumen">
-
-<strong>Total de pacientes registrados:</strong>
-
-{{ count($pacientes) }}
-
-</div>
-
-<table class="tabla">
-
-<thead>
-
-<tr>
-
-<th width="5%">N°</th>
-
-<th width="25%">Paciente</th>
-
-<th width="12%">DNI</th>
-
-<th width="9%">Edad</th>
-
-<th width="10%">Género</th>
-
-<th width="20%">Médico</th>
-
-<th width="11%">Especialidad</th>
-
-<th width="8%">Fecha</th>
-
-</tr>
-
-</thead>
-
-<tbody>
-
-@php
-$i = 1;
-@endphp
-
-@forelse($pacientes as $paciente)
-
-@php
-    $consulta = $paciente->consultas->first();
-@endphp
-
-<tr>
-
-    <td class="numero">
-        {{ $i++ }}
-    </td>
-
-    <td class="izquierda">
-      
-            {{ $paciente->nombres }}
-            {{ $paciente->apellidos }}
-     
-    </td>
-
-    <td class="centro">
-        {{ $paciente->DNI }}
-    </td>
-
-    <td class="centro">
-        {{ \Carbon\Carbon::parse($paciente->fecha_nacimiento)->age }} años
-    </td>
-
-    <td class="centro">
-        {{ ucfirst($paciente->genero) }}
-    </td>
-
-    <td class="izquierda">
-
-        @if($consulta && $consulta->medico)
-
-            {{ $consulta->medico->titulo_profesional ?? '' }}
-            {{ $consulta->medico->name }}
-            {{ $consulta->medico->surname }}
-
-        @else
-
-            ---
-
-        @endif
-
-    </td>
-
-    <td class="centro">
-        {{ $consulta->especialidad ?? '---' }}
-    </td>
-
-    <td class="centro">
-
-        @if($consulta && $consulta->fecha_atencion)
-
-            {{ \Carbon\Carbon::parse($consulta->fecha_atencion)->format('d/m/Y') }}
-
-        @else
-
-            ---
-
-        @endif
-
-    </td>
-
-</tr>
-
-@empty
-
-<tr>
-
-    <td colspan="8" class="centro">
-        No existen pacientes registrados.
-    </td>
-
-</tr>
-
-@endforelse
-
-</tbody>
-
-</table>
-
-<div class="footer">
-
-Sistema Web de Gestión de Historias Clínicas &bull; Puesto de Salud Cruz Blanca
-
-</div>
-
-</body>
+    </body>
 
 </html>

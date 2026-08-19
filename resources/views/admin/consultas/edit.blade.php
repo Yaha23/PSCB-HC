@@ -33,8 +33,9 @@
 
         Actualizar Asignación Médica y Datos Clínicos
 
-    @elseif($isMedico && empty($consulta->diagnostico_principal))
-        Atención Médica del Paciente
+    @elseif(empty($consulta->diagnostico_principal))
+
+        Completar Historia Clínica
 
     @else
 
@@ -267,6 +268,7 @@
                         class="form-control"
                         value="{{ old('presion_arterial', $sv->presion_arterial ?? '') }}"
                         {{ $disableSignos }}
+                        
                         style="{{ $isMedico ? $readonlyStyle : 'border:1px solid #f4d279;' }}">
 
                     <div class="input-group-append">
@@ -285,6 +287,7 @@
                         class="form-control"
                         value="{{ old('temperatura', $sv->temperatura ?? '') }}"
                         {{ $disableSignos }}
+                        required
                         style="{{ $isMedico ? $readonlyStyle : 'border:1px solid #f4d279;' }}">
 
                     <div class="input-group-append">
@@ -389,6 +392,7 @@
                         placeholder="Consulta"
                         value="{{ old('motivo_consulta',$consulta->motivo_consulta) }}"
                         {{ $isAsistente ? 'readonly' : '' }}
+                        required
                         style="{{ $isAsistente ? $readonlyStyle : 'border:1px solid #f4d279;' }}">
                 </div>
 
@@ -401,6 +405,7 @@
                             placeholder="Tiempo de Enfermedad"
                             value="{{ old('tiempo_enfermedad',$consulta->tiempo_enfermedad) }}"
                             {{ $isAsistente ? 'readonly' : '' }}
+                            required
                             style="{{ $isAsistente ? $readonlyStyle : 'border:1px solid #f4d279;' }}">
                 </div>
 
@@ -462,6 +467,7 @@
                          placeholder="Estado de Ánimo"
                         value="{{ old('estado_animo',$consulta->estado_animo) }}"
                         {{ $isAsistente ? 'readonly' : '' }}
+                        required
                         style="{{ $isAsistente ? $readonlyStyle : 'border:1px solid #f4d279;' }}">
 
                 </div>
@@ -476,6 +482,7 @@
                          placeholder="Orina"
                         value="{{ old('orina',$consulta->orina) }}"
                         {{ $isAsistente ? 'readonly' : '' }}
+                        required
                         style="{{ $isAsistente ? $readonlyStyle : 'border:1px solid #f4d279;' }}">
 
                 </div>
@@ -490,6 +497,7 @@
                      placeholder="Deposiciones"
                     value="{{ old('deposiciones',$consulta->deposiciones) }}"
                     {{ $isAsistente ? 'readonly' : '' }}
+                    required
                     style="{{ $isAsistente ? $readonlyStyle : 'border:1px solid #f4d279;' }}">
 
                 </div>
@@ -621,27 +629,35 @@
 
     </a>
 
-        @php
+       @php
 
-        if($isAsistente){
-            $textoBoton = 'Actualizar Registro';
-            $icono = 'bi-heart-pulse-fill';
-        }
+if($isAsistente){
 
-        elseif($isMedico && !$consulta->diagnostico_principal){
-            $textoBoton = 'Completar Historia Clinica';
-            $icono = 'bi-journal-medical';
-        }
+    $textoBoton = 'Actualizar Registro';
+    $icono = 'bi-heart-pulse-fill';
 
-        elseif($isMedico && $consulta->diagnostico_principal){
-            $textoBoton = 'Guardar Cambios Clínicos';
-            $icono = 'bi-clipboard2-check-fill';
-        }
+}
 
-        elseif($isAdmin){
-            $textoBoton = 'Actualizar Historia Clinica';
-            $icono = 'bi-shield-check';
-        }
+elseif(empty($consulta->diagnostico_principal)){
+
+    $textoBoton = 'Completar Historia Clínica';
+    $icono = 'bi-journal-medical';
+
+}
+
+elseif($isMedico){
+
+    $textoBoton = 'Guardar Cambios Clínicos';
+    $icono = 'bi-clipboard2-check-fill';
+
+}
+
+elseif($isAdmin){
+
+    $textoBoton = 'Actualizar Historia Clínica';
+    $icono = 'bi-shield-check';
+
+}
 
 @endphp
 

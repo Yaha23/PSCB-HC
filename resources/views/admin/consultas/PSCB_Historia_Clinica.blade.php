@@ -100,7 +100,7 @@ PUESTO DE SALUD CRUZ BLANCA
 </div>
 
 <div class="subtitulo">
-FORMATO DE ATENCIÓN INTEGRAL DEL ADULTO
+FORMATO DE ATENCIÓN INTEGRAL DEL PACIENTE
 </div>
 
 <div class="subtitulo">
@@ -147,8 +147,8 @@ Paciente
 </td>
 
 <td style="width:75%;">
-{{ $consulta->paciente->apellidos }},
 {{ $consulta->paciente->nombres }}
+{{ $consulta->paciente->apellidos }}
 </td>
 
 </tr>

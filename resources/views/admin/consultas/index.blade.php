@@ -342,27 +342,50 @@ if(
 
     @if($isAdmin)
 
-        {{-- Edita TODA la historia clínica --}}
+    @if(!$consulta->diagnostico_principal)
+
+        {{-- ADMIN COMPLETA HISTORIA PENDIENTE --}}
         <a href="{{ route($base.'.consultas.edit', $consulta->id) }}"
            class="btn"
-           title="Editar Historia Clínica"
+           title="Completar Historia Clínica"
            style="background:#f4d279;color:#4a5568;border:none;transition:.3s;"
            onmouseover="this.style.backgroundColor='#ffe8a3';this.style.boxShadow='0 0 8px rgba(244,210,121,.7)'"
            onmouseout="this.style.backgroundColor='#f4d279';this.style.boxShadow='none'">
-            <i class="bi bi-pencil-square"></i>
+
+            <i class="bi bi-journal-medical"></i>
+
         </a>
 
-        {{-- Elimina TODA la historia --}}
-        <a href="{{ route($base.'.consultas.delete', $consulta->id) }}"
+    @else
+
+        {{-- ADMIN ACTUALIZA HISTORIA FINALIZADA --}}
+        <a href="{{ route($base.'.consultas.edit', $consulta->id) }}"
            class="btn"
-           title="Eliminar Historia Clínica"
+           title="Actualizar Historia Clínica"
            style="background:#f4d279;color:#4a5568;border:none;transition:.3s;"
            onmouseover="this.style.backgroundColor='#ffe8a3';this.style.boxShadow='0 0 8px rgba(244,210,121,.7)'"
            onmouseout="this.style.backgroundColor='#f4d279';this.style.boxShadow='none'">
-            <i class="bi bi-trash3-fill"></i>
+
+            <i class="bi bi-pencil-square"></i>
+
         </a>
 
     @endif
+
+
+    {{-- ELIMINAR --}}
+    <a href="{{ route($base.'.consultas.delete', $consulta->id) }}"
+       class="btn"
+       title="Eliminar Historia Clínica"
+       style="background:#f4d279;color:#4a5568;border:none;transition:.3s;"
+       onmouseover="this.style.backgroundColor='#ffe8a3';this.style.boxShadow='0 0 8px rgba(244,210,121,.7)'"
+       onmouseout="this.style.backgroundColor='#f4d279';this.style.boxShadow='none'">
+
+        <i class="bi bi-trash3-fill"></i>
+
+    </a>
+
+@endif
 
 
     {{-- =========================

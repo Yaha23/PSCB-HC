@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Storage;
 
-use App\Models\configuracion;
+use App\Models\Configuracion;
 use Illuminate\Http\Request;
 
 class ConfiguracionController extends Controller

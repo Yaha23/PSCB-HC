@@ -249,6 +249,9 @@
 
         </style>
 
+        <link rel="icon" type="image/png" href="{{ asset('image/PSCB.png') }}">
+
+
     </head>
 
 
@@ -300,16 +303,14 @@
 
                                                     <div class="nombre-centro">
 
-                                                    PUESTO DE SALUD CRUZ BLANCA
+                                                    {{ strtoupper($configuracion->nombre_puestosalud) }}
 
                                                     </div>
 
 
                                                     <div class="subtitulo">
 
-                                                    Dirección: Avenida Av. Alva Maurtua Mz. 1 Lt. 6
-                                                    Chincha Alta - Chincha - Ica.
-
+                                                    Dirección: {{ $configuracion->direccion }}
                                                     </div>
 
                                                     
@@ -323,7 +324,7 @@
 
                                                     <div class="subtitulo">
 
-                                                    Teléfono: 956562272  |  Gobierno Regional de Ica | RUC:20171178585
+                                                    Teléfono: {{$configuracion->telefono }}  |  Gobierno Regional de Ica | RUC:20171178585
 
                                                     </div>
 
@@ -350,8 +351,7 @@
                                             RECETA MÉDICA
 
                                         </div>
-                                        
-   
+                                        <br>
 
                                         <!-- DATOS PACIENTE -->
 
@@ -542,16 +542,14 @@
 
                                                     <div class="nombre-centro">
 
-                                                    PUESTO DE SALUD CRUZ BLANCA
+                                                    {{ strtoupper($configuracion->nombre_puestosalud) }}
 
                                                     </div>
 
 
                                                     <div class="subtitulo">
 
-                                                    Dirección: Avenida Av. Alva Maurtua Mz. 1 Lt. 6
-                                                  
-                                                    Chincha Alta - Chincha - Ica.
+                                                    Dirección: {{ $configuracion->direccion }}
 
                                                     </div>
                                                      <div class="subtitulo">
@@ -564,7 +562,7 @@
 
                                                     <div class="subtitulo">
 
-                                                     Teléfono: 956562272  |  Gobierno Regional de Ica | RUC:20171178585
+                                                     Teléfono: {{$configuracion->telefono }}  |  Gobierno Regional de Ica | RUC:20171178585
 
                                                     </div>
 
@@ -650,6 +648,8 @@
 
 
                                     </table>
+
+                                    <br>
 
                                         <!-- ===================================
                                                 DIAGNOSTICO COPIA

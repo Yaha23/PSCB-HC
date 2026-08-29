@@ -1,515 +1,503 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
+    <head>
+    
+        <meta charset="UTF-8">
 
-<meta charset="UTF-8">
+    </head>
 
-<style>
 
-@page{
-    margin:15px;
-}
+    <style>
 
-body{
-    font-family: DejaVu Sans, sans-serif;
-    font-size:10px;
-    color:#000;
-}
+        @page{
+            margin:15px;
+        }
 
-table{
-    width:100%;
-    border-collapse:collapse;
-}
+        body{
+            font-family: DejaVu Sans, sans-serif;
+            font-size:10px;
+            color:#000;
+        }
 
-td{
-    border:1px solid #000;
-    padding:3px;
-    vertical-align:top;
-}
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
 
-.sin-borde{
-    border:none;
-}
+        td{
+            border:1px solid #000;
+            padding:3px;
+            vertical-align:top;
+        }
 
-.titulo{
-    text-align:center;
-    font-size:16px;
-    font-weight:bold;
-}
+        .sin-borde{
+            border:none;
+        }
 
-.subtitulo{
-    text-align:center;
-    font-size:13px;
-    font-weight:bold;
-}
+        .titulo{
+            text-align:center;
+            font-size:16px;
+            font-weight:bold;
+        }
 
-.logo{
-    width:55px;
-}
+        .subtitulo{
+            text-align:center;
+            font-size:13px;
+            font-weight:bold;
+        }
 
-.celda{
-    font-weight:bold;
-    background:#f4d17975;
-}
+        .logo{
+            width:55px;
+        }
 
-.campo{
-    height:22px;
-}
+        .celda{
+            font-weight:bold;
+            background:#f4d17975;
+        }
 
-.area{
-    height:55px;
-}
+        .campo{
+            height:22px;
+        }
 
-.area-grande{
-    height:85px;
-}
+        .area{
+            height:55px;
+        }
 
-.centro{
-    text-align:center;
-}
+        .area-grande{
+            height:85px;
+        }
 
-.footer{
-    position:fixed;
-    bottom:5px;
-    width:100%;
-    text-align:center;
-    font-size:9px;
-}
+        .centro{
+            text-align:center;
+        }
 
-</style>
+        .footer{
+            position:fixed;
+            bottom:5px;
+            width:100%;
+            text-align:center;
+            font-size:9px;
+        }
 
-</head>
-
+    </style>
 
 <body>
 
-<table>
+    <table>
 
-<tr>
+        <tr>
 
-<td class="sin-borde" style="width:15%;text-align:center;">
+        <td class="sin-borde" style="width:15%;text-align:center;">
+            <img src="{{ public_path('image/PSCB.png') }}" class="logo">
+        </td>
 
-<img src="{{ public_path('image/PSCB.png') }}" class="logo">
+        <td class="sin-borde" style="width:70%;">
 
-</td>
+            <div class="titulo">
+                PUESTO DE SALUD CRUZ BLANCA
+            </div>
 
-<td class="sin-borde" style="width:70%;">
+            <div class="subtitulo">
+                FORMATO DE ATENCIÓN INTEGRAL DEL PACIENTE
+            </div>
 
-<div class="titulo">
-PUESTO DE SALUD CRUZ BLANCA
-</div>
+            <div class="subtitulo">
+                CONSULTA
+            </div>
 
-<div class="subtitulo">
-FORMATO DE ATENCIÓN INTEGRAL DEL PACIENTE
-</div>
+        </td>
 
-<div class="subtitulo">
-CONSULTA
-</div>
+        <td class="sin-borde centro" style="width:15%;">
+            {{ date('d/m/Y') }}
+        </td>
 
-</td>
+        </tr>
 
-<td class="sin-borde centro" style="width:15%;">
-{{ date('d/m/Y') }}
-</td>
+    </table>
 
-</tr>
+    <table>
 
-</table>
+        <tr>
 
-<table>
+        <td class="celda" style="width:15%;">FECHA</td>
+        <td style="width:20%;">{{ \Carbon\Carbon::parse($consulta->fecha_atencion)->format('d/m/Y') }}</td>
 
-<tr>
+        <td class="celda" style="width:15%;">HORA</td>
+        <td style="width:20%;">
+            {{ \Carbon\Carbon::parse($consulta->hora_atencion)->format('g:i A') }}
+        </td>
 
-<td class="celda" style="width:15%;">FECHA</td>
-<td style="width:20%;">{{ \Carbon\Carbon::parse($consulta->fecha_atencion)->format('d/m/Y') }}</td>
+        <td class="celda" style="width:10%;">EDAD</td>
+        <td style="width:20%;">
+        {{ \Carbon\Carbon::parse($consulta->paciente->fecha_nacimiento)->age }} años
+        </td>
 
-<td class="celda" style="width:15%;">HORA</td>
-<td style="width:20%;">
-    {{ \Carbon\Carbon::parse($consulta->hora_atencion)->format('g:i A') }}
-</td>
+        </tr>
 
-<td class="celda" style="width:10%;">EDAD</td>
-<td style="width:20%;">
-{{ \Carbon\Carbon::parse($consulta->paciente->fecha_nacimiento)->age }} años
-</td>
+    </table>
 
-</tr>
+    <table>
 
-</table>
+        <tr>
 
-<table>
+        <td class="celda" style="width:25%;">
+        Paciente
+        </td>
 
-<tr>
+        <td style="width:75%;">
+        {{ $consulta->paciente->nombres }}
+        {{ $consulta->paciente->apellidos }}
+        </td>
 
-<td class="celda" style="width:25%;">
-Paciente
-</td>
+        </tr>
 
-<td style="width:75%;">
-{{ $consulta->paciente->nombres }}
-{{ $consulta->paciente->apellidos }}
-</td>
+        <tr>
 
-</tr>
+        <td class="celda">
+        DNI
+        </td>
 
-<tr>
+        <td>
+        {{ $consulta->paciente->DNI }}
+        </td>
 
-<td class="celda">
-DNI
-</td>
+        </tr>
 
-<td>
-{{ $consulta->paciente->DNI }}
-</td>
+        <tr>
 
-</tr>
+        <td class="celda">
+        Sexo
+        </td>
 
-<tr>
+        <td style="text-transform:uppercase;">
+        {{ $consulta->paciente->genero }}
+        </td>
 
-<td class="celda">
-Sexo
-</td>
+        </tr>
 
-<td style="text-transform:uppercase;">
-{{ $consulta->paciente->genero }}
-</td>
+        <tr>
 
-</tr>
+        <td class="celda">
+        Dirección
+        </td>
 
-<tr>
+        <td>
+        {{ $consulta->paciente->direccion }}
+        </td>
 
-<td class="celda">
-Dirección
-</td>
+        </tr>
 
-<td>
-{{ $consulta->paciente->direccion }}
-</td>
+        <tr>
 
-</tr>
+        <td class="celda">
+        Profesional
+        </td>
 
-<tr>
+        <td>
 
-<td class="celda">
-Profesional
-</td>
+        {{ $consulta->medico->titulo_profesional ?? '' }}
+        {{ $consulta->medico->name ?? '' }}
+        {{ $consulta->medico->surname ?? '' }}
 
-<td>
+        </td>
 
-{{ $consulta->medico->titulo_profesional ?? '' }}
-{{ $consulta->medico->name ?? '' }}
-{{ $consulta->medico->surname ?? '' }}
+        </tr>
 
-</td>
+        <tr>
 
-</tr>
+        <td class="celda">
+        Especialidad
+        </td>
 
-<tr>
+        <td style="text-transform:uppercase;">
+        {{ $consulta->especialidad }}
+        </td>
 
-<td class="celda">
-Especialidad
-</td>
+        </tr>
 
-<td style="text-transform:uppercase;">
-{{ $consulta->especialidad }}
-</td>
+    </table>
 
-</tr>
+    <table>
 
-</table>
+        <tr>
 
-<table>
+        <td class="celda" style="width:60%;">
+        Motivo de consulta
+        </td>
 
-<tr>
+        <td class="celda">
+        Tiempo de enfermedad
+        </td>
 
-<td class="celda" style="width:60%;">
-Motivo de consulta
-</td>
+        </tr>
 
-<td class="celda">
-Tiempo de enfermedad
-</td>
+        <tr>
 
-</tr>
+        <td class="area">
 
-<tr>
+        {!! nl2br(e($consulta->motivo_consulta ?? '-')) !!}
 
-<td class="area">
+        </td>
 
-{!! nl2br(e($consulta->motivo_consulta ?? '-')) !!}
+        <td>
 
-</td>
+        {{ $consulta->tiempo_enfermedad ?? '-' }}
 
-<td>
+        </td>
 
-{{ $consulta->tiempo_enfermedad ?? '-' }}
+        </tr>
 
-</td>
+    </table>
 
-</tr>
+    <table>
 
-</table>
+        <tr>
 
-<table>
+        <td class="celda">Apetito</td>
+        <td class="celda">Sed</td>
+        <td class="celda">Sueño</td>
+        <td class="celda">Estado de ánimo</td>
 
-<tr>
+        </tr>
 
-<td class="celda">Apetito</td>
-<td class="celda">Sed</td>
-<td class="celda">Sueño</td>
-<td class="celda">Estado de ánimo</td>
+        <tr>
 
-</tr>
+        <td>{{ $consulta->apetito ?? '-' }}</td>
 
-<tr>
+        <td>{{ $consulta->sed ?? '-' }}</td>
 
-<td>{{ $consulta->apetito ?? '-' }}</td>
+        <td>{{ $consulta->sueno ?? '-' }}</td>
 
-<td>{{ $consulta->sed ?? '-' }}</td>
+        <td>{{ $consulta->estado_animo ?? '-' }}</td>
 
-<td>{{ $consulta->sueno ?? '-' }}</td>
+        </tr>
 
-<td>{{ $consulta->estado_animo ?? '-' }}</td>
+    </table>
 
-</tr>
+    <table>
 
-</table>
+        <tr>
 
-<table>
+        <td class="celda">Orina</td>
 
-<tr>
+        <td class="celda">Deposiciones</td>
 
-<td class="celda">Orina</td>
+        </tr>
 
-<td class="celda">Deposiciones</td>
+        <tr>
 
-</tr>
+        <td>{{ $consulta->orina ?? '-' }}</td>
 
-<tr>
+        <td>{{ $consulta->deposiciones ?? '-' }}</td>
 
-<td>{{ $consulta->orina ?? '-' }}</td>
+        </tr>
 
-<td>{{ $consulta->deposiciones ?? '-' }}</td>
+    </table>
 
-</tr>
+        @php
 
-</table>
+        $sv=$consulta->signosVitales;
 
-@php
+        $imc='-';
 
-$sv=$consulta->signosVitales;
+        if($sv && $sv->peso && $sv->talla){
 
-$imc='-';
+        $imc=round($sv->peso/($sv->talla*$sv->talla),2);
 
-if($sv && $sv->peso && $sv->talla){
+        }
 
-$imc=round($sv->peso/($sv->talla*$sv->talla),2);
+        @endphp
 
-}
+    <table>
 
-@endphp
+        <tr>
 
-<table>
+            <td class="celda">Ex. Físico</td>
+            <td class="celda centro">T°</td>
+            <td class="celda centro">P.A</td>
+            <td class="celda centro">F.C</td>
+            <td class="celda centro">F.R</td>
+            <td class="celda centro">Peso</td>
+            <td class="celda centro">Talla</td>
+            <td class="celda centro">IMC</td>
 
-<tr>
+        </tr>
 
-<td class="celda">Ex. Físico</td>
+        <tr>
 
-<td class="celda centro">T°</td>
+            <td></td>
 
-<td class="celda centro">P.A</td>
+            <td class="centro">{{ $sv->temperatura ?? '-' }}</td>
 
-<td class="celda centro">F.C</td>
+            <td class="centro">{{ $sv->presion_arterial ?? '-' }}</td>
 
-<td class="celda centro">F.R</td>
+            <td class="centro">{{ $sv->frecuencia_cardiaca ?? '-' }}</td>
 
-<td class="celda centro">Peso</td>
+            <td class="centro">{{ $sv->frecuencia_respiratoria ?? '-' }}</td>
 
-<td class="celda centro">Talla</td>
+            <td class="centro">{{ $sv->peso ?? '-' }}</td>
 
-<td class="celda centro">IMC</td>
+            <td class="centro">{{ $sv->talla ?? '-' }}</td>
 
-</tr>
+            <td class="centro">{{ $imc }}</td>
 
-<tr>
+        </tr>
 
-<td></td>
+    </table>
 
-<td class="centro">{{ $sv->temperatura ?? '-' }}</td>
 
-<td class="centro">{{ $sv->presion_arterial ?? '-' }}</td>
+    <table>
 
-<td class="centro">{{ $sv->frecuencia_cardiaca ?? '-' }}</td>
+        <tr>
 
-<td class="centro">{{ $sv->frecuencia_respiratoria ?? '-' }}</td>
+        <td class="celda" style="width:45%;">
+        DIAGNÓSTICO
+        </td>
 
-<td class="centro">{{ $sv->peso ?? '-' }}</td>
+        <td class="celda" style="width:55%;">
+        TRATAMIENTO
+        </td>
 
-<td class="centro">{{ $sv->talla ?? '-' }}</td>
+        </tr>
 
-<td class="centro">{{ $imc }}</td>
+        <tr>
 
-</tr>
+        <td class="area-grande">
 
-</table>
+        {!! nl2br(e($consulta->diagnostico_principal ?? '-')) !!}
 
-<!-- ================= DIAGNÓSTICO Y TRATAMIENTO ================= -->
+        </td>
 
-<table>
+        <td class="area-grande">
 
-<tr>
+        {!! nl2br(e($consulta->tratamiento ?? '-')) !!}
 
-<td class="celda" style="width:45%;">
-DIAGNÓSTICO
-</td>
+        </td>
 
-<td class="celda" style="width:55%;">
-TRATAMIENTO
-</td>
+        </tr>
 
-</tr>
+        <tr>
 
-<tr>
+        <td class="celda">
+        Exámenes auxiliares
+        </td>
 
-<td class="area-grande">
+        <td class="celda">
+        Acuerdos y compromisos
+        </td>
 
-{!! nl2br(e($consulta->diagnostico_principal ?? '-')) !!}
+        </tr>
 
-</td>
+        <tr>
 
-<td class="area-grande">
+        <td class="area">
 
-{!! nl2br(e($consulta->tratamiento ?? '-')) !!}
+        {!! nl2br(e($consulta->examenes_auxiliares ?? '-')) !!}
 
-</td>
+        </td>
 
-</tr>
+        <td class="area">
 
-<tr>
+        {!! nl2br(e($consulta->acuerdos_compromisos ?? '-')) !!}
 
-<td class="celda">
-Exámenes auxiliares
-</td>
+        </td>
 
-<td class="celda">
-Acuerdos y compromisos
-</td>
+        </tr>
 
-</tr>
+        <tr>
 
-<tr>
+        <td class="celda">
+        Referencia
+        </td>
 
-<td class="area">
+        <td class="celda">
+        Observaciones
+        </td>
 
-{!! nl2br(e($consulta->examenes_auxiliares ?? '-')) !!}
+        </tr>
 
-</td>
+        <tr>
 
-<td class="area">
+        <td class="area">
 
-{!! nl2br(e($consulta->acuerdos_compromisos ?? '-')) !!}
+        {!! nl2br(e($consulta->referencia ?? '-')) !!}
 
-</td>
+        </td>
 
-</tr>
+        <td class="area">
 
-<tr>
+        {!! nl2br(e($consulta->observaciones ?? '-')) !!}
 
-<td class="celda">
-Referencia
-</td>
+        </td>
 
-<td class="celda">
-Observaciones
-</td>
+        </tr>
 
-</tr>
+        <tr>
 
-<tr>
+        <td class="celda">
+        Atendido por
+        </td>
 
-<td class="area">
+        <td class="celda">
+        Firma y Sello
+        </td>
 
-{!! nl2br(e($consulta->referencia ?? '-')) !!}
+        </tr>
 
-</td>
+        <tr>
 
-<td class="area">
+        <td>
 
-{!! nl2br(e($consulta->observaciones ?? '-')) !!}
+        {{ $consulta->medico->titulo_profesional ?? '' }}
+        {{ $consulta->medico->name ?? '' }} {{ $consulta->medico->surname ?? '' }}
 
-</td>
+        </td>
 
-</tr>
+        <td style="height:70px;text-align:center;vertical-align:bottom;">
 
-<tr>
+        <div style="margin-top:35px; text-align:center;">
 
-<td class="celda">
-Atendido por
-</td>
+        
 
-<td class="celda">
-Firma y Sello
-</td>
+            <!-- Espacio para firma y sello -->
+            <div style="height:35px;"></div>
 
-</tr>
+            <!-- Línea donde firma -->
+            <div style="border-top:1px solid #000; width:220px; margin:0 auto;"></div>
 
-<tr>
+            <!-- Datos del médico -->
+            <div style="line-height:1.2;">
 
-<td>
+                <div>
+                    {{ $consulta->medico->titulo_profesional ?? '' }}
+                    {{ $consulta->medico->name ?? '' }}
+                    {{ $consulta->medico->surname ?? '' }}
+                </div>
 
-{{ $consulta->medico->titulo_profesional ?? '' }}
-{{ $consulta->medico->name ?? '' }} {{ $consulta->medico->surname ?? '' }}
+                <div style="font-weight:bold;">
+                    {{ strtoupper($consulta->medico->specialty ?? '') }}
+                </div>
 
-</td>
+                <div>
+                    Colegio Prof.: {{ $consulta->medico->colegio_profesional ?? '' }}
+                </div>
 
-<td style="height:70px;text-align:center;vertical-align:bottom;">
+            </div>
 
-<div style="margin-top:35px; text-align:center;">
-
-  
-
-    <!-- Espacio para firma y sello -->
-    <div style="height:35px;"></div>
-
-      <!-- Línea donde firma -->
-    <div style="border-top:1px solid #000; width:220px; margin:0 auto;"></div>
-
-    <!-- Datos del médico -->
-    <div style="line-height:1.2;">
-
-        <div>
-            {{ $consulta->medico->titulo_profesional ?? '' }}
-            {{ $consulta->medico->name ?? '' }}
-            {{ $consulta->medico->surname ?? '' }}
         </div>
+        </td>
 
-        <div style="font-weight:bold;">
-            {{ strtoupper($consulta->medico->specialty ?? '') }}
-        </div>
+        </tr>
 
-        <div>
-            Colegio Prof.: {{ $consulta->medico->colegio_profesional ?? '' }}
-        </div>
 
+
+
+
+    </table>
+
+    <div class="footer">
+        Puesto de Salud Cruz Blanca
     </div>
-
-</div>
-</td>
-
-</tr>
-
-
-
-
-
-</table>
-
-<div class="footer">
-
-Puesto de Salud Cruz Blanca
-
-</div>
 
 </body>
 

@@ -5,7 +5,7 @@ use App\Models\Paciente;
 use App\Models\Consulta;
 use App\Models\SignoVital;
 use Barryvdh\DomPDF\Facade\Pdf;
-
+use App\Models\Configuracion;
 
 use Illuminate\Http\Request;
 
@@ -520,14 +520,15 @@ public function store(Request $request)
             'signosVitales'
         ])->findOrFail($id);
 
-        
         if (!$consulta->tratamiento) {
             abort(404);
         }
 
+        $configuracion = Configuracion::first();
+
         $pdf = Pdf::loadView(
             'admin.consultas.receta_pdf',
-            compact('consulta')
+            compact('consulta', 'configuracion')
         )->setPaper('a5', 'portrait');
 
         return $pdf->stream(

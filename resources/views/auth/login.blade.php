@@ -376,12 +376,15 @@ body::after{
 
             <div class="group password-container">
 
-                <input type="password" 
+                <input 
+                    type="password" 
                     id="password"
                     name="password"
                     class="input"
                     placeholder="Contraseña"
-                    required>
+                    required
+                    value="{{ old('password') }}"
+                >
 
                 <span class="toggle-password" onclick="mostrarPassword()">
                     <i class="bi bi-eye-slash"></i>

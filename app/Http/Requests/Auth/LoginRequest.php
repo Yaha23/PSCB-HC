@@ -7,17 +7,16 @@ use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
 {
-
     public function authorize(): bool
     {
         return true;
     }
-
 
     public function rules(): array
     {
@@ -27,71 +26,88 @@ class LoginRequest extends FormRequest
         ];
     }
 
-
     public function authenticate(): void
     {
-
         $this->ensureIsNotRateLimited();
 
+        /*
+        |--------------------------------------------------------------------------
+        | 1. Verificar si el usuario existe
+        |--------------------------------------------------------------------------
+        */
 
-        if (! Auth::attempt(
-            [
-                'username' => $this->username,
-                'password' => $this->password
-            ],
-            $this->boolean('remember')
-        )) {
+        $user = \App\Models\User::where(
+            'username',
+            $this->username
+        )->first();
 
+        /*
+        |--------------------------------------------------------------------------
+        | Usuario incorrecto
+        |--------------------------------------------------------------------------
+        */
+
+        if (!$user) {
 
             RateLimiter::hit($this->throttleKey());
 
-
             throw ValidationException::withMessages([
-                'username' => __('auth.failed'),
+                'username' => 'El nombre de usuario es incorrecto.',
             ]);
-
         }
 
+        /*
+        |--------------------------------------------------------------------------
+        | 2. Verificar contraseña
+        |--------------------------------------------------------------------------
+        */
+
+        if (!Hash::check($this->password, $user->password)) {
+
+            RateLimiter::hit($this->throttleKey());
+
+            throw ValidationException::withMessages([
+                'password' => 'La contraseña es incorrecta.',
+            ]);
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | 3. Iniciar sesión
+        |--------------------------------------------------------------------------
+        */
+
+        Auth::login(
+            $user,
+            $this->boolean('remember')
+        );
 
         RateLimiter::clear($this->throttleKey());
-
     }
-
-
 
     public function ensureIsNotRateLimited(): void
     {
-
-        if (! RateLimiter::tooManyAttempts($this->throttleKey(),5)) {
+        if (!RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
             return;
         }
 
-
         event(new Lockout($this));
-
 
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
-
         throw ValidationException::withMessages([
-            'username'=>trans('auth.throttle',[
-                'seconds'=>$seconds,
-                'minutes'=>ceil($seconds / 60),
+            'username' => trans('auth.throttle', [
+                'seconds' => $seconds,
+                'minutes' => ceil($seconds / 60),
             ]),
         ]);
-
     }
-
-
 
     public function throttleKey(): string
     {
-
         return Str::transliterate(
             Str::lower($this->string('username'))
-            .'|'.$this->ip()
+            . '|' . $this->ip()
         );
-
     }
-
 }

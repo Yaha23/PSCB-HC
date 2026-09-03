@@ -6,7 +6,7 @@ use App\Models\Consulta;
 use App\Models\SignoVital;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Configuracion;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class ConsultaController extends Controller
@@ -91,96 +91,223 @@ class ConsultaController extends Controller
         ));
     }
 
-   
-public function store(Request $request)
+   public function store(Request $request)
 {
+  
 
     $request->validate([
-        'paciente_id' => 'required',
-        'medico_id' => 'required',
-        'especialidad' => 'required',
-        'fecha_atencion' => 'required',
 
-        'peso' => 'required',
-        'talla' => 'required',
+        'paciente_id' => 'required|exists:pacientes,id',
+        'medico_id' => 'required|exists:users,id',
+        'especialidad' => 'required',
+
+        'fecha_atencion' => 'required|date',
+        'hora_atencion' => 'required',
+
+        'peso' => 'required|numeric',
+        'talla' => 'required|numeric',
         'presion_arterial' => 'required',
-        'frecuencia_cardiaca' => 'required',
-        'temperatura' => 'required',
-        'frecuencia_respiratoria' => 'required',
+        'frecuencia_cardiaca' => 'required|numeric',
+        'temperatura' => 'required|numeric',
+        'frecuencia_respiratoria' => 'required|numeric',
     ]);
 
-    if(auth()->user()->hasRole('admin')){
+
+    if (auth()->user()->hasRole('admin')) {
 
         $request->validate([
+
+            'motivo_consulta' => 'required',
+            'tiempo_enfermedad' => 'required',
+            'apetito' => 'required',
+            'sed' => 'required',
+            'sueno' => 'required',
+            'estado_animo' => 'required',
+            'orina' => 'required',
+            'deposiciones' => 'required',
+
             'diagnostico_principal' => 'required',
             'tratamiento' => 'required',
+            'acuerdos_compromisos' => 'required',
+            'examenes_auxiliares' => 'required',
+            'referencia' => 'required',
+            'observaciones' => 'required',
+
         ]);
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | EVITAR HISTORIAS DUPLICADAS
+    |--------------------------------------------------------------------------
+    |
+    | Comprobamos si ya existe una consulta para:
+    | mismo paciente + mismo médico + misma fecha + misma hora.
+    |
+    */
+
+    $duplicado = Consulta::where('paciente_id', $request->paciente_id)
+        ->where('medico_id', $request->medico_id)
+        ->where('fecha_atencion', $request->fecha_atencion)
+        ->where('hora_atencion', $request->hora_atencion)
+        ->exists();
+
+
+    if ($duplicado) {
+
+        return redirect()
+            ->route(
+                $this->getRouteBase() . '.consultas.index',
+                $request->paciente_id
+            )
+            ->with([
+                'mensaje' => 'Esta historia clínica ya fue registrada para este paciente, médico, fecha y hora.',
+                'icono' => 'warning'
+            ]);
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | CREAR HISTORIA CLÍNICA
+    |--------------------------------------------------------------------------
+    */
+
+    DB::transaction(function () use ($request, &$consulta) {
+
+        $consulta = Consulta::create([
+
+            'paciente_id' => $request->paciente_id,
+
+            'medico_id' => $request->medico_id,
+
+            'asistente_id' => auth()->user()->hasRole('asistente')
+                ? auth()->id()
+                : null,
+
+            'especialidad' => $request->especialidad,
+
+            'fecha_atencion' => $request->fecha_atencion,
+
+            'hora_atencion' => $request->hora_atencion,
+
+            'motivo_consulta' => $request->motivo_consulta,
+
+            'tiempo_enfermedad' => $request->tiempo_enfermedad,
+
+            'apetito' => $request->apetito,
+
+            'sed' => $request->sed,
+
+            'sueno' => $request->sueno,
+
+            'estado_animo' => $request->estado_animo,
+
+            'orina' => $request->orina,
+
+            'deposiciones' => $request->deposiciones,
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | DATOS MÉDICOS
+            |--------------------------------------------------------------------------
+            */
+
+            'diagnostico_principal' => auth()->user()->hasRole('admin')
+                ? $request->diagnostico_principal
+                : null,
+
+            'tratamiento' => auth()->user()->hasRole('admin')
+                ? $request->tratamiento
+                : null,
+
+            'acuerdos_compromisos' => auth()->user()->hasRole('admin')
+                ? $request->acuerdos_compromisos
+                : null,
+
+            'examenes_auxiliares' => auth()->user()->hasRole('admin')
+                ? $request->examenes_auxiliares
+                : null,
+
+            'referencia' => auth()->user()->hasRole('admin')
+                ? $request->referencia
+                : null,
+
+            'observaciones' => auth()->user()->hasRole('admin')
+                ? $request->observaciones
+                : null,
+
+
+          
+
+            'estado' => auth()->user()->hasRole('admin')
+                ? 'finalizada'
+                : 'pendiente',
+
+        ]);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | SIGNOS VITALES
+        |--------------------------------------------------------------------------
+        */
+
+        SignoVital::create([
+
+            'consulta_id' => $consulta->id,
+
+            'peso' => $request->peso,
+
+            'talla' => $request->talla,
+
+            'presion_arterial' => $request->presion_arterial,
+
+            'frecuencia_cardiaca' => $request->frecuencia_cardiaca,
+
+            'temperatura' => $request->temperatura,
+
+            'frecuencia_respiratoria' => $request->frecuencia_respiratoria,
+
+        ]);
+
+    });
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | MENSAJE
+    |--------------------------------------------------------------------------
+    */
+
+    if (auth()->user()->hasRole('admin')) {
+
+        $mensaje = 'Historia clínica registrada correctamente.';
+
+    } elseif (auth()->user()->hasRole('asistente')) {
+
+        $mensaje = 'Datos clínicos registrados y enviados al médico correctamente.';
+
+    } else {
+
+        $mensaje = 'Historia clínica registrada correctamente.';
 
     }
 
-   
-    $consulta = Consulta::create([
 
-        'paciente_id' => $request->paciente_id,
-        'medico_id' => $request->medico_id,
-        'asistente_id' => auth()->user()->hasRole('asistente')
-            ? auth()->id()
-            : null,
-
-        'especialidad' => $request->especialidad,
-        'fecha_atencion' => $request->fecha_atencion,
-        'hora_atencion' => $request->hora_atencion,
-        'motivo_consulta' => $request->motivo_consulta,
-        'tiempo_enfermedad' => $request->tiempo_enfermedad,
-        'apetito' => $request->apetito,
-        'sed' => $request->sed,
-        'sueno' => $request->sueno,
-        'estado_animo' => $request->estado_animo,
-        'orina' => $request->orina,
-        'deposiciones' => $request->deposiciones,
-        'diagnostico_principal' => auth()->user()->hasRole('admin') ? $request->diagnostico_principal : null,
-        'tratamiento' => auth()->user()->hasRole('admin') ? $request->tratamiento : null,
-        'acuerdos_compromisos' => auth()->user()->hasRole('admin') ? $request->acuerdos_compromisos : null,
-        'examenes_auxiliares' => auth()->user()->hasRole('admin') ? $request->examenes_auxiliares : null,
-        'referencia' => auth()->user()->hasRole('admin') ? $request->referencia : null,
-        'observaciones' => auth()->user()->hasRole('admin') ? $request->observaciones : null,
-        'estado' => auth()->user()->hasRole('admin')
-        ? 'finalizada'
-        : 'pendiente'
-
-    ]);
-
-    SignoVital::create([
-        'consulta_id' => $consulta->id,
-        'peso' => $request->peso,
-        'talla' => $request->talla,
-        'presion_arterial' => $request->presion_arterial,
-        'frecuencia_cardiaca' => $request->frecuencia_cardiaca,
-        'temperatura' => $request->temperatura,
-        'frecuencia_respiratoria' => $request->frecuencia_respiratoria,
-    ]);
-
-    
-
-        if (auth()->user()->hasRole('asistente')) {
-
-    $mensaje = 'Datos Clínicos registrados y enviados al médico correctamente';
-
-} elseif (auth()->user()->hasRole('admin')) {
-
-    $mensaje = (
-        !empty($request->diagnostico_principal) &&
-        !empty($request->tratamiento)
-    )
-        ? 'Historia clínica completada correctamente'
-        : 'Datos Clínicos registrados y enviados al médico correctamente';
-
-} else {
-
-    $mensaje = 'Historia clínica registrada correctamente';
-
+    return redirect()
+        ->route(
+            $this->getRouteBase() . '.consultas.index',
+            $consulta->paciente_id
+        )
+        ->with([
+            'mensaje' => $mensaje,
+            'icono' => 'success'
+        ]);
 }
-}
+
 
 
     public function show($id)

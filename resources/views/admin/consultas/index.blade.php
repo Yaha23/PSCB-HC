@@ -392,31 +392,34 @@ if(
          ASISTENTE
     ========================== --}}
 
-    @if($isAsistente)
 
-        {{-- Edita únicamente signos vitales --}}
+
+    @if($isAsistente && $consulta->estado == 'pendiente')
+
+        {{-- Editar únicamente datos clínicos mientras esté pendiente --}}
         <a href="{{ route($base.'.consultas.edit', $consulta->id) }}"
-           class="btn"
-           title="Editar Datos Clinicos"
-           style="background:#f4d279;color:#4a5568;border:none;transition:.3s;"
-           onmouseover="this.style.backgroundColor='#ffe8a3';this.style.boxShadow='0 0 8px rgba(244,210,121,.7)'"
-           onmouseout="this.style.backgroundColor='#f4d279';this.style.boxShadow='none'">
+        class="btn"
+        title="Editar Datos Clínicos"
+        style="background:#f4d279;color:#4a5568;border:none;transition:.3s;"
+        onmouseover="this.style.backgroundColor='#ffe8a3';this.style.boxShadow='0 0 8px rgba(244,210,121,.7)'"
+        onmouseout="this.style.backgroundColor='#f4d279';this.style.boxShadow='none'">
+
             <i class="bi bi-heart-pulse-fill"></i>
+
         </a>
 
-        {{-- Solo elimina cuando está pendiente --}}
-        @if(!$consulta->diagnostico_principal)
 
-            <a href="{{ route($base.'.consultas.delete', $consulta->id) }}"
-               class="btn"
-               title="Eliminar Datos Clinicos"
-               style="background:#f4d279;color:#4a5568;border:none;transition:.3s;"
-               onmouseover="this.style.backgroundColor='#ffe8a3';this.style.boxShadow='0 0 8px rgba(244,210,121,.7)'"
-               onmouseout="this.style.backgroundColor='#f4d279';this.style.boxShadow='none'">
-                <i class="bi bi-trash3-fill"></i>
-            </a>
+        {{-- Eliminar únicamente mientras esté pendiente --}}
+        <a href="{{ route($base.'.consultas.delete', $consulta->id) }}"
+        class="btn"
+        title="Eliminar Datos Clínicos"
+        style="background:#f4d279;color:#4a5568;border:none;transition:.3s;"
+        onmouseover="this.style.backgroundColor='#ffe8a3';this.style.boxShadow='0 0 8px rgba(244,210,121,.7)'"
+        onmouseout="this.style.backgroundColor='#f4d279';this.style.boxShadow='none'">
 
-        @endif
+            <i class="bi bi-trash3-fill"></i>
+
+        </a>
 
     @endif
 

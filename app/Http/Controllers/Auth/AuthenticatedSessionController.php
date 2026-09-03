@@ -12,7 +12,7 @@ use Illuminate\View\View;
 class AuthenticatedSessionController extends Controller
 {
     /**
-     * Display the login view.
+     * Mostrar formulario de login.
      */
     public function create(): View
     {
@@ -20,43 +20,48 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
-     * Handle an incoming authentication request.
+     * Autenticar usuario.
      */
-  public function store(LoginRequest $request): RedirectResponse
-{
-    $request->authenticate();
-    $request->session()->regenerate();
+    public function store(LoginRequest $request): RedirectResponse
+    {
+        $request->authenticate();
 
-    $user = Auth::user();
+        $request->session()->regenerate();
 
-    if ($user->hasRole('admin')) {
-        return redirect()->route('admin.dashboard');
+        $usuario = Auth::user();
+
+        /*
+         * Verificar que la cuenta esté activa.
+         */
+        if ($usuario->status !== 'activo') {
+
+            Auth::logout();
+
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return back()
+                ->withErrors([
+                    'username' => 'Tu cuenta se encuentra inactiva. Comunícate con el administrador.',
+                ])
+                ->onlyInput('username');
+        }
+
+        return redirect()->intended(
+            route('dashboard', absolute: false)
+        );
     }
-
-    if ($user->hasRole('asistente')) {
-        return redirect()->route('asistente.dashboard');
-    }
-
-    if ($user->hasRole('medico')) {
-        return redirect()->route('medico.dashboard');
-    }
-
-    Auth::logout();
-    return redirect()->route('login');
-}
 
     /**
-     * Destroy an authenticated session.
+     * Cerrar sesión.
      */
     public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
-        return redirect()->route('login'); // 👈 AQUÍ ESTÁ LA CLAVE
-
+        return redirect()->route('login');
     }
 }

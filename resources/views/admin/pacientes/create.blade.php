@@ -211,7 +211,7 @@
                                         Teléfono:
                                     </label>
 
-                                    <input type="text" name="celular" value="{{ old('celular') }}" class="form-control" placeholder="Celular" required style="border:1px solid #fdde92da;">
+                                    <input type="cel" name="celular" value="{{ old('celular') }}" class="form-control" placeholder="Celular" required style="border:1px solid #fdde92da;">
 
                                 </div>
 

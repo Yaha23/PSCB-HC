@@ -118,8 +118,108 @@
             <div class="card-body">
 
                 @php
-                    $contador = ($citas->currentPage() - 1) * $citas->perPage() + 1;
-                @endphp
+    $contador = ($citas->currentPage() - 1) * $citas->perPage() + 1;
+@endphp
+
+<form method="GET" action="{{ url($base . '/citas') }}">
+
+    <div style="
+        display:flex;
+        justify-content:center;
+        gap:10px;
+        align-items:center;
+        flex-wrap:wrap;
+    ">
+
+        <!-- DESDE -->
+        <div style="display:flex; align-items:center; gap:5px;">
+            <label style="
+                margin:0;
+                color:#4a5568;
+                font-size:14px;
+            ">
+                Desde:
+            </label>
+
+            <input
+                type="date"
+                name="fecha_inicio"
+                value="{{ $fecha_inicio ?? '' }}"
+                class="form-control"
+                style="
+                    border:1px solid #f4d279;
+                    width:160px;
+                "
+            >
+        </div>
+
+
+        <!-- HASTA -->
+        <div style="display:flex; align-items:center; gap:5px;">
+
+            <label style="
+                margin:0;
+                color:#4a5568;
+                font-size:14px;
+            ">
+                Hasta:
+            </label>
+
+            <input
+                type="date"
+                name="fecha_fin"
+                value="{{ $fecha_fin ?? '' }}"
+                class="form-control"
+                style="
+                    border:1px solid #f4d279;
+                    width:160px;
+                "
+            >
+
+        </div>
+
+
+        <!-- BUSCAR -->
+        <input
+            type="text"
+            name="buscar"
+            value="{{ $buscar ?? '' }}"
+            class="form-control"
+            placeholder="Buscar por Nombre o Apellido"
+            style="
+                border:1px solid #f4d279;
+                width:300px;
+            "
+        >
+
+
+        <!-- BOTÓN BUSCAR -->
+        <button
+            type="submit"
+            class="btn"
+            style="
+                background-color:#f4d279;
+                color:#4a5568;
+            "
+        >
+            <i class="bi bi-search"></i>
+            Buscar
+        </button>
+
+
+        <!-- LIMPIAR -->
+        <a
+            href="{{ url($base . '/citas') }}"
+            class="btn btn-secondary"
+        >
+            Limpiar
+        </a>
+
+    </div>
+
+</form>
+
+<br>
 
                 <table id="example1" class="table table-bordered table-hover table-sm">
                     <thead style="background-color:#4a5568; color:white">

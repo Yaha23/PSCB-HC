@@ -202,7 +202,7 @@
 
             <div class="col-md-2">
                 <label style="color: #4a5568" >Presión:</label>
-                <input type="text" name="presion_arterial" class="form-control" placeholder="120/80 mmHg" required style=" border:1px solid #fdde92da;" >
+                <input type="text" name="presion_arterial" class="form-control" placeholder="mmHg" required style=" border:1px solid #fdde92da;" >
             </div>
 
             <div class="col-md-2">

@@ -10,29 +10,98 @@ use App\Models\User;
 
 class CitaController extends Controller
 {
-  public function index()
+ public function index(Request $request)
 {
     $user = auth()->user();
 
+    $buscar = $request->buscar;
+    $fecha_inicio = $request->fecha_inicio;
+    $fecha_fin = $request->fecha_fin;
+
+    $citas = Cita::with(['medico', 'paciente']);
+
+    /*
+    |--------------------------------------------------------------------------
+    | FILTRO POR MÉDICO
+    |--------------------------------------------------------------------------
+    */
+
     if ($user->hasRole('medico')) {
-        $citas = Cita::with(['medico','paciente'])
-            ->where('medico_id', $user->id)
-            ->paginate(10);
+
+        $citas->where('medico_id', $user->id);
 
         $base = 'medico';
 
     } elseif ($user->hasRole('asistente')) {
 
-        $citas = Cita::with(['medico','paciente'])->paginate(10);
         $base = 'asistente';
 
     } else {
 
-        $citas = Cita::with(['medico','paciente'])->paginate(10);
         $base = 'admin';
     }
 
-    return view('admin.citas.index', compact('citas','base'));
+
+    /*
+    |--------------------------------------------------------------------------
+    | FILTRO POR FECHA
+    |--------------------------------------------------------------------------
+    */
+
+    if ($fecha_inicio && $fecha_fin) {
+
+        $citas->whereBetween('fecha', [
+            $fecha_inicio,
+            $fecha_fin
+        ]);
+
+    } elseif ($fecha_inicio) {
+
+        $citas->whereDate('fecha', '>=', $fecha_inicio);
+
+    } elseif ($fecha_fin) {
+
+        $citas->whereDate('fecha', '<=', $fecha_fin);
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | BUSCAR PACIENTE
+    |--------------------------------------------------------------------------
+    */
+
+    $citas->when($buscar, function ($query, $buscar) {
+
+    $query->whereHas('paciente', function ($q) use ($buscar) {
+
+        $q->where('nombres', 'like', "%{$buscar}%")
+          ->orWhere('apellidos', 'like', "%{$buscar}%");
+
+    });
+
+});
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | ORDEN DE REGISTRO
+    |--------------------------------------------------------------------------
+    */
+
+    $citas = $citas
+        ->orderBy('id', 'asc')
+        ->paginate(10)
+        ->withQueryString();
+
+
+    return view('admin.citas.index', compact(
+        'citas',
+        'base',
+        'buscar',
+        'fecha_inicio',
+        'fecha_fin'
+    ));
 }
 
     public function create()

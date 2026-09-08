@@ -177,24 +177,46 @@
         <div class="row">
        
             
-            <div class="col-md-6">
-                <label style="color: #4a5568" >Médico:</label>
-                <select name="medico_id" id="medicoSelect"
-                        class="form-control"
-                        {{ ($isMedico) ? 'readonly' : '' }}
-                        style="{{ $isMedico ? $readonlyStyle : 'border:1px solid #f4d279;' }}">
+          <div class="col-md-6">
 
-                    @foreach(App\Models\User::role('medico')->get() as $medico)
-                        <option value="{{ $medico->id }}"
-                            data-especialidad="{{ $medico->specialty }}"
-                            {{ $consulta->medico_id == $medico->id ? 'selected' : '' }}>
-                            {{ $medico->titulo_profesional }} {{ $medico->name }} {{ $medico->surname }}
-                        </option>
-                    @endforeach
+    <label style="color: #4a5568;">Médico:</label>
 
-                </select>
+    @if($isMedico)
 
-            </div>
+        {{-- MÉDICO: CAMPO BLOQUEADO --}}
+        <input type="text"
+               class="form-control"
+               value="{{ $consulta->medico->titulo_profesional }} {{ $consulta->medico->name }} {{ $consulta->medico->surname }}"
+               readonly
+               style="{{ $readonlyStyle }} text-align:left;">
+
+    @else
+
+        {{-- ADMIN / ASISTENTE: SELECT --}}
+        <select name="medico_id"
+                id="medicoSelect"
+                class="form-control"
+                style="border:1px solid #f4d279;">
+
+            @foreach(App\Models\User::role('medico')->get() as $medico)
+
+                <option value="{{ $medico->id }}"
+                    data-especialidad="{{ $medico->specialty }}"
+                    {{ $consulta->medico_id == $medico->id ? 'selected' : '' }}>
+
+                    {{ $medico->titulo_profesional }}
+                    {{ $medico->name }}
+                    {{ $medico->surname }}
+
+                </option>
+
+            @endforeach
+
+        </select>
+
+    @endif
+
+</div>
 
             <div class="col-md-6">
                 <label style="color: #4a5568" >Especialidad:</label>
@@ -679,16 +701,21 @@ elseif($isAdmin){
 <script>
 function actualizarEspecialidad() {
     let select = document.getElementById('medicoSelect');
+
+    if (!select) {
+        return;
+    }
+
     let option = select.options[select.selectedIndex];
     let especialidad = option.getAttribute('data-especialidad');
 
     document.getElementById('especialidad').value = especialidad ?? '';
 }
 
-// al cambiar médico
+// Al cambiar médico
 document.getElementById('medicoSelect')?.addEventListener('change', actualizarEspecialidad);
 
-// al cargar la página
+// Al cargar la página
 document.addEventListener('DOMContentLoaded', function () {
     actualizarEspecialidad();
 });

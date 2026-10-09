@@ -241,34 +241,57 @@ class PacienteController extends Controller
 
 
 
-    public function delete($id)
-    {
-        if(auth()->user()->hasRole('medico')){
-            abort(403, 'No autorizado');
-        }
-        $paciente = Paciente::findOrFail($id);
-
-        $base = $this->getRouteBase();
-
-        return view('admin.pacientes.delete',
-                compact('paciente','base')
-            );
+    
+public function delete($id)
+{
+    if (auth()->user()->hasRole('medico')) {
+        abort(403, 'No autorizado');
     }
 
-    public function destroy($id)
-    {
-        if(auth()->user()->hasRole('medico')){
-            abort(403, 'No autorizado');
-        }
-        $paciente = Paciente::findOrFail($id);
+    $paciente = Paciente::findOrFail($id);
 
-        $paciente->delete();
-
+    // Verificar si el paciente tiene consultas registradas
+    if ($paciente->consultas()->exists()) {
         return redirect()
             ->route($this->getRouteBase().'.pacientes.index')
-            ->with('mensaje', 'Paciente eliminado correctamente')
-            ->with('icono', 'success');
+            ->with('mensaje',
+                'No se puede eliminar al paciente porque tiene historias clínicas registradas.')
+            ->with('icono', 'warning');
     }
+
+    $base = $this->getRouteBase();
+
+    return view(
+        'admin.pacientes.delete',
+        compact('paciente', 'base')
+    );
+}
+
+   
+public function destroy($id)
+{
+    if (auth()->user()->hasRole('medico')) {
+        abort(403, 'No autorizado');
+    }
+
+    $paciente = Paciente::findOrFail($id);
+
+    // Proteger pacientes que tienen consultas médicas
+    if ($paciente->consultas()->exists()) {
+        return redirect()
+            ->route($this->getRouteBase().'.pacientes.index')
+            ->with('mensaje',
+                'No se puede eliminar al paciente porque tiene historias clínicas registradas.')
+            ->with('icono', 'warning');
+    }
+
+    $paciente->delete();
+
+    return redirect()
+        ->route($this->getRouteBase().'.pacientes.index')
+        ->with('mensaje', 'Paciente eliminado correctamente')
+        ->with('icono', 'success');
+}
 
 
 

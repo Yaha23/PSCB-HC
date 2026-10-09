@@ -52,11 +52,41 @@ class UsuarioController extends Controller
     /**
      * Listar usuarios.
      */
-    public function index()
-    {
-        $usuarios = User::paginate(10);
+    
+/**
+ * Listar y buscar usuarios.
+ */
 
-        return view('admin.usuarios.index', compact('usuarios'));
+    public function index(Request $request)
+    {
+        // Obtener el término de búsqueda
+        $buscar = $request->input('buscar');
+
+        // Consulta de usuarios
+        $usuarios = User::query()
+            ->when($buscar, function ($query, $buscar) {
+
+                $query->where(function ($q) use ($buscar) {
+
+                    $q->where('name', 'like', "%{$buscar}%")
+                    ->orWhere('surname', 'like', "%{$buscar}%")
+                    ->orWhere('username', 'like', "%{$buscar}%");
+                
+
+                });
+
+            })
+            ->orderBy('id', 'asc')
+            ->paginate(10)
+            ->withQueryString();
+
+        // Determinar la ruta según el rol
+        $base = $this->getRouteBase();
+
+        return view(
+            'admin.usuarios.index',
+            compact('usuarios', 'buscar', 'base')
+        );
     }
 
     /**
@@ -135,15 +165,29 @@ class UsuarioController extends Controller
                     'Obstetricia',
                 ]),
             ],
-
             'titulo_profesional' => [
-                'nullable',
+                'required',
                 'string',
                 'max:50',
+                Rule::in(
+                    $request->role === 'asistente'
+                        ? ['Lic. Enf.', 'Téc. Enf.', 'otros']
+                        : ($request->role === 'medico'
+                            ? ['Dr.', 'Dra.', 'Obst.', 'otros']
+                            : [
+                                'Dr.',
+                                'Dra.',
+                                'Obst.',
+                                'Lic. Enf.',
+                                'Téc. Enf.',
+                                'otros',
+                            ])
+                ),
             ],
 
             'otro_titulo' => [
                 'nullable',
+                'required_if:titulo_profesional,otros',
                 'string',
                 'max:100',
             ],
@@ -300,17 +344,32 @@ class UsuarioController extends Controller
                 ]),
             ],
 
-            'titulo_profesional' => [
-                'nullable',
-                'string',
-                'max:50',
-            ],
+        'titulo_profesional' => [
+    'required',
+    'string',
+    'max:50',
+    Rule::in(
+        $request->role === 'asistente'
+            ? ['Lic. Enf.', 'Téc. Enf.', 'otros']
+            : ($request->role === 'medico'
+                ? ['Dr.', 'Dra.', 'Obst.', 'otros']
+                : [
+                    'Dr.',
+                    'Dra.',
+                    'Obst.',
+                    'Lic. Enf.',
+                    'Téc. Enf.',
+                    'otros',
+                ])
+    ),
+],
 
-            'otro_titulo' => [
-                'nullable',
-                'string',
-                'max:100',
-            ],
+'otro_titulo' => [
+    'nullable',
+    'required_if:titulo_profesional,otros',
+    'string',
+    'max:100',
+],
 
             'colegio_profesional' => [
                 'nullable',

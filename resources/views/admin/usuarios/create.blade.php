@@ -194,16 +194,29 @@
 
                                                 <label style="color:#4a5568">Título profesional:</label>
 
-                                                <select name="titulo_profesional" id="titulo_profesional" class="form-control" required style="border:1px solid #fdde92da;">
-                                                    <option value="" disabled selected  >Seleccione</option>
-                                                    <option value="Dr.">Dr.</option>
-                                                    <option value="Dra.">Dra.</option>
-                                                    <option value="Obst.">Obst.</option>
-                                                    <option value="Lic. Enf.">Lic. Enf.</option>
-                                                    <option value="Téc. Enf.">Téc. Enf.</option>
-                                                    <option value="otros">Otros</option>
+                                                
 
 
+                                                <select
+                                                    name="titulo_profesional"
+                                                    id="titulo_profesional"
+                                                    class="form-control"
+                                                    required
+                                                    style="border:1px solid #fdde92da;"
+                                                >
+                                                    <option value="" selected disabled>Seleccione</option>
+
+                                                    <!-- Títulos para médicos -->
+                                                    <option value="Dr." data-rol="medico">Dr.</option>
+                                                    <option value="Dra." data-rol="medico">Dra.</option>
+                                                    <option value="Obst." data-rol="medico">Obst.</option>
+
+                                                    <!-- Títulos para asistentes -->
+                                                    <option value="Lic. Enf." data-rol="asistente">Lic. Enf.</option>
+                                                    <option value="Téc. Enf." data-rol="asistente">Téc. Enf.</option>
+
+                                                    <!-- Otros títulos disponibles para todos los roles -->
+                                                    <option value="otros" data-rol="todos">Otros</option>
                                                 </select>
 
                                             </div>
@@ -268,53 +281,76 @@
         </div>
 
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function(){
+   
 
-        const rol = document.getElementById('rol');
-        const divEspecialidad = document.getElementById('divEspecialidad');
-        const especialidad = document.getElementById('especialidad');
-        const titulo = document.getElementById('titulo_profesional');
-        const divOtroTitulo = document.getElementById('divOtroTitulo');
-            function actualizarCampos(){
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const rol = document.getElementById("rol");
+    const divEspecialidad = document.getElementById("divEspecialidad");
+    const especialidad = document.getElementById("especialidad");
 
-                if(rol.value === "medico"){
+    const titulo = document.getElementById("titulo_profesional");
+    const divOtroTitulo = document.getElementById("divOtroTitulo");
+    const otroTitulo = document.getElementById("otroTitulo");
 
+    function actualizarCampos() {
+        // 1. Especialidad: solo para médicos.
+        if (rol.value === "medico") {
+            divEspecialidad.style.display = "block";
+            especialidad.disabled = false;
+            especialidad.required = true;
+        } else {
+            divEspecialidad.style.display = "none";
+            especialidad.disabled = true;
+            especialidad.required = false;
+            especialidad.value = "";
+        }
 
-                    divEspecialidad.style.display="block";
-                    especialidad.disabled=false;
-                    especialidad.required=true;
-
-                    }else{
-
-                    divEspecialidad.style.display="none";
-                    especialidad.disabled=true;
-                    especialidad.required=false;
-                    especialidad.value="";
-
-                }
-
-                if(titulo.value==="otros"){
-                    divOtroTitulo.style.display="block";
-                    
-                    }else{
-
-
-                    divOtroTitulo.style.display="none";
-                    document.getElementById('otroTitulo').value="";
-                }
+        // 2. Mostrar las opciones de título según el rol.
+        Array.from(titulo.options).forEach(function (opcion) {
+            if (opcion.value === "") {
+                opcion.hidden = false;
+                opcion.disabled = false;
+                return;
             }
 
+            const rolPermitido = opcion.getAttribute("data-rol");
 
+            let mostrar = false;
 
-            rol.addEventListener('change', actualizarCampos);
+            if (rol.value === "admin") {
+                // Administrador: mostrar todos los títulos.
+                mostrar = true;
+            } else if (
+                rolPermitido === rol.value ||
+                rolPermitido === "todos"
+            ) {
+                // Asistente, médico y la opción Otros.
+                mostrar = true;
+            }
 
-
-            titulo.addEventListener('change', actualizarCampos);
-
-
+            opcion.hidden = !mostrar;
+            opcion.disabled = !mostrar;
         });
-    </script>
+
+        // 3. Mostrar el campo de título personalizado
+        // siempre que se seleccione Otros, sin importar el rol.
+        if (titulo.value === "otros") {
+            divOtroTitulo.style.display = "block";
+            otroTitulo.required = true;
+        } else {
+            divOtroTitulo.style.display = "none";
+            otroTitulo.required = false;
+            otroTitulo.value = "";
+        }
+    }
+
+    rol.addEventListener("change", actualizarCampos);
+    titulo.addEventListener("change", actualizarCampos);
+
+    actualizarCampos();
+});
+</script>
 
         @else
             <div class="alert alert-danger">

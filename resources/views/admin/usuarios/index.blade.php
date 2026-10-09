@@ -65,6 +65,63 @@
                             $contador = ($usuarios->currentPage() - 1) * $usuarios->perPage() + 1;
                         @endphp
 
+        
+
+                        <!-- BUSCADOR DE USUARIOS -->
+                        <form method="GET" action="{{ url($base . '/usuarios') }}">
+
+                            <div style="
+                                display:flex;
+                                justify-content:center;
+                                gap:10px;
+                                align-items:center;
+                                flex-wrap:wrap;
+                            ">
+
+                                <!-- CAMPO DE BÚSQUEDA -->
+                                <input
+                                    type="text"
+                                    name="buscar"
+                                    value="{{ $buscar ?? '' }}"
+                                    class="form-control"
+                                    placeholder="Buscar por Nombre, Apellido o Usuario "
+                                    style="
+                                        border:1px solid #f4d279;
+                                        width:350px;
+                                    "
+                                >
+
+                                <!-- BOTÓN BUSCAR -->
+                                <button
+                                    type="submit"
+                                    class="btn"
+                                    style="
+                                        background-color:#f4d279;
+                                        color:#4a5568;
+                                        border:1px solid #f4d279;
+                                        border-radius:6px;
+                                    "
+                                >
+                                    <i class="bi bi-search"></i>
+                                    Buscar
+                                </button>
+
+                                <!-- BOTÓN LIMPIAR -->
+                                <a
+                                    href="{{ url($base . '/usuarios') }}"
+                                    class="btn btn-secondary"
+                                    style="border-radius:6px;"
+                                >
+                                   
+                                    Limpiar
+                                </a>
+
+                            </div>
+
+                        </form>
+
+                        <br>
+
                         <table id="example1" class="table table-bordered table-hover table-sm">
                             <thead style="background-color:#4a5568; color:white">
                                 <tr>

@@ -223,90 +223,79 @@
                                     </div>
 
                                     
-                                    <div class="col-md-3" id="divTitulo">
 
-                                        <div class="form-group">
+                                    
+<div class="col-md-3" id="divTitulo">
+    <div class="form-group">
+        <label style="color:#4a5568">Título profesional:</label>
 
-                                            <label style="color:#4a5568">
-                                                Título profesional:
-                                            </label>
+        <select
+            name="titulo_profesional"
+            id="titulo_profesional"
+            class="form-control"
+            required
+            style="border:1px solid #fdde92da;"
+        >
+            <option value="" disabled>Seleccione</option>
 
-                                            <select
-                                                name="titulo_profesional"
-                                                id="titulo_profesional"
-                                                class="form-control"
-                                                required
-                                                style="border:1px solid #fdde92da;">
+            <option value="Dr." data-rol="medico"
+                {{ $usuario->titulo_profesional == 'Dr.' ? 'selected' : '' }}>
+                Dr.
+            </option>
 
-                                                <option value="">Seleccione</option>
+            <option value="Dra." data-rol="medico"
+                {{ $usuario->titulo_profesional == 'Dra.' ? 'selected' : '' }}>
+                Dra.
+            </option>
 
-                                                <option value="Dr."
-                                                    {{ $usuario->titulo_profesional == 'Dr.' ? 'selected' : '' }}>
-                                                    Dr.
-                                                </option>
+            <option value="Obst." data-rol="medico"
+                {{ $usuario->titulo_profesional == 'Obst.' ? 'selected' : '' }}>
+                Obst.
+            </option>
 
-                                                <option value="Dra."
-                                                    {{ $usuario->titulo_profesional == 'Dra.' ? 'selected' : '' }}>
-                                                    Dra.
-                                                </option>
+            <option value="Lic. Enf." data-rol="asistente"
+                {{ $usuario->titulo_profesional == 'Lic. Enf.' ? 'selected' : '' }}>
+                Lic. Enf.
+            </option>
 
-                                                <option value="Obst."
-                                                    {{ $usuario->titulo_profesional == 'Obst.' ? 'selected' : '' }}>
-                                                    Obst.
-                                                </option>
+            <option value="Téc. Enf." data-rol="asistente"
+                {{ $usuario->titulo_profesional == 'Téc. Enf.' ? 'selected' : '' }}>
+                Téc. Enf.
+            </option>
 
-                                                <option value="Lic. Enf."
-                                                    {{ $usuario->titulo_profesional == 'Lic. Enf.' ? 'selected' : '' }}>
-                                                    Lic. Enf.
-                                                </option>
+            <option value="otros" data-rol="todos"
+                {{ !in_array($usuario->titulo_profesional, ['Dr.', 'Dra.', 'Obst.', 'Lic. Enf.', 'Téc. Enf.']) && $usuario->titulo_profesional ? 'selected' : '' }}>
+                Otros
+            </option>
+        </select>
 
-                                                <option value="Téc. Enf."
-                                                    {{ $usuario->titulo_profesional == 'Téc. Enf.' ? 'selected' : '' }}>
-                                                    Téc. Enf.
-                                                </option>
+        @error('titulo_profesional')
+            <small style="color:red">{{ $message }}</small>
+        @enderror
+    </div>
+</div>
 
-                                                <option value="otros"
-                                                    {{ !in_array($usuario->titulo_profesional, ['Dr.','Dra.','Obst.','Lic. Enf.','Téc. Enf.']) && $usuario->titulo_profesional ? 'selected' : '' }}>
-                                                    Otros
-                                                </option>
+<div class="col-md-3" id="divOtroTitulo"
+    style="{{ !in_array($usuario->titulo_profesional, ['Dr.', 'Dra.', 'Obst.', 'Lic. Enf.', 'Téc. Enf.']) && $usuario->titulo_profesional ? '' : 'display:none;' }}">
 
-                                            </select>
+    <div class="form-group">
+        <label style="color:#4a5568">Especifique el título:</label>
 
-                                        </div>
+        <input
+            type="text"
+            name="otro_titulo"
+            id="otroTitulo"
+            class="form-control"
+            value="{{ old('otro_titulo', !in_array($usuario->titulo_profesional, ['Dr.', 'Dra.', 'Obst.', 'Lic. Enf.', 'Téc. Enf.']) ? $usuario->titulo_profesional : '') }}"
+            placeholder="Especifique el título"
+            style="border:1px solid #fdde92da;"
+        >
 
-                                    </div>
-                                
-            
-                                    <div class="col-md-3" id="divOtroTitulo" style="
-                                        {{ !in_array($usuario->titulo_profesional,
-                                        ['Dr.','Dra.','Obst.','Lic. Enf.','Téc. Enf.']) && $usuario->titulo_profesional ? '' : 'display:none;' }}">
-
-
-                                        <div class="form-group">
-
-                                            <label style="color:#4a5568">
-                                                Especifique el título:
-                                            </label>
-
-                                            <input 
-                                                type="text"
-                                                name="otro_titulo"
-                                                id="otroTitulo"
-                                                class="form-control"
-                                                value="{{ 
-                                                !in_array($usuario->titulo_profesional,
-                                                ['Dr.','Dra.','Obst.','Lic. Enf.','Téc. Enf.'])
-                                                ? $usuario->titulo_profesional
-                                                : ''
-                                                }}"
-                                                placeholder="Titulo Profesional"
-                                                style="border:1px solid #fdde92da;">
-
-
-                                        </div>
-
-
-                                    </div>
+        @error('otro_titulo')
+            <small style="color:red">{{ $message }}</small>
+        @enderror
+    </div>
+</div>
 
                                     <div class="col-md-3">
 
@@ -356,63 +345,82 @@
         
     </div>
 
-    <script>
-        const rol = document.getElementById('rol');
-
-        const divEspecialidad = document.getElementById('divEspecialidad');
-        const especialidad = document.getElementById('especialidad');
-
-        const titulo = document.getElementById('titulo_profesional');
-        const divOtroTitulo = document.getElementById('divOtroTitulo');
-        const otroTitulo = document.getElementById('otroTitulo');
 
 
-        function actualizarFormulario(){
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const rol = document.getElementById('rol');
+    const divEspecialidad = document.getElementById('divEspecialidad');
+    const especialidad = document.getElementById('especialidad');
 
-            
-            if(rol.value === "medico"){
+    const titulo = document.getElementById('titulo_profesional');
+    const divOtroTitulo = document.getElementById('divOtroTitulo');
+    const otroTitulo = document.getElementById('otroTitulo');
 
-                divEspecialidad.style.display="block";
-
-                especialidad.disabled=false;
-                especialidad.required=true;
-
-            }else{
-
-                divEspecialidad.style.display="none";
-
-                especialidad.disabled=true;
-                especialidad.required=false;
-                especialidad.value="";
-
-            }
-
-
-
-            
-            if(titulo.value==="otros"){
-
-                divOtroTitulo.style.display="block";
-                otroTitulo.required=true;
-
-            }else{
-
-                divOtroTitulo.style.display="none";
-                otroTitulo.required=false;
-                otroTitulo.value="";
-
-            }
-
+    function actualizarFormulario() {
+        // Especialidad: solamente para médicos.
+        if (rol.value === 'medico') {
+            divEspecialidad.style.display = 'block';
+            especialidad.disabled = false;
+            especialidad.required = true;
+        } else {
+            divEspecialidad.style.display = 'none';
+            especialidad.disabled = true;
+            especialidad.required = false;
+            especialidad.value = '';
         }
 
+        // Mostrar los títulos correspondientes a cada rol.
+        Array.from(titulo.options).forEach(function (opcion) {
+            if (opcion.value === '') {
+                opcion.hidden = false;
+                opcion.disabled = false;
+                return;
+            }
+
+            const rolPermitido = opcion.dataset.rol;
+
+            const permitido =
+                rol.value === 'admin' ||
+                rolPermitido === rol.value ||
+                rolPermitido === 'todos';
+
+            opcion.hidden = !permitido;
+            opcion.disabled = !permitido;
+        });
+
+        // Si el título seleccionado no es válido para el rol,
+        // limpiar la selección.
+        const opcionActual = titulo.options[titulo.selectedIndex];
+
+        if (
+            !opcionActual ||
+            opcionActual.value === '' ||
+            opcionActual.disabled
+        ) {
+            titulo.value = '';
+        }
+
+        // Mostrar "Especifique el título" para los tres roles.
+        if (titulo.value === 'otros') {
+            divOtroTitulo.style.display = 'block';
+            otroTitulo.required = true;
+        } else {
+            divOtroTitulo.style.display = 'none';
+            otroTitulo.required = false;
+            otroTitulo.value = '';
+        }
+    }
+
+    rol.addEventListener('change', actualizarFormulario);
+    titulo.addEventListener('change', actualizarFormulario);
+
+    actualizarFormulario();
+});
+</script>
 
 
-        rol.addEventListener('change', actualizarFormulario);
-
-        titulo.addEventListener('change', actualizarFormulario);
 
 
-        actualizarFormulario();
-    </script>
 @endsection
 

@@ -283,6 +283,7 @@
 
    
 
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const rol = document.getElementById("rol");
@@ -293,8 +294,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const divOtroTitulo = document.getElementById("divOtroTitulo");
     const otroTitulo = document.getElementById("otroTitulo");
 
-    function actualizarCampos() {
-        // 1. Especialidad: solo para médicos.
+    function actualizarCampos(limpiarTitulo = false) {
+
+        // Especialidad: solo para médicos.
         if (rol.value === "medico") {
             divEspecialidad.style.display = "block";
             especialidad.disabled = false;
@@ -306,7 +308,13 @@ document.addEventListener("DOMContentLoaded", function () {
             especialidad.value = "";
         }
 
-        // 2. Mostrar las opciones de título según el rol.
+        // Si cambia el rol, limpiar el título seleccionado.
+        if (limpiarTitulo) {
+            titulo.value = "";
+            otroTitulo.value = "";
+        }
+
+        // Mostrar los títulos permitidos según el rol.
         Array.from(titulo.options).forEach(function (opcion) {
             if (opcion.value === "") {
                 opcion.hidden = false;
@@ -314,27 +322,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            const rolPermitido = opcion.getAttribute("data-rol");
+            const rolPermitido = opcion.dataset.rol;
 
-            let mostrar = false;
-
-            if (rol.value === "admin") {
-                // Administrador: mostrar todos los títulos.
-                mostrar = true;
-            } else if (
+            const permitido =
+                rol.value === "admin" ||
                 rolPermitido === rol.value ||
-                rolPermitido === "todos"
-            ) {
-                // Asistente, médico y la opción Otros.
-                mostrar = true;
-            }
+                rolPermitido === "todos";
 
-            opcion.hidden = !mostrar;
-            opcion.disabled = !mostrar;
+            opcion.hidden = !permitido;
+            opcion.disabled = !permitido;
         });
 
-        // 3. Mostrar el campo de título personalizado
-        // siempre que se seleccione Otros, sin importar el rol.
+        // Mostrar u ocultar el campo de título personalizado.
         if (titulo.value === "otros") {
             divOtroTitulo.style.display = "block";
             otroTitulo.required = true;
@@ -345,8 +344,15 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    rol.addEventListener("change", actualizarCampos);
-    titulo.addEventListener("change", actualizarCampos);
+    // Al cambiar el rol, limpiar el título anterior.
+    rol.addEventListener("change", function () {
+        actualizarCampos(true);
+    });
+
+    // Al cambiar el título, actualizar el campo "Otros".
+    titulo.addEventListener("change", function () {
+        actualizarCampos();
+    });
 
     actualizarCampos();
 });

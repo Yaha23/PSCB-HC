@@ -347,6 +347,7 @@
 
 
 
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const rol = document.getElementById('rol');
@@ -357,8 +358,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const divOtroTitulo = document.getElementById('divOtroTitulo');
     const otroTitulo = document.getElementById('otroTitulo');
 
-    function actualizarFormulario() {
-        // Especialidad: solamente para médicos.
+    function actualizarFormulario(limpiarTitulo = false) {
+
+        // 1. Especialidad: solo para médicos.
         if (rol.value === 'medico') {
             divEspecialidad.style.display = 'block';
             especialidad.disabled = false;
@@ -370,7 +372,13 @@ document.addEventListener('DOMContentLoaded', function () {
             especialidad.value = '';
         }
 
-        // Mostrar los títulos correspondientes a cada rol.
+        // 2. Limpiar el título cuando cambia el rol.
+        if (limpiarTitulo) {
+            titulo.value = '';
+            otroTitulo.value = '';
+        }
+
+        // 3. Mostrar únicamente los títulos permitidos.
         Array.from(titulo.options).forEach(function (opcion) {
             if (opcion.value === '') {
                 opcion.hidden = false;
@@ -389,32 +397,31 @@ document.addEventListener('DOMContentLoaded', function () {
             opcion.disabled = !permitido;
         });
 
-        // Si el título seleccionado no es válido para el rol,
-        // limpiar la selección.
-        const opcionActual = titulo.options[titulo.selectedIndex];
-
-        if (
-            !opcionActual ||
-            opcionActual.value === '' ||
-            opcionActual.disabled
-        ) {
-            titulo.value = '';
-        }
-
-        // Mostrar "Especifique el título" para los tres roles.
+        // 4. Mostrar u ocultar el campo de título personalizado.
         if (titulo.value === 'otros') {
             divOtroTitulo.style.display = 'block';
             otroTitulo.required = true;
         } else {
             divOtroTitulo.style.display = 'none';
             otroTitulo.required = false;
-            otroTitulo.value = '';
+
+            if (limpiarTitulo) {
+                otroTitulo.value = '';
+            }
         }
     }
 
-    rol.addEventListener('change', actualizarFormulario);
-    titulo.addEventListener('change', actualizarFormulario);
+    // Al cambiar de rol, limpiar la selección anterior.
+    rol.addEventListener('change', function () {
+        actualizarFormulario(true);
+    });
 
+    // Al cambiar el título, actualizar el campo "Otros".
+    titulo.addEventListener('change', function () {
+        actualizarFormulario();
+    });
+
+    // Al abrir la edición, conservar los datos existentes.
     actualizarFormulario();
 });
 </script>

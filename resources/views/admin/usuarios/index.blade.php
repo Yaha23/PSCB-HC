@@ -211,7 +211,9 @@
                                 </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="4" class="text-center">No hay usuarios registrados</td>
+                                            <td colspan="8" class="text-center">
+                                                No hay usuarios registrados
+                                            </td>
                                         </tr>
                                     @endforelse
                             </tbody>

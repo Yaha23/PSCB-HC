@@ -188,20 +188,20 @@
                                         </div>
 
 
-                                        <div class="col-md-3">
+                                        
+                                        <div class="col-md-3" id="divTituloProfesional" style="display:none;">
 
                                             <div class="form-group">
 
-                                                <label style="color:#4a5568">Título profesional:</label>
-
-                                                
-
+                                                <label style="color:#4a5568">
+                                                    Título profesional:
+                                                </label>
 
                                                 <select
                                                     name="titulo_profesional"
                                                     id="titulo_profesional"
                                                     class="form-control"
-                                                    required
+                                                    disabled
                                                     style="border:1px solid #fdde92da;"
                                                 >
                                                     <option value="" selected disabled>Seleccione</option>
@@ -215,7 +215,7 @@
                                                     <option value="Lic. Enf." data-rol="asistente">Lic. Enf.</option>
                                                     <option value="Téc. Enf." data-rol="asistente">Téc. Enf.</option>
 
-                                                    <!-- Otros títulos disponibles para todos los roles -->
+                                                    <!-- Otros títulos -->
                                                     <option value="otros" data-rol="todos">Otros</option>
                                                 </select>
 
@@ -284,38 +284,76 @@
    
 
 
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
+
     const rol = document.getElementById("rol");
+
+    // Campo de especialidad
     const divEspecialidad = document.getElementById("divEspecialidad");
     const especialidad = document.getElementById("especialidad");
 
+    // Campo de título profesional
+    const divTitulo = document.getElementById("divTituloProfesional");
     const titulo = document.getElementById("titulo_profesional");
+
+    // Campo para especificar otro título
     const divOtroTitulo = document.getElementById("divOtroTitulo");
     const otroTitulo = document.getElementById("otroTitulo");
 
+
     function actualizarCampos(limpiarTitulo = false) {
 
-        // Especialidad: solo para médicos.
+        // 1. Si no hay rol seleccionado, ocultar los campos.
+        if (!rol.value) {
+
+            divTitulo.style.display = "none";
+            titulo.disabled = true;
+            titulo.required = false;
+            titulo.value = "";
+
+            divEspecialidad.style.display = "none";
+            especialidad.disabled = true;
+            especialidad.required = false;
+            especialidad.value = "";
+
+            divOtroTitulo.style.display = "none";
+            otroTitulo.required = false;
+            otroTitulo.value = "";
+
+            return;
+        }
+
+        // 2. Mostrar el título profesional cuando exista un rol.
+        divTitulo.style.display = "block";
+        titulo.disabled = false;
+        titulo.required = true;
+
+        // 3. Mostrar especialidad únicamente para médicos.
         if (rol.value === "medico") {
+
             divEspecialidad.style.display = "block";
             especialidad.disabled = false;
             especialidad.required = true;
+
         } else {
+
             divEspecialidad.style.display = "none";
             especialidad.disabled = true;
             especialidad.required = false;
             especialidad.value = "";
         }
 
-        // Si cambia el rol, limpiar el título seleccionado.
+        // 4. Limpiar los valores anteriores al cambiar de rol.
         if (limpiarTitulo) {
             titulo.value = "";
             otroTitulo.value = "";
         }
 
-        // Mostrar los títulos permitidos según el rol.
+        // 5. Filtrar los títulos según el rol seleccionado.
         Array.from(titulo.options).forEach(function (opcion) {
+
             if (opcion.value === "") {
                 opcion.hidden = false;
                 opcion.disabled = false;
@@ -333,28 +371,35 @@ document.addEventListener("DOMContentLoaded", function () {
             opcion.disabled = !permitido;
         });
 
-        // Mostrar u ocultar el campo de título personalizado.
+        // 6. Mostrar el campo "Especifique el título" cuando
+        // se seleccione la opción "Otros".
         if (titulo.value === "otros") {
+
             divOtroTitulo.style.display = "block";
             otroTitulo.required = true;
+
         } else {
+
             divOtroTitulo.style.display = "none";
             otroTitulo.required = false;
             otroTitulo.value = "";
         }
     }
 
-    // Al cambiar el rol, limpiar el título anterior.
+
+    // Al seleccionar o cambiar el rol.
     rol.addEventListener("change", function () {
         actualizarCampos(true);
     });
 
-    // Al cambiar el título, actualizar el campo "Otros".
+    // Al seleccionar un título profesional.
     titulo.addEventListener("change", function () {
         actualizarCampos();
     });
 
+    // Estado inicial: ocultar los campos dependientes del rol.
     actualizarCampos();
+
 });
 </script>
 

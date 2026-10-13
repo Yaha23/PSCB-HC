@@ -169,11 +169,13 @@ table td {
         {{-- BOTONES --}}
         <div style="display:flex; gap:10px;">
 
-            <a href="{{ url($base.'/pacientes') }}"
-               class="btn"
-               style="background:#4a5568; color:white; border-radius:6px;">
-                 Volver
+            
+            <a href="{{ route($base.'.pacientes.show', $paciente->id) }}"
+            class="btn"
+            style="background:#4a5568; color:white; border-radius:6px;">
+                Volver
             </a>
+
 
             @if($isAsistente || $isAdmin)
 

@@ -211,7 +211,7 @@ data-card-widget="collapse">
 
             <input type="text"
                    disabled
-                   value="{{ $horario->user->titulo_profesional ?? '' }} {{ $horario->user->name ?? '' }} {{ $horario->user->user->surname ?? '' }}"
+                   value="{{ $horario->user->titulo_profesional ?? '' }} {{ $horario->user->name ?? '' }} {{ $horario->user->surname ?? '' }}"
                    class="form-control"
                    style="background:#f6e48bb1;border:1px solid #fdde92da;">
 

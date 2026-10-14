@@ -230,14 +230,16 @@ class HorarioController extends Controller
     }
 
 
-    public function confirmDelete($id)
-    {
+   
+public function confirmDelete($id)
+{
+    $horario = Horario::with('user')->findOrFail($id);
 
-        $horario = Horario::findOrFail($id);
-        return view($this->getRouteBase().'.horarios.delete', compact('horario')
-        );
+    $base = $this->getRouteBase();
 
-    }
+    return view('admin.horarios.delete', compact('horario', 'base'));
+}
+
 
     public function destroy($id)
     {

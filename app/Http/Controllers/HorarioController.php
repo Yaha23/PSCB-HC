@@ -293,7 +293,7 @@ public function reportePdf(Request $request)
     }
 
     $horarios = $query
-        ->orderBy('dia_semana')
+        ->orderBy('id', 'asc')
         ->get();
 
     // Obtener la configuración actual del sistema

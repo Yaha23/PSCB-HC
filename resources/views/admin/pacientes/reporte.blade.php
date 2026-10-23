@@ -123,19 +123,39 @@
         $fechaReporte=\Carbon\Carbon::now('America/Lima');
         @endphp
 
+        
         <table class="header">
-
             <tr>
-
                 <td width="15%" style="text-align:left; vertical-align:middle;">
 
-                    <img src="{{ public_path('image/PSCB.png') }}" class="logo">
+                    @if($configuracion && $configuracion->logo
+                        && file_exists(public_path('storage/' . $configuracion->logo)))
+
+                        <img
+                            src="{{ public_path('storage/' . $configuracion->logo) }}"
+                            class="logo"
+                        >
+
+                    @else
+
+                        <img
+                            src="{{ public_path('image/PSCB.png') }}"
+                            class="logo"
+                        >
+
+                    @endif
 
                 </td>
 
                 <td width="70%" class="titulo">
-                    <h2>PUESTO DE SALUD CRUZ BLANCA</h2>
+
+                    <h2>
+                        {{ $configuracion->nombre_puestosalud
+                            ?? 'PUESTO DE SALUD CRUZ BLANCA' }}
+                    </h2>
+
                     <h3>Reporte General de Pacientes</h3>
+
                 </td>
 
                 <td width="15%" class="fecha">
@@ -145,10 +165,9 @@
                     <strong>Hora:</strong>
                     {{ $fechaReporte->format('h:i A') }}
                 </td>
-
             </tr>
-
         </table>
+
         <div class="linea"></div>
 
         <div class="resumen">
@@ -265,11 +284,11 @@
 
         </table>
 
+        
         <div class="footer">
-
-        Sistema Web de Gestión de Historias Clínicas &bull; Puesto de Salud Cruz Blanca
-
+            Sistema Web de Gestión de Historias Clínicas &bull; {{ $configuracion->nombre_puestosalud ?? 'Puesto de Salud Cruz Blanca' }}
         </div>
+
 
     </body>
 

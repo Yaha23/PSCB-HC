@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Paciente;
 use App\Models\Consulta;
+use App\Models\Configuracion;
 use App\Models\SignoVital;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -174,70 +175,56 @@ class PacienteController extends Controller
             ->with('icono', 'success');
     }
 
-    public function reportePdf(Request $request)
-    {
-        $buscar = $request->buscar;
+    
+        public function reportePdf(Request $request)
+        {
+            $buscar = $request->buscar;
+            $fecha_inicio = $request->fecha_inicio;
+            $fecha_fin = $request->fecha_fin;
 
-        $fecha_inicio = $request->fecha_inicio;
-        $fecha_fin = $request->fecha_fin;
+            $pacientes = Paciente::with('consultas.medico');
 
+            if ($fecha_inicio && $fecha_fin) {
+                $pacientes->whereBetween('created_at', [
+                    $fecha_inicio . ' 00:00:00',
+                    $fecha_fin . ' 23:59:59'
+                ]);
+            }
 
-        $pacientes = Paciente::with('consultas.medico');
-
-        if($fecha_inicio && $fecha_fin){
-
-            $pacientes->whereBetween('created_at', [
-                $fecha_inicio . ' 00:00:00',
-                $fecha_fin . ' 23:59:59'
-            ]);
-
-        }
-
-
-        if (auth()->user()->hasRole('medico')) {
-
-            $pacientes->whereHas('consultas', function ($q) {
-
-                $q->where('medico_id', auth()->id());
-
-            });
-
-        }
-
-
-        $pacientes = $pacientes
-            ->when($buscar, function ($query, $buscar) {
-
-                $query->where(function ($q) use ($buscar) {
-
-                    $q->whereRaw('LOWER(nombres) LIKE ?', [
-                        '%'.strtolower($buscar).'%'
-                    ])
-
-                    ->orWhereRaw('LOWER(apellidos) LIKE ?', [
-                        '%'.strtolower($buscar).'%'
-                    ])
-
-                    ->orWhereRaw('LOWER(DNI) LIKE ?', [
-                        '%'.strtolower($buscar).'%'
-                    ]);
-
+            if (auth()->user()->hasRole('medico')) {
+                $pacientes->whereHas('consultas', function ($q) {
+                    $q->where('medico_id', auth()->id());
                 });
+            }
 
-            })
-            ->get();
+            $pacientes = $pacientes
+                ->when($buscar, function ($query, $buscar) {
+                    $query->where(function ($q) use ($buscar) {
+                        $q->whereRaw('LOWER(nombres) LIKE ?', [
+                            '%' . strtolower($buscar) . '%'
+                        ])
+                        ->orWhereRaw('LOWER(apellidos) LIKE ?', [
+                            '%' . strtolower($buscar) . '%'
+                        ])
+                        ->orWhereRaw('LOWER(DNI) LIKE ?', [
+                            '%' . strtolower($buscar) . '%'
+                        ]);
+                    });
+                })
+                ->get();
 
+            // Obtener la configuración actual del establecimiento
+            $configuracion = Configuracion::first();
 
+            // Generar el PDF con los pacientes y la configuración
+            $pdf = Pdf::loadView(
+                'admin.pacientes.reporte',
+                compact('pacientes', 'configuracion')
+            )->setPaper('a4', 'portrait');
 
-        $pdf = Pdf::loadView(
-            'admin.pacientes.reporte',
-            compact('pacientes')
-        )
-        ->setPaper('a4','portrait');
+            return $pdf->stream('reporte-pacientes.pdf');
+        }
 
-
-        return $pdf->stream('reporte-pacientes.pdf');
-    }
 
 
 

@@ -87,15 +87,31 @@
 
         <tr>
 
+        
         <td class="sin-borde" style="width:15%;text-align:center;">
-            <img src="{{ public_path('image/PSCB.png') }}" class="logo">
+            @if($configuracion && $configuracion->logo
+                && file_exists(public_path('storage/' . $configuracion->logo)))
+                <img
+                    src="{{ public_path('storage/' . $configuracion->logo) }}"
+                    class="logo"
+                >
+            @else
+                <img
+                    src="{{ public_path('image/PSCB.png') }}"
+                    class="logo"
+                >
+            @endif
         </td>
+
 
         <td class="sin-borde" style="width:70%;">
 
+            
             <div class="titulo">
-                PUESTO DE SALUD CRUZ BLANCA
+                {{ $configuracion->nombre_puestosalud
+                    ?? 'PUESTO DE SALUD CRUZ BLANCA' }}
             </div>
+
 
             <div class="subtitulo">
                 FORMATO DE ATENCIÓN INTEGRAL DEL PACIENTE
@@ -495,9 +511,13 @@
 
     </table>
 
+    
     <div class="footer">
-        Puesto de Salud Cruz Blanca
+        Sistema Web de Gestión de Historias Clínicas &bull;
+        {{ $configuracion->nombre_puestosalud
+            ?? 'Puesto de Salud Cruz Blanca' }}
     </div>
+
 
 </body>
 

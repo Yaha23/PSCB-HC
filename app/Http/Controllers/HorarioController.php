@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Horario;
+use App\Models\Configuracion;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\User;
+
 
 class HorarioController extends Controller
 {
@@ -264,38 +266,47 @@ public function confirmDelete($id)
 
     }
 
-    public function reportePdf(Request $request)
-    {
-        $user = auth()->user();
-        $buscar = $request->buscar;
-        $rol = $request->rol;
-        $query = Horario::with('user');
-        
-        if($user->hasRole('medico')){
-            $query->where('user_id', $user->id);
-        }
+    
+public function reportePdf(Request $request)
+{
+    $user = auth()->user();
+    $buscar = $request->buscar;
+    $rol = $request->rol;
 
-        if($buscar){
-            $query->whereHas('user', function($q) use ($buscar){
-                $q->where('name','LIKE',"%$buscar%")
-                ->orWhere('surname','LIKE',"%$buscar%");
-            });
-        }
+    $query = Horario::with('user');
 
-        if($rol){
-            $query->whereHas('user', function($q) use ($rol){
-                $q->role($rol);
-            });
-        }
-
-        $horarios = $query
-            ->orderBy('dia_semana')
-            ->get();
-
-        $pdf = Pdf::loadView('admin.horarios.reporte_pdf', compact('horarios')
-        );
-
-        return $pdf->stream('horarios_personal.pdf');
+    if ($user->hasRole('medico')) {
+        $query->where('user_id', $user->id);
     }
+
+    if ($buscar) {
+        $query->whereHas('user', function ($q) use ($buscar) {
+            $q->where('name', 'LIKE', "%$buscar%")
+              ->orWhere('surname', 'LIKE', "%$buscar%");
+        });
+    }
+
+    if ($rol) {
+        $query->whereHas('user', function ($q) use ($rol) {
+            $q->role($rol);
+        });
+    }
+
+    $horarios = $query
+        ->orderBy('dia_semana')
+        ->get();
+
+    // Obtener la configuración actual del sistema
+    $configuracion = Configuracion::first();
+
+    // Generar el PDF con los horarios y el logo configurado
+    $pdf = Pdf::loadView(
+        'admin.horarios.reporte_pdf',
+        compact('horarios', 'configuracion')
+    );
+
+    return $pdf->stream('horarios_personal.pdf');
+}
+
 
 }

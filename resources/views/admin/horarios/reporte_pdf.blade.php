@@ -158,16 +158,31 @@ PIE DE PÁGINA
 
 <tr>
 
+    
     <td width="15%">
-        
-        {{-- Si tienes logo --}}
-        <img src="{{ public_path('image/PSCB.png') }}" class="logo">
+        @if($configuracion && $configuracion->logo
+            && file_exists(public_path('storage/' . $configuracion->logo)))
+
+            <img
+                src="{{ public_path('storage/' . $configuracion->logo) }}"
+                class="logo"
+            >
+
+        @else
+
+            <img
+                src="{{ public_path('image/PSCB.png') }}"
+                class="logo"
+            >
+
+        @endif
     </td>
+
 
     <td width="70%" style="text-align:center;">
 
         <h2 style="margin:0;font-size:16px;font-weight:bold;">
-            PUESTO DE SALUD CRUZ BLANCA
+            {{ $configuracion->nombre_puestosalud ?? 'PUESTO DE SALUD CRUZ BLANCA' }}
         </h2>
 
         <h3 style="margin-top:3px;font-size:12px;font-weight:normal;color:#6c757d;">
@@ -306,9 +321,7 @@ No existen horarios registrados.
 </table>
 
 <div class="footer">
-
-Sistema Web de Gestión de Historias Clínicas &bull; Puesto de Salud Cruz Blanca
-
+            Sistema Web de Gestión de Historias Clínicas &bull; {{ $configuracion->nombre_puestosalud ?? 'Puesto de Salud Cruz Blanca' }}
 </div>
 
 </body>

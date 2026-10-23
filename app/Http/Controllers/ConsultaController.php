@@ -621,6 +621,7 @@ class ConsultaController extends Controller
         abort(403);
     }
 
+    
     public function historiaPdf($id)
     {
         $consulta = Consulta::with([
@@ -629,15 +630,19 @@ class ConsultaController extends Controller
             'signosVitales'
         ])->findOrFail($id);
 
+        // Obtener los datos del establecimiento desde Configuración
+        $configuracion = Configuracion::first();
+
         $pdf = Pdf::loadView(
             'admin.consultas.PSCB_Historia_Clinica',
-            compact('consulta')
+            compact('consulta', 'configuracion')
         )->setPaper('a4', 'portrait');
 
         return $pdf->stream(
-            'Historia_Clinica_'.$consulta->paciente->DNI.'.pdf'
+            'Historia_Clinica_' . $consulta->paciente->DNI . '.pdf'
         );
     }
+
 
     public function recetaPdf($id)
     {

@@ -292,8 +292,20 @@
                                                 <td width="70px">
 
 
-                                                    <img src="{{ public_path('image/PSCB.png') }}"
-                                                    class="logo">
+                                                    
+                                                    @if($configuracion && $configuracion->logo
+                                                        && file_exists(public_path('storage/' . $configuracion->logo)))
+                                                        <img
+                                                            src="{{ public_path('storage/' . $configuracion->logo) }}"
+                                                            class="logo"
+                                                        >
+                                                    @else
+                                                        <img
+                                                            src="{{ public_path('image/PSCB.png') }}"
+                                                            class="logo"
+                                                        >
+                                                    @endif
+
 
 
                                                 </td>
@@ -301,11 +313,12 @@
                                                 <td class="header-info">
 
 
-                                                    <div class="nombre-centro">
+                                                   
+                                                <div class="nombre-centro">
+                                                    {{ strtoupper($configuracion->nombre_puestosalud
+                                                        ?? 'PUESTO DE SALUD CRUZ BLANCA') }}
+                                                </div>
 
-                                                    {{ strtoupper($configuracion->nombre_puestosalud) }}
-
-                                                    </div>
 
 
                                                     <div class="subtitulo">
@@ -529,8 +542,20 @@
                                                 <td width="70px">
 
 
-                                                    <img src="{{ public_path('image/PSCB.png') }}"
-                                                    class="logo">
+                                                    
+                                                @if($configuracion && $configuracion->logo
+                                                    && file_exists(public_path('storage/' . $configuracion->logo)))
+                                                    <img
+                                                        src="{{ public_path('storage/' . $configuracion->logo) }}"
+                                                        class="logo"
+                                                    >
+                                                @else
+                                                    <img
+                                                        src="{{ public_path('image/PSCB.png') }}"
+                                                        class="logo"
+                                                    >
+@endif
+
 
 
                                                 </td>
@@ -540,11 +565,12 @@
                                                 <td class="header-info">
 
 
-                                                    <div class="nombre-centro">
+                                                    
+                                                <div class="nombre-centro">
+                                                    {{ strtoupper($configuracion->nombre_puestosalud
+                                                        ?? 'PUESTO DE SALUD CRUZ BLANCA') }}
+                                                </div>
 
-                                                    {{ strtoupper($configuracion->nombre_puestosalud) }}
-
-                                                    </div>
 
 
                                                     <div class="subtitulo">

@@ -2,6 +2,10 @@
 
 @section('content')
 
+    @php
+        $configuracionGlobal = \App\Models\Configuracion::first();
+    @endphp
+
     <style>
 
 
@@ -582,7 +586,7 @@
                 </h2>
 
                 <p>
-                    Puesto de Salud Cruz Blanca
+                    {{ ($configuracionGlobal->nombre_puestosalud ?? 'Puesto de Salud Cruz Blanca') }}
                 </p>
 
             

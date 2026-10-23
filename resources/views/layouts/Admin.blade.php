@@ -122,7 +122,13 @@ table.dataTable{
           }
       @endphp
 
-      <a href="{{ $ruta }}" class="nav-link">PUESTO DE SALUD CRUZ BLANCA</a>
+      @php
+          $configuracionGlobal = \App\Models\Configuracion::first();
+      @endphp
+
+      <a href="{{ $ruta }}" class="nav-link">
+          {{ strtoupper($configuracionGlobal->nombre_puestosalud ?? 'PUESTO DE SALUD CRUZ BLANCA') }}
+      </a>
      
     </li>
   </ul>

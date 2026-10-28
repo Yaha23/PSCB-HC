@@ -464,7 +464,7 @@ if(
         <a href="{{ route($base.'.consultas.pdf', $consulta->id) }}"
            target="_blank"
            class="btn"
-           title="Imprimir Historia Clínica"
+           title="Historia Clínica"
            style="background:#f4d279;color:#4a5568;border:none;transition:.3s;"
            onmouseover="this.style.backgroundColor='#ffe8a3';this.style.boxShadow='0 0 8px rgba(244,210,121,.7)'"
            onmouseout="this.style.backgroundColor='#f4d279';this.style.boxShadow='none'">
@@ -480,7 +480,7 @@ if(
         <a href="{{ route($base.'.consultas.recetaPdf', $consulta->id) }}"
            target="_blank"
            class="btn"
-           title="Imprimir Receta"
+           title="Receta Medica"
            style="background:#f4d279;color:#4a5568;border:none;transition:.3s;"
            onmouseover="this.style.backgroundColor='#ffe8a3';this.style.boxShadow='0 0 8px rgba(244,210,121,.7)'"
            onmouseout="this.style.backgroundColor='#f4d279';this.style.boxShadow='none'">

@@ -73,6 +73,11 @@ class ConsultaController extends Controller
    
    public function create($paciente_id)
     {
+        // Solo asistente y admin registran consultas nuevas
+        if (!auth()->user()->hasAnyRole(['admin', 'asistente'])) {
+            abort(403);
+        }
+
         $paciente = Paciente::findOrFail($paciente_id);
 
         $medicos = \App\Models\User::role('medico')->get();
@@ -93,6 +98,11 @@ class ConsultaController extends Controller
 
    public function store(Request $request)
 {
+        // Solo asistente y admin registran consultas nuevas
+        if (!auth()->user()->hasAnyRole(['admin', 'asistente'])) {
+            abort(403);
+        }
+
   
 
     $request->validate([
@@ -313,6 +323,8 @@ class ConsultaController extends Controller
     public function show($id)
     {
         $consulta = Consulta::with('paciente','medico','signosVitales' )->findOrFail($id);
+        $this->autorizarConsulta($consulta);
+
         $base = $this->getRouteBase();
 
         return view('admin.consultas.show', compact('consulta','base')
@@ -320,6 +332,26 @@ class ConsultaController extends Controller
     }
 
   
+    /**
+     * Control de acceso a una historia clínica.
+     * - El médico solo accede a sus propias consultas.
+     * - El asistente no puede editar ni eliminar una historia finalizada.
+     */
+    private function autorizarConsulta(Consulta $consulta, bool $modificar = false): void
+    {
+        $user = auth()->user();
+
+        if ($user->hasRole('medico') && !$user->hasRole('admin')
+            && (int) $consulta->medico_id !== (int) $user->id) {
+            abort(403, 'Esta historia clínica pertenece a otro médico.');
+        }
+
+        if ($modificar && $user->hasRole('asistente') && !$user->hasRole('admin')
+            && $consulta->estado === 'finalizada') {
+            abort(403, 'La historia clínica ya fue finalizada por el médico y no puede modificarse.');
+        }
+    }
+
     private function getRouteBase()
     {
         if (auth()->user()->hasRole('admin')) {
@@ -341,6 +373,8 @@ class ConsultaController extends Controller
    public function edit($id)
     {
         $consulta = Consulta::with(['paciente', 'medico', 'signosVitales' ])->findOrFail($id);
+        $this->autorizarConsulta($consulta, true);
+
         $medicos = \App\Models\User::role('medico')->get();
         $base = $this->getRouteBase();
 
@@ -366,6 +400,8 @@ class ConsultaController extends Controller
     public function update(Request $request, $id)
     {
         $consulta = Consulta::with('signosVitales')->findOrFail($id);
+        $this->autorizarConsulta($consulta, true);
+
 
 
         if(auth()->user()->hasRole('asistente')){
@@ -577,6 +613,8 @@ class ConsultaController extends Controller
     public function delete($id)
     {
         $consulta = Consulta::with([ 'paciente', 'medico','signosVitales' ])->findOrFail($id);
+        $this->autorizarConsulta($consulta, true);
+
         $base = $this->getRouteBase();
         return view( 'admin.consultas.delete', compact('consulta', 'base')
         );
@@ -587,6 +625,8 @@ class ConsultaController extends Controller
     {
         $user = auth()->user();
         $consulta = Consulta::with('signosVitales')->findOrFail($id);
+        $this->autorizarConsulta($consulta, true);
+
         $paciente_id = $consulta->paciente_id;
 
         if ($user->hasRole('admin')) {
@@ -629,6 +669,8 @@ class ConsultaController extends Controller
             'medico',
             'signosVitales'
         ])->findOrFail($id);
+        $this->autorizarConsulta($consulta);
+
 
         // Obtener los datos del establecimiento desde Configuración
         $configuracion = Configuracion::first();
@@ -651,6 +693,8 @@ class ConsultaController extends Controller
             'medico',
             'signosVitales'
         ])->findOrFail($id);
+        $this->autorizarConsulta($consulta);
+
 
         if (!$consulta->tratamiento) {
             abort(404);

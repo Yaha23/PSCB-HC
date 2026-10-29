@@ -24,6 +24,11 @@ return Application::configure(basePath: dirname(__DIR__))
 
         ]);
 
+        // Revisa en cada petición que la cuenta siga activa
+        $middleware->web(append: [
+            \App\Http\Middleware\CheckUserStatus::class,
+        ]);
+
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

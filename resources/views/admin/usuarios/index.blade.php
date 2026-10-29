@@ -4,25 +4,61 @@
 
     <head>
         <style>
-            .pagination .page-link {
-                color: #2c3e50 !important;
-                font-weight: 500;
-                
-                transition: 0.3s;
-            }
+    .pagination .page-link {
+        color: #2c3e50 !important;
+        font-weight: 500;
+        transition: 0.3s;
+    }
 
-            .pagination .page-link:hover {
-                background-color: #fff8dc !important;
-                color: #2c3e50 !important;
-                border-color: #f4d279;
-            }
+    .pagination .page-link:hover {
+        background-color: #fff8dc !important;
+        color: #2c3e50 !important;
+        border-color: #f4d279;
+    }
 
-            .pagination .active .page-link {
-                background-color: #2c3e50 !important;
-                border-color: #85a2c5 !important;
-                color: white !important;
-            }
-        </style>
+    .pagination .active .page-link {
+        background-color: #2c3e50 !important;
+        border-color: #85a2c5 !important;
+        color: white !important;
+    }
+
+    /* Tabla contenida dentro de la tarjeta */
+    .tabla-usuarios {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 0;
+    }
+
+    .tabla-usuarios th,
+    .tabla-usuarios td {
+        text-align: center;
+        vertical-align: middle !important;
+    }
+
+    /* Columna Acciones */
+    .tabla-usuarios th:last-child,
+    .tabla-usuarios td:last-child {
+        min-width: 125px;
+        white-space: nowrap;
+    }
+
+    .tabla-usuarios .btn-group {
+        display: inline-flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        vertical-align: middle;
+    }
+
+    .tabla-usuarios .btn-group .btn {
+        padding: 6px 10px;
+    }
+
+    .tabla-usuarios-contenedor {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+</style>
     </head>
 
     <div class="row" style="margin-bottom:15px;">
@@ -122,102 +158,103 @@
 
                         <br>
 
-                        <table id="example1" class="table table-bordered table-hover table-sm">
-                            <thead style="background-color:#4a5568; color:white">
-                                <tr>
-                                    <td class="text-center"><b>Nro</b></td>
-                                    <td class="text-center"><b>Nombres</b></td>
-                                    <td class="text-center"><b>Apellidos</b></td>
-                                    <td class="text-center"><b>Usuario</b></td>
-                                    <td class="text-center"><b>Correo</b></td>
-                                    <td class="text-center"><b>Estado</b></td>
-                                    <td class="text-center"><b>Roles</b></td>
+                        
+<div class="tabla-usuarios-contenedor">
+    <table id="example1"
+           class="table table-bordered table-hover table-sm tabla-usuarios">
 
+        <thead style="background-color:#4a5568; color:white">
+            <tr>
+                <th class="text-center">Nro</th>
+                <th class="text-center">Nombres</th>
+                <th class="text-center">Apellidos</th>
+                <th class="text-center">Usuario</th>
+                <th class="text-center">Correo</th>
+                <th class="text-center">Estado</th>
+                <th class="text-center">Roles</th>
+                <th class="text-center">Acciones</th>
+            </tr>
+        </thead>
 
-                                    <td class="text-center"><b>Acciones</b></td>
-                                </tr>
-                            </thead>
+        <tbody>
+            @forelse ($usuarios as $usuario)
+                <tr>
+                    <td>{{ $contador++ }}</td>
+                    <td>{{ $usuario->name }}</td>
+                    <td>{{ $usuario->surname }}</td>
+                    <td>{{ $usuario->username }}</td>
+                    <td>{{ $usuario->email }}</td>
 
-                            <tbody>
-                                @forelse ($usuarios as $usuario)
-                                <tr>
-                                    <td class="text-center">{{ $contador++ }}</td>
-                                    <td class="text-center">{{ $usuario->name }}</td>
-                                    <td class="text-center">{{ $usuario->surname }}</td>
-                                    <td class="text-center">{{ $usuario->username }}</td>
-                                    <td class="text-center">{{ $usuario->email }}</td>
-                                    <td class="text-center" style="text-transform:uppercase;">{{ $usuario->status }}</td>
-                                    <td class="text-center">
+                    <td style="text-transform:uppercase;">
+                        {{ $usuario->status }}
+                    </td>
 
-                                        @php
-                                            $rol = $usuario->getRoleNames()->first();
-                                        @endphp
+                    <td>
+                        @php
+                            $rol = $usuario->getRoleNames()->first();
+                        @endphp
 
-                                        @switch($rol)
+                        @switch($rol)
+                            @case('admin')
+                                Administrador
+                                @break
 
-                                            @case('admin')
-                                                Administrador
-                                                @break
+                            @case('medico')
+                                Médico
+                                @break
 
-                                            @case('medico')
-                                                Médico
-                                                @break
+                            @case('asistente')
+                                Asistente
+                                @break
 
-                                            @case('asistente')
-                                                Asistente
-                                                @break
+                            @default
+                                {{ ucfirst($rol ?? '') }}
+                        @endswitch
+                    </td>
 
-                                            @default
-                                                {{ ucfirst($rol) }}
+                    <td>
+                        <div class="btn-group" role="group">
 
-                                        @endswitch
+                            @can('admin.usuarios.edit')
+                                <a href="{{ url($base.'/usuarios/'.$usuario->id) }}"
+                                   class="btn"
+                                   title="Ver usuario"
+                                   style="background-color:#f4d279;color:#4a5568;border:none;">
+                                    <i class="bi bi-eye-fill"></i>
+                                </a>
 
-                                    </td>
-                                    
+                                <a href="{{ url($base.'/usuarios/'.$usuario->id.'/edit') }}"
+                                   class="btn"
+                                   title="Editar usuario"
+                                   style="background-color:#f4d279;color:#4a5568;border:none;">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                            @endcan
 
-                                    <td style="text-align:center">
-                                        <div class="btn-group" role="group">
-                                            @can('admin.usuarios.edit')
-                                                    {{-- VER PACIENTE --}}
-                                                <a href="{{ url($base.'/usuarios/'.$usuario->id) }}"
-                                                    class="btn"  title="Ver usuario" style="background-color: #f4d279; color: #4a5568; border: none; transition:0.3s;"
-                                                    onmouseover="this.style.backgroundColor='#ffe8a3'; this.style.boxShadow='0 0 8px rgba(244,210,121,0.7)'"
-                                                    onmouseout="this.style.backgroundColor='#f4d279'; this.style.boxShadow='none'">
-                                                    <i class="bi bi-eye-fill"></i>
-                                                </a>
-                                            @endcan
+                            @can('admin.usuarios.destroy')
+                                <a href="{{ url($base.'/usuarios/'.$usuario->id.'/confirm-delete') }}"
+                                   class="btn"
+                                   title="Eliminar usuario"
+                                   style="background-color:#f4d279;color:#4a5568;border:none;">
+                                    <i class="bi bi-trash3-fill"></i>
+                                </a>
+                            @endcan
 
-                                            @can('admin.usuarios.edit')
-                                                <a href="{{ url($base.'/usuarios/'.$usuario->id.'/edit') }}" class="btn" title="Editar Usuario"
-                                                style="background-color: #f4d279; color: #4a5568; border: none; transition:0.3s;"
-                                                onmouseover="this.style.backgroundColor='#ffe8a3'; this.style.boxShadow='0 0 8px rgba(244,210,121,0.7)'"
-                                                onmouseout="this.style.backgroundColor='#f4d279'; this.style.boxShadow='none'">
-                                                    <i class="bi bi-pencil-square"></i>
-                                                </a>
-                                            @endcan
-                                    
-                                            @can('admin.usuarios.destroy')
+                        </div>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="8" class="text-center">
+                        No hay usuarios registrados
+                    </td>
+                </tr>
+            @endforelse
+        </tbody>
 
-                                                <a href="{{ url($base.'/usuarios/'.$usuario->id.'/confirm-delete') }}" class="btn" title="Eliminar Usuario"
-                                                style="background-color: #f4d279; color: #4a5568; border: none; transition:0.3s;"
-                                                onmouseover="this.style.backgroundColor='#ffe8a3'; this.style.boxShadow='0 0 8px rgba(244,210,121,0.7)'"
-                                                onmouseout="this.style.backgroundColor='#f4d279'; this.style.boxShadow='none'">
-                                                    <i class="bi bi-trash3-fill"></i>
-                                                </a>
-                                            @endcan
+    </table>
+</div>
 
-                                        </div>
-                                    </td>
-                                </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="8" class="text-center">
-                                                No hay usuarios registrados
-                                            </td>
-                                        </tr>
-                                    @endforelse
-                            </tbody>
-                        </table>
 
                                                 
                         <div class="d-flex justify-content-end mt-2 ">
@@ -229,5 +266,6 @@
                 </div>
         </div>
     </div>
+</div>
 
 @endsection
